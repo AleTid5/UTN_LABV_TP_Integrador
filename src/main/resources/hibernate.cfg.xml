@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/LABV_G1?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">ale123ale</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hbm2ddl.auto">create</property>
+
+        <!--<mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Account"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.AccountType"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.BankAdministrator"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Loan"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Movement"/>-->
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Country"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Customer"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Locality"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Log"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Province"/>
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.User"/>
+    </session-factory>
+</hibernate-configuration>
