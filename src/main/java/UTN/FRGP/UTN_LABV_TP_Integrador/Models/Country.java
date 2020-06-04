@@ -6,7 +6,6 @@ import javax.persistence.*;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="country_id")
     private Integer id;
     private String name;
 

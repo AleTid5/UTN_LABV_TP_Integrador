@@ -6,11 +6,10 @@ import javax.persistence.*;
 public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="province_id")
     private Integer id;
     private String name;
     @OneToOne
-    @JoinColumn(referencedColumnName = "country_id")
+    @JoinColumn
     private Country country;
 
     public Province(String name, Country country) {

@@ -7,10 +7,9 @@ import java.util.Date;
 public class Customer extends User {
     private Integer maxLoanAmount;
     @OneToOne
-    @JoinColumn(referencedColumnName = "locality_id")
+    @JoinColumn
     private Locality locality;
     private String address;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date bornDate;
     private String gender;

@@ -6,11 +6,10 @@ import javax.persistence.*;
 public class Locality {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="locality_id")
     private Integer id;
     private String name;
     @OneToOne
-    @JoinColumn(referencedColumnName = "province_id")
+    @JoinColumn
     private Province province;
 
     public Locality(String name, Province province) {
