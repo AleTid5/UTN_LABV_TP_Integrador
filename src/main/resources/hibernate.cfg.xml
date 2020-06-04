@@ -13,9 +13,9 @@
 
         <!--<mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Account"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.AccountType"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.BankAdministrator"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Loan"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Movement"/>-->
+        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.BankAdministrator"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Country"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Customer"/>
         <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Locality"/>

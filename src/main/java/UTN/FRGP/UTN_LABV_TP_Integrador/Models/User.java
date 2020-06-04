@@ -13,10 +13,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(unique = true, nullable = false)
     private Integer dni;
+
+    @Column(nullable = false, length = 50)
     private String name;
+
+    @Column(nullable = false, length = 50)
     private String lastName;
+
+    @Column(unique = true, nullable = false, length = 50)
     private String email;
+
+    @Column(nullable = false, length = 50)
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)
