@@ -23,6 +23,7 @@ public class UserSeeder extends Seeder {
             }
         }
     };
+
     public static final ArrayList<BankAdministrator> bankAdministrators = new ArrayList<BankAdministrator>() {
         {
             add(new BankAdministrator(25023212, "Lucas", "Perisich", "lperisich@bank.com", "lucas123"));
