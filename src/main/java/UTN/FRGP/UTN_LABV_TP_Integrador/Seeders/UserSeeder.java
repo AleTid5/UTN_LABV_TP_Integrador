@@ -12,11 +12,11 @@ public class UserSeeder extends Seeder {
     public static final ArrayList<Customer> customers = new ArrayList<Customer>() {
         {
             try {
-                add(new Customer(39100507, "Alejandro", "Tidele", "aleetidele@gmail.com",
-                        "ale123ale", 15000, LocationSeeder.localities.get(0),
+                add(new Customer(39100507, "Alejandro", "Tidele", "aleetidele@gmail.com", "ale123ale",
+                        "AleTid5", 15000, LocationSeeder.localities.get(0),
                         "Avenida Maipu 3390", new SimpleDateFormat("yyyy-MM-dd").parse("1995-08-12"), "M"));
-                add(new Customer(15323332, "Juan", "Perez", "jperez@gmail.com",
-                        "jp123jp", 15000, LocationSeeder.localities.get(1),
+                add(new Customer(15323332, "Juan", "Perez", "jperez@gmail.com", "jp123jp",
+                        "juan.the.best7", 15000, LocationSeeder.localities.get(1),
                         "Dr. Romero 423", new SimpleDateFormat("yyyy-MM-dd").parse("1991-02-23"), "M"));
             } catch (ParseException e) {
                 e.printStackTrace();

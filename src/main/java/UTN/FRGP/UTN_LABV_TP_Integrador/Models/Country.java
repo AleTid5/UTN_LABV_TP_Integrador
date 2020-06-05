@@ -7,6 +7,8 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false, length = 50)
     private String name;
 
     public Country(String name) {

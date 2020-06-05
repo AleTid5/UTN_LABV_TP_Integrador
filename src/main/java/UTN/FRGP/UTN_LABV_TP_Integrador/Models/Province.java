@@ -7,7 +7,10 @@ public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false, length = 50)
     private String name;
+
     @OneToOne
     @JoinColumn
     private Country country;
