@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class Seeder {
+public abstract class Seeder {
     public static void hydrate(Session session) {
         System.out.println("La base de datos se está populando...");
     }
@@ -19,7 +19,7 @@ public class Seeder {
     /**
      * This method hydrates the database using the Reflection Pattern provided by "burningwave" library.
      */
-    public static void initialize() {
+    public static void plant() {
         Session session = SessionService.getSession();
         ComponentSupplier componentSupplier = ComponentContainer.getInstance();
 
