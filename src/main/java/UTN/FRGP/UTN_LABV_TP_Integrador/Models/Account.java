@@ -17,9 +17,9 @@ public class Account {
 
     @ManyToOne
     @JoinColumn
-    private Client client;
+    private Customer customer;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn
     private AccountType accountType;
 
