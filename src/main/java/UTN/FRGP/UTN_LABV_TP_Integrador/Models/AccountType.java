@@ -11,6 +11,15 @@ public class AccountType {
     @Column(nullable = false, length = 50)
     private String name;
 
+    @OneToOne
+    @JoinColumn(updatable = false)
+    private CurrencyType currencyType;
+
+    public AccountType(String name, CurrencyType currencyType) {
+        this.name = name;
+        this.currencyType = currencyType;
+    }
+
     public Integer getId() {
         return this.id;
     }
