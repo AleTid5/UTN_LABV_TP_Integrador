@@ -1,10 +1,6 @@
 package UTN.FRGP.UTN_LABV_TP_Integrador.Models;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
 import javax.persistence.*;
-import java.util.Currency;
 import java.util.Date;
 
 @Entity
@@ -29,7 +25,7 @@ public class CurrencyValue {
     @Column(nullable = true)
     private Date endDate;
 
-    public CurrencyValue(@NotNull CurrencyType currencyType, @NotNull Double purchaseValue, @NotNull Double saleValue, @Nullable Date endDate) {
+    public CurrencyValue(CurrencyType currencyType, Double purchaseValue, Double saleValue, Date endDate) {
         this.currencyType = currencyType;
         this.purchaseValue = purchaseValue;
         this.saleValue = saleValue;
