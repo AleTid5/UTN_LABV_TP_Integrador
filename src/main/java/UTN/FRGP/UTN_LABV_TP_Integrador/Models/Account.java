@@ -1,7 +1,5 @@
 package UTN.FRGP.UTN_LABV_TP_Integrador.Models;
 
-import com.mysql.cj.xdevapi.Client;
-
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;

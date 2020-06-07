@@ -1,5 +1,7 @@
 package UTN.FRGP.UTN_LABV_TP_Integrador.Models;
 
+import UTN.FRGP.UTN_LABV_TP_Integrador.Enums.UserEnum;
+import UTN.FRGP.UTN_LABV_TP_Integrador.Exceptions.UserException;
 import UTN.FRGP.UTN_LABV_TP_Integrador.Services.LoggerService;
 
 import javax.persistence.*;
@@ -32,38 +34,61 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    public User(Integer dni, String name, String lastName, String email, String password) {
-        try {
-            this.dni = dni;
-            this.name = name;
-            this.lastName = lastName;
-            this.email = email;
-            BigInteger number = new BigInteger(1, MessageDigest.getInstance("MD5").digest(password.getBytes()));
-            this.password = number.toString(16);
-            this.creationDate = new Date();
-        } catch (NoSuchAlgorithmException e) {
-            LoggerService.log(e.getMessage());
-        }
+    public User(Integer dni, String name, String lastName, String email, String password) throws UserException {
+        this.setDni(dni);
+        this.setName(name);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setPassword(password);
     }
 
     public Integer getId() {
         return id;
     }
 
+    public void setDni(Integer dni) throws UserException {
+        if (dni == null || dni < 0) {
+            throw new UserException(UserEnum.DNI);
+        }
+
+        this.dni = dni;
+    }
+
     public Integer getDni() {
         return dni;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getLastName() {
         return lastName;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setPassword(String password) {
+        try {
+            BigInteger number = new BigInteger(1, MessageDigest.getInstance("MD5").digest(password.getBytes()));
+            this.password = number.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            LoggerService.log(e.getMessage());
+        }
     }
 
     public String getPassword() {
