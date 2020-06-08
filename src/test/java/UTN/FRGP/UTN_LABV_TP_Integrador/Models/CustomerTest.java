@@ -27,10 +27,15 @@ public class CustomerTest {
     @Test
     public void shouldFailWhenTryingToCreateCustomer() {
         // Invalid DNI
-        assertThrows(UserException.class, () -> new Customer(null, "", "Walker", "jwalker@gmail.com",
+        assertThrows(UserException.class, () -> new Customer(null, "Peter", "Walker", "jwalker@gmail.com",
                 "jw123jw", "pep.retr.dos", 34000, LocationSeeder.localities.get(0),
                 "Boanesburgo 123", "1975-12-09", "M"));
-
+        
+        // Invalid DNI(Negative number)
+        assertThrows(UserException.class, () -> new Customer(-1, "Johnny", "Walker", "jwalker@gmail.com",
+                "jw123jw", "pep.retr.dos", 34000, LocationSeeder.localities.get(0),
+                "Boanesburgo 123", "1975-12-09", "M"));
+        
         // Invalid Name
         assertThrows(UserException.class, () -> new Customer(35345347, null, "Walker", "jwalker@gmail.com",
                 "jw123jw", "pep.retr.dos", 34000, LocationSeeder.localities.get(0),
