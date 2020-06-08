@@ -18,7 +18,12 @@ public class Movement {
     private Account destinationAccount;
 
     @OneToOne
+    @JoinColumn
     private CurrencyType currencyType;
+
+    @OneToOne
+    @JoinColumn
+    private MovementType movementType;
 
     @Column(nullable = false)
     private Integer amount;
