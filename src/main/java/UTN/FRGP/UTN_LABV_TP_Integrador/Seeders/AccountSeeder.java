@@ -1,5 +1,6 @@
 package UTN.FRGP.UTN_LABV_TP_Integrador.Seeders;
 
+import UTN.FRGP.UTN_LABV_TP_Integrador.Models.Account;
 import UTN.FRGP.UTN_LABV_TP_Integrador.Models.AccountType;
 import org.hibernate.Session;
 
@@ -15,8 +16,19 @@ public class AccountSeeder extends Seeder {
             add(new AccountType("Cuenta corriente especial en dólares", CurrencySeeder.currencyTypes.get(1)));
         }
     };
+    public static final ArrayList<Account> accounts = new ArrayList<Account>() {
+        {
+
+            add(new Account("0000007900204047542202","FRUTILLA.VELO.ESPINA",UserSeeder.customers.get(0),accountTypes.get(2),10000,123123456));
+            add(new Account("0000007900205234255678","MESA.ASIA.ZAPALLO",UserSeeder.customers.get(0),accountTypes.get(0),10000,341435542));
+            add(new Account("0002512987896541231233","CIRCULO.CASA.TORNILLO",UserSeeder.customers.get(1),accountTypes.get(2),10000,523423455));
+            add(new Account("0002512413896541231235","ESTANTE.EQUIPO.MEDIA",UserSeeder.customers.get(1),accountTypes.get(2),10000,432433212));
+
+        }
+    };
 
     public static void hydrate(Session session) {
         accountTypes.forEach(session::save);
+        accounts.forEach(session::save);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Account {
     @Id
     @Column(unique = true, nullable = false)
-    private Integer CBU;
+    private String CBU;
 
     @Column(nullable = false)
     private String alias;
@@ -22,11 +22,72 @@ public class Account {
     private AccountType accountType;
 
     @Column(nullable = false)
-    private BigInteger balance;
+    private Integer balance;
 
     @Column(nullable = false)
     private Integer accountNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
+
+	public Account(String CBU, String alias, Customer customer, AccountType accountType, Integer balance,
+			Integer accountNumber) {
+		this.setCBU(CBU);
+		this.setAlias(alias);
+		this.setCustomer(customer);
+		this.setAccountType(accountType);
+		this.setBalance(balance);
+		this.setAccountNumber(accountNumber);
+	}
+
+	public String getCBU() {
+		return CBU;
+	}
+
+	public void setCBU(String cBU) {
+		CBU = cBU;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
+
+	public Integer getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Integer balance) {
+		this.balance = balance;
+	}
+
+	public Integer getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(Integer accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+    
+	
+    
 }
