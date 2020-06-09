@@ -29,6 +29,7 @@ public class MovementSeeder extends Seeder {
 
     public static void hydrate(Session session) {
         movementTypes.forEach(session::save);
+        movements.forEach(session::save);
     }
 }
 
