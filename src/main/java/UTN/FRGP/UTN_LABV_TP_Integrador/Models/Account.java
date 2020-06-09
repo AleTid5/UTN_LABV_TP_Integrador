@@ -30,13 +30,12 @@ public class Account {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-	public Account(String CBU, String alias, Customer customer, AccountType accountType, Integer balance,
-			Integer accountNumber) {
+	public Account(String CBU, String alias, Customer customer, AccountType accountType, Integer accountNumber) {
 		this.setCBU(CBU);
 		this.setAlias(alias);
 		this.setCustomer(customer);
 		this.setAccountType(accountType);
-		this.setBalance(balance);
+		this.setBalance(10000);
 		this.setAccountNumber(accountNumber);
 	}
 
@@ -87,7 +86,4 @@ public class Account {
 	public void setAccountNumber(Integer accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-    
-	
-    
 }
