@@ -2,6 +2,7 @@ package UTN.FRGP.UTN_LABV_TP_Integrador.Seeders;
 
 import UTN.FRGP.UTN_LABV_TP_Integrador.Models.AccountType;
 import UTN.FRGP.UTN_LABV_TP_Integrador.Models.CurrencyType;
+import UTN.FRGP.UTN_LABV_TP_Integrador.Models.Movement;
 import UTN.FRGP.UTN_LABV_TP_Integrador.Models.MovementType;
 import org.hibernate.Session;
 
@@ -18,15 +19,16 @@ public class MovementSeeder extends Seeder {
         }
     };
 
+    public static final ArrayList<Movement> movements = new ArrayList<Movement>() {
+        {
+            add(new Movement(AccountSeeder.accounts.get(0),AccountSeeder.accounts.get(2), CurrencySeeder.currencyTypes.get(0),
+                    movementTypes.get(0),10000, "Pago Servicio"));
+
+        }
+    };
+
     public static void hydrate(Session session) {
         movementTypes.forEach(session::save);
     }
 }
 
-/**
- * Transferencia propia cuenta
- * Transferencia cuenta terceros
- * Compra dolares
- * Venta dolares
- * Transfiere dolares
- */
