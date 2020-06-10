@@ -10,7 +10,7 @@
           <form action="" method="POST">
             <div class="card-header text-center">
               <h3 class="card-title">
-                Creando un curso
+                Creando un cliente
               </h3>
               <h5 class="card-description">Es necesario completar todos los campos.</h5>
             </div>

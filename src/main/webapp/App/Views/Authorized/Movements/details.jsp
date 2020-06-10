@@ -10,7 +10,7 @@
                     <div class="card-header ">
                         <div class="row">
                             <div class="col-sm-11">
-                                <h4 class="card-title">Detalle del curso -
+                                <h4 class="card-title">Detalle del movimiento -
                                     <small class="description">Herrera Tamara</small>
                                 </h4>
                             </div>

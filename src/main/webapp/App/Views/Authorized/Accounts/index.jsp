@@ -11,8 +11,8 @@
             <div class="card-icon">
               <i class="material-icons">assignment</i>
             </div>
-            <h4 class="card-title">Listado de alumnos</h4>
-            <a href="students/add">Añadir alumno</a>
+            <h4 class="card-title">Listado de cuentaes</h4>
+            <a href="teachers/add">Añadir cuenta</a>
           </div>
           <div class="card-body">
             <div class="material-datatables">
@@ -58,7 +58,7 @@
                     <td>${ user.getEmail() }</td>
                     <td>${ user.getPhoneNumber() }</td>
                     <td>
-                      <a href="students/edit?docket=${ user.getDocket() }" class="btn btn-link btn-warning btn-just-icon edit">
+                      <a href="teachers/edit?docket=${ user.getDocket() }" class="btn btn-link btn-warning btn-just-icon edit">
                         <i class="material-icons">dvr</i>
                       </a>
                       <button onclick="onRemove(${ user.getDocket() })" class="btn btn-link btn-danger btn-just-icon remove">
@@ -81,7 +81,7 @@
 <script>
   onRemove = docket => {
     Swal.fire({
-      title: '¿Está seguro de eliminar al alumno?',
+      title: '¿Está seguro de eliminar al cuenta?',
       text: "No podrá revertir la acción",
       icon: 'warning',
       showCancelButton: true,
@@ -92,7 +92,7 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: 'students/remove?docket=' + docket,
+          url: 'teachers/remove?docket=' + docket,
           type: 'DELETE',
           data: {
             docket: docket
@@ -112,7 +112,7 @@
     Swal.fire({
       icon: 'success',
       title: '¡Eliminado!',
-      text: 'El alumno ha sido eliminado.',
+      text: 'El cuenta ha sido eliminado.',
       confirmButtonColor: '#52af50',
     })
   };

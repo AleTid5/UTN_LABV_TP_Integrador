@@ -11,23 +11,23 @@
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-text">
                             <div class="card-text">
-                                <h4 class="card-title">Editar Alumno</h4>
+                                <h4 class="card-title">Editar cuenta</h4>
                             </div>
                         </div>
                         <div class="card-body ">
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Legajo</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="docket" placeholder="Legajo" value="${ user.getDocket() }" disabled>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <label class="col-sm-2 col-form-label">DNI</label>
                                 <div class="col-sm-10">
                                     <div class="form-group">
                                         <input required type="number" name="DNI" class="form-control" placeholder="Ingrese DNI" value="${ user.getDNI() }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label">Legajo</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="docket" placeholder="Legajo" value="${ user.getDocket() }" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                 <label class="col-sm-2 col-form-label">Teléfono</label>
                                 <div class="col-sm-10">
                                     <div class="form-group">
-                                        <input type="number" required name="phoneNumber" class="form-control" placeholder="Ingrese el teléfono" value="${ user.getPhoneNumber() }">
+                                        <input type="text" required name="phoneNumber" class="form-control" placeholder="Ingrese el teléfono" value="${ user.getPhoneNumber() }">
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                         <div class="card-footer" style="margin: 0 0px 10px;">
                             <div class="row" style="width: 100%">
                                 <div class="col-2" style="padding-left: 30px;">
-                                    <a href="../students" class="btn btn-fill btn-dark">Cancelar</a>
+                                    <a href="../teachers" class="btn btn-fill btn-dark">Cancelar</a>
                                 </div>
                                 <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
                                     <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Finalizar</button>

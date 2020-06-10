@@ -11,8 +11,8 @@
             <div class="card-icon">
               <i class="material-icons">assignment</i>
             </div>
-            <h4 class="card-title">Listado de profesores</h4>
-            <a href="teachers/add">Añadir profesor</a>
+            <h4 class="card-title">Listado de Transferenciaes</h4>
+            <a href="teachers/add">Añadir Transferencia</a>
           </div>
           <div class="card-body">
             <div class="material-datatables">
@@ -81,7 +81,7 @@
 <script>
   onRemove = docket => {
     Swal.fire({
-      title: '¿Está seguro de eliminar al profesor?',
+      title: '¿Está seguro de eliminar al Transferencia?',
       text: "No podrá revertir la acción",
       icon: 'warning',
       showCancelButton: true,
@@ -112,7 +112,7 @@
     Swal.fire({
       icon: 'success',
       title: '¡Eliminado!',
-      text: 'El profesor ha sido eliminado.',
+      text: 'El Transferencia ha sido eliminado.',
       confirmButtonColor: '#52af50',
     })
   };
