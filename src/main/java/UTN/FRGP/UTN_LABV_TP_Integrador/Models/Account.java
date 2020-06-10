@@ -1,7 +1,6 @@
 package UTN.FRGP.UTN_LABV_TP_Integrador.Models;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
