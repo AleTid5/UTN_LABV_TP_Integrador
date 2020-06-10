@@ -11,19 +11,19 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Account"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.AccountType"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.BankAdministrator"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Country"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.CurrencyType"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.CurrencyValue"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Customer"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Loan"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Locality"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Log"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Movement"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.MovementType"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.Province"/>
-        <mapping class="UTN.FRGP.UTN_LABV_TP_Integrador.Models.User"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Account"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.AccountType"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.BankAdministrator"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Country"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.CurrencyType"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.CurrencyValue"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Customer"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Loan"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Locality"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Log"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Movement"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.MovementType"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Province"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.User"/>
     </session-factory>
 </hibernate-configuration>
