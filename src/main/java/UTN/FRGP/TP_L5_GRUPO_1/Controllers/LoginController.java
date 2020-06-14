@@ -5,7 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping("")
+@RequestMapping("/")
 @Controller
 public class LoginController {
 
@@ -13,6 +13,6 @@ public class LoginController {
     public String printHello(ModelMap modelMap) {
         modelMap.addAttribute("message", "Hi!");
 
-        return "hello";
+        return "/Unauthorized/Login/index";
     }
 }
