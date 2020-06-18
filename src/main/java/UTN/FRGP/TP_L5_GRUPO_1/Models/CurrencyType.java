@@ -14,6 +14,8 @@ public class CurrencyType {
     @Column(nullable = false)
     private Boolean isForeignCurrency;
 
+    public CurrencyType() {}
+
     public CurrencyType(String name, Boolean isForeignCurrency) {
         this.name = name;
         this.isForeignCurrency = isForeignCurrency;

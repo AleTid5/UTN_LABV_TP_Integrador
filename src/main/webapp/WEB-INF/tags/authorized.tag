@@ -31,9 +31,9 @@
 			</span>
 		</div>
 	</c:forEach>
-	<jsp:include page="../Views/Authorized/Components/sidebar.jsp" />
+	<jsp:include page="../Components/sidebar.jsp" />
 	<div class="main-panel">
-		<jsp:include page="../Views/Authorized/Components/navbar.jsp" />
+		<jsp:include page="../Components/navbar.jsp" />
 		<div class="content">
 			<div class="content">
 				<div class="container-fluid">

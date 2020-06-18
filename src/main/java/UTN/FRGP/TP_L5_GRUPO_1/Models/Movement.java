@@ -35,6 +35,8 @@ public class Movement {
     private Date creationDate;
 
 
+    public Movement() {}
+
     public Movement(Account originAccount, Account destinationAccount, CurrencyType currencyType,
                     MovementType movementType, Integer amount, String concept) {
         this.setOriginAccount(originAccount);

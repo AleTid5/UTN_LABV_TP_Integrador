@@ -25,6 +25,8 @@ public class CurrencyValue {
     @Column(nullable = true)
     private Date endDate;
 
+    public CurrencyValue() {}
+
     public CurrencyValue(CurrencyType currencyType, Double purchaseValue, Double saleValue, Date endDate) {
         this.currencyType = currencyType;
         this.purchaseValue = purchaseValue;

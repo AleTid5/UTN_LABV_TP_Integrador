@@ -1,18 +1,19 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping("/")
+@RequestMapping("/customer")
 @Controller
-public class LoginController {
+public class CustomerController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String get(ModelMap modelMap) {
-        modelMap.addAttribute("message", "Hi!");
+        modelMap.addAttribute("customers", CustomerService.getCustomers());
 
-        return "/Unauthorized/Login/index";
+        return "/Authorized/Customers/index";
     }
 }

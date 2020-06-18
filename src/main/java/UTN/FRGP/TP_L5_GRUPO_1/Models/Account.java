@@ -1,5 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -29,6 +31,11 @@ public class Account {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+	@Column(nullable = false)
+    private Boolean status;
+
+    public Account() {}
+
 	public Account(String CBU, String alias, Customer customer, AccountType accountType, Integer accountNumber) {
 		this.setCBU(CBU);
 		this.setAlias(alias);
@@ -36,6 +43,7 @@ public class Account {
 		this.setAccountType(accountType);
 		this.setBalance(10000);
 		this.setAccountNumber(accountNumber);
+		this.setStatus(true);
 	}
 
 	public String getCBU() {
@@ -84,5 +92,13 @@ public class Account {
 
 	public void setAccountNumber(Integer accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 }

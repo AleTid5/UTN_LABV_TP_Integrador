@@ -28,6 +28,8 @@ public class Customer extends User {
     @Column(length = 1)
     private String gender;
 
+    public Customer() {}
+
     public Customer(Integer dni, String name, String lastName, String email, String password, String userName, Integer maxLoanAmount,
                     Locality locality, String address, String bornDate, String gender) throws ParseException, UserException {
         super(dni, name, lastName, email, password);

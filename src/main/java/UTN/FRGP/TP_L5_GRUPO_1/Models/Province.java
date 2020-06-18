@@ -15,6 +15,8 @@ public class Province {
     @JoinColumn
     private Country country;
 
+    public Province() {}
+
     public Province(String name, Country country) {
         this.name = name;
         this.country = country;

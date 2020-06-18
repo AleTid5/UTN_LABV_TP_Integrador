@@ -34,12 +34,18 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    public User() {}
+
     public User(Integer dni, String name, String lastName, String email, String password) throws UserException {
         this.setDni(dni);
         this.setName(name);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPassword(password);
+        this.setIsActive(true);
     }
 
     public Integer getId() {
@@ -97,5 +103,13 @@ public class User {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 }

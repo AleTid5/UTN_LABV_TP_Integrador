@@ -9,7 +9,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Account"/>
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.AccountType"/>

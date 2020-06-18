@@ -1,6 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Locality {
@@ -14,6 +15,8 @@ public class Locality {
     @OneToOne
     @JoinColumn
     private Province province;
+
+    public Locality() {}
 
     public Locality(String name, Province province) {
         this.name = name;

@@ -13,6 +13,8 @@ public class Log {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    public Log() {}
+
     public Log(String message) {
         this.message = message;
     }

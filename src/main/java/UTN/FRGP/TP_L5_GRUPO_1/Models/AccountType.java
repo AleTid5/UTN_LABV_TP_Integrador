@@ -15,6 +15,8 @@ public class AccountType {
     @JoinColumn(updatable = false)
     private CurrencyType currencyType;
 
+    public AccountType() {}
+
     public AccountType(String name, CurrencyType currencyType) {
         this.name = name;
         this.currencyType = currencyType;

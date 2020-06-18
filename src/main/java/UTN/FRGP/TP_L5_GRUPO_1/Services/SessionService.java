@@ -10,11 +10,9 @@ public abstract class SessionService {
     private static SessionFactory sessionFactory = null;
 
     static {
-        if (SessionService.sessionFactory == null) {
-            Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-            SessionService.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        }
+        Configuration configuration = new Configuration().configure();
+        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+        SessionService.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
     public static Session getSession() {
@@ -27,6 +25,12 @@ public abstract class SessionService {
 
     public static void commitSession(Session session) {
         session.getTransaction().commit();
+        session.close();
+    }
+
+    public static void rollbackSession(Session session) {
+        assert session != null;
+        session.getTransaction().rollback();
         session.close();
     }
 

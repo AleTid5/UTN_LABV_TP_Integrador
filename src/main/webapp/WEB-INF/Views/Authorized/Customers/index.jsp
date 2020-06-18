@@ -13,7 +13,7 @@
             </div>
             <h4 class="card-title">Listado de clientes</h4>
             <c:if test="true">
-              <a href="courses/add">Añadir cliente</a>
+              <a href="customers/add">Añadir cliente</a>
             </c:if>
           </div>
           <div class="card-body">
@@ -21,46 +21,43 @@
               <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                 <thead>
                 <tr>
-                  <th>Materia</th>
-                  <th>Semestre</th>
-                  <th>Año</th>
-                  <c:if test="true">
-                    <th>Docente</th>
-                  </c:if>
-                  <c:if test="true">
-                    <th class="disabled-sorting text-right"></th>
-                  </c:if>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>DNI</th>
+                  <th>E-Mail</th>
+                  <th>Usuario</th>
+                  <th>Monto máximo asignable</th>
+                  <th></th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th>Materia</th>
-                  <th>Semestre</th>
-                  <th>Año</th>
-                  <c:if test="true">
-                    <th>Docente</th>
-                  </c:if>
-                  <c:if test="true">
-                    <th class="text-right"></th>
-                  </c:if>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>DNI</th>
+                  <th>E-Mail</th>
+                  <th>Usuario</th>
+                  <th>Monto máximo asignable</th>
+                  <th></th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <c:forEach var="course" items="${ courses }">
-                  <tr id="course-${ course.getId() }">
-                    <td>${ course.getSubject().getName() }</td>
-                    <td>${ course.getSemester() }</td>
-                    <td>${ course.getYear() }</td>
-                    <c:if test="true">
-                      <td>${ course.getTeacher() }</td>
-                    </c:if>
-                    <c:if test="true">
-                      <td>
-                        <a href="courses/details?course-id=${ course.getId() }" class="btn btn-link btn-warning btn-just-icon edit">
-                          <i class="material-icons">dvr</i>
-                        </a>
-                      </td>
-                    </c:if>
+                <c:forEach var="customer" items="${ customers }">
+                  <tr id="customer-${ customer.id }">
+                    <td>${ customer.name }</td>
+                    <td>${ customer.lastName }</td>
+                    <td>${ customer.dni }</td>
+                    <td>${ customer.email }</td>
+                    <td>${ customer.userName }</td>
+                    <td>${ customer.maxLoanAmount }</td>
+                    <td>
+                      <a href="edit?id=${ customer.id }" class="btn btn-link btn-warning btn-just-icon edit">
+                        <i class="material-icons">dvr</i>
+                      </a>
+                      <button onclick="onRemove(${ customer.id })" class="btn btn-link btn-danger btn-just-icon remove">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
                   </tr>
                 </c:forEach>
                 </tbody>
@@ -72,5 +69,53 @@
     </div>
   </jsp:body>
 </layout:authorized>
-<script src="${ assetsPath }/js/plugins/jquery.dataTables.min.js"></script>
-<script src="${ assetsPath }/js/components/datatable.js"></script>
+<script src="<c:url value="/assets/js/plugins/jquery.dataTables.min.js" />"></script>
+<script src="<c:url value="/assets/js/components/datatable.js" />"></script>
+<script>
+  onRemove = id => {
+    Swal.fire({
+      title: '¿Está seguro de eliminar al usuario?',
+      text: "No podrá revertir la acción",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#52af50',
+      cancelButtonColor: '#ea4a64',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Si, elimínalo!'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          url: 'customer/remove?id=' + id,
+          type: 'DELETE',
+          data: {
+            id
+          },
+          success: function (data) {
+            if (! data) return handleError();
+            if (data.status === 200) return handleSuccess(id);
+          }
+        });
+      }
+    });
+  };
+
+  handleSuccess = id => {
+    $('#datatables').DataTable().rows('#user-' + id).remove().draw();
+
+    Swal.fire({
+      icon: 'success',
+      title: '¡Eliminado!',
+      text: 'El Préstamo ha sido eliminado.',
+      confirmButtonColor: '#52af50',
+    })
+  };
+
+  handleError = () => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: '¡Algo ha salido mal!',
+      confirmButtonColor: '#52af50',
+    })
+  };
+</script>

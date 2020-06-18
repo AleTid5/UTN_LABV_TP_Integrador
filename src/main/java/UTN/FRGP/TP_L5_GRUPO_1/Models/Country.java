@@ -11,6 +11,8 @@ public class Country {
     @Column(nullable = false, length = 50)
     private String name;
 
+    public Country() {}
+
     public Country(String name) {
         this.name = name;
     }

@@ -22,6 +22,8 @@ public class MovementType {
     @JoinColumn
     private CurrencyType currencyType;
 
+    public MovementType() {}
+
     public MovementType(String name, CurrencyType currencyType)
     {
         this.setName(name);
