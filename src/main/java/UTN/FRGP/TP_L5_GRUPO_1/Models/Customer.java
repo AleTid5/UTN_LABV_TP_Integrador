@@ -1,6 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.UserEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.User;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 
 import javax.persistence.*;
@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class Customer extends User {
+public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
     @Column(unique = true, length = 20)
     private String userName;
 
@@ -28,7 +28,9 @@ public class Customer extends User {
     @Column(length = 1)
     private String gender;
 
-    public Customer() {}
+    public Customer() {
+        this.setIsActive(true);
+    }
 
     public Customer(Integer dni, String name, String lastName, String email, String password, String userName, Integer maxLoanAmount,
                     Locality locality, String address, String bornDate, String gender) throws ParseException, UserException {
@@ -43,7 +45,7 @@ public class Customer extends User {
 
     public void setUserName(String userName) throws UserException {
         if (userName == null || userName.length() < 5 || userName.length() > 20) {
-            throw new UserException(UserEnum.ADDRESS);
+            throw new UserException(User.ADDRESS);
         }
 
         this.userName = userName;
@@ -55,7 +57,7 @@ public class Customer extends User {
 
     public void setGender(String gender) throws UserException {
         if (gender == null || gender.length() > 1) {
-            throw new UserException(UserEnum.GENDER);
+            throw new UserException(User.GENDER);
         }
 
         this.gender = gender;
@@ -65,12 +67,27 @@ public class Customer extends User {
         return this.gender;
     }
 
-    public void setBornDate(String bornDate) throws ParseException, UserException {
+    public String parseBornDate(String bornDate) throws ParseException, UserException {
         if (bornDate == null) {
-            throw new UserException(UserEnum.BORN_DATE);
+            throw new UserException(User.BORN_DATE);
         }
 
-        this.bornDate = new SimpleDateFormat("yyyy-MM-dd").parse(bornDate);
+        Date initDate = new SimpleDateFormat("MM/dd/yyyy").parse(bornDate);
+        return new SimpleDateFormat("yyyy-MM-dd").format(initDate);
+    }
+
+    public void setBornDate(String bornDate) throws ParseException, UserException {
+        if (bornDate == null) {
+            throw new UserException(User.BORN_DATE);
+        }
+
+        Date formattedBornDate = new SimpleDateFormat("yyyy-MM-dd").parse(bornDate);
+
+        if (formattedBornDate.compareTo(new Date()) > 0) {
+            throw new UserException(User.BORN_DATE);
+        }
+
+        this.bornDate = formattedBornDate;
     }
 
     public Date getBornDate() {
@@ -79,7 +96,7 @@ public class Customer extends User {
 
     public void setAddress(String address) throws UserException {
         if (address == null || address.length() < 5 || address.length() > 50) {
-            throw new UserException(UserEnum.ADDRESS);
+            throw new UserException(User.ADDRESS);
         }
 
         this.address = address;
@@ -91,10 +108,18 @@ public class Customer extends User {
 
     public void setLocality(Locality locality) throws UserException {
         if (locality == null) {
-            throw new UserException(UserEnum.LOCALITY);
+            throw new UserException(User.LOCALITY);
         }
 
         this.locality = locality;
+    }
+
+    public void setLocality(Integer localityId) throws UserException {
+        if (localityId == null) {
+            throw new UserException(User.LOCALITY);
+        }
+
+        this.locality = new Locality(localityId);
     }
 
     public Locality getLocality() {
@@ -103,7 +128,7 @@ public class Customer extends User {
 
     public void setMaxLoanAmount(Integer maxLoanAmount) throws UserException {
         if (maxLoanAmount == null || maxLoanAmount < 0) {
-            throw new UserException(UserEnum.MAX_LOAN_AMOUNT);
+            throw new UserException(User.MAX_LOAN_AMOUNT);
         }
 
         this.maxLoanAmount = maxLoanAmount;

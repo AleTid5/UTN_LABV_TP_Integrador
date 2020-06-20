@@ -85,14 +85,13 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: 'customer/remove?id=' + id,
-          type: 'DELETE',
+          url: 'customers/delete?id=' + id,
+          type: 'POST',
           data: {
             id
           },
           success: function (data) {
-            if (! data) return handleError();
-            if (data.status === 200) return handleSuccess(id);
+            return ! data ? handleError() : handleSuccess(id);
           }
         });
       }
@@ -100,7 +99,7 @@
   };
 
   handleSuccess = id => {
-    $('#datatables').DataTable().rows('#user-' + id).remove().draw();
+    $('#datatables').DataTable().rows('#customer-' + id).remove().draw();
 
     Swal.fire({
       icon: 'success',

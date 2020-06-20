@@ -1,8 +1,23 @@
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.SuccessCodeFactory" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCode" %>
 <%@tag description="Authorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>
 <%@attribute name="scripts" fragment="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+	try {
+		if (request.getParameter("errorCode") != null)
+			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCode.valueOf(request.getParameter("errorCode"))));
+
+		if (request.getParameter("successCode") != null)
+			request.setAttribute("successMessage", SuccessCodeFactory.getDescription(SuccessCode.valueOf(request.getParameter("successCode"))));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+%>
 
 <html>
 <head>
@@ -20,17 +35,30 @@
 </head>
 <body>
 <div id="app" class="wrapper">
-	<c:forEach var="message" items="${ messages }">
-		<div class="alert alert-${ message.getClassName() }">
+	<c:if test="${errorMessage != null}">
+		<div class="alert alert-danger">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<i class="material-icons">close</i>
 			</button>
 			<span>
-					<b>${ message.getTitle() }</b><br>
-					${ message.getBody() }
+				<b>Ups.. 🤦‍️</b>
+				<br>
+					${ errorMessage }
 			</span>
 		</div>
-	</c:forEach>
+	</c:if>
+	<c:if test="${successMessage != null}">
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<i class="material-icons">close</i>
+			</button>
+			<span>
+				<b>En hora buena! 🎉</b>
+				<br>
+					${ successMessage }
+			</span>
+		</div>
+	</c:if>
 	<jsp:include page="../Components/sidebar.jsp" />
 	<div class="main-panel">
 		<jsp:include page="../Components/navbar.jsp" />

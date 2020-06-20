@@ -23,6 +23,12 @@ public class Locality {
         this.province = province;
     }
 
+    public Locality(Integer id) {
+        this.id = id;
+        this.name = null;
+        this.province = new Province();
+    }
+
     public Integer getId() {
         return id;
     }

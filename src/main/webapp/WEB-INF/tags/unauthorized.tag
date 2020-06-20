@@ -1,8 +1,18 @@
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
 <%@tag description="Unauthorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>
 <%@attribute name="scripts" fragment="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+	try {
+		if (request.getParameter("errorCode") != null)
+			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCode.valueOf(request.getParameter("errorCode"))));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+%>
 
 <html>
 <head>
@@ -23,17 +33,17 @@
 	<div class="page-header login-page header-filter" filter-color="black"
 		 style="background-image: url('<c:url value="/assets/img/login.jpg"/>'); background-size: cover; background-position: top center;">
 		<div class="container">
-			<c:forEach var="message" items="${ messages }">
-				<div class="alert alert-${ message.getClassName() }">
+			<c:if test="${errorMessage != null}">
+				<div class="alert alert-danger">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<i class="material-icons">close</i>
 					</button>
 					<span>
-						<b>${ message.getTitle() }</b><br>
-						${ message.getBody() }
+						<b>Error</b><br>
+						${ errorMessage }
 					</span>
 				</div>
-			</c:forEach>
+			</c:if>
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
 					<jsp:doBody />
