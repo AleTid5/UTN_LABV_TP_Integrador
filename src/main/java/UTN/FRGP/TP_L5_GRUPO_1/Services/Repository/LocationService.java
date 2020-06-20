@@ -46,8 +46,8 @@ public abstract class LocationService {
         return provinces;
     }
 
-    public static List<Province> getLocalities(Locality locality) {
-        return getProvinces(locality.getProvince().getId());
+    public static List<Locality> getLocalities(Locality locality) {
+        return getLocalities(locality.getProvince().getId());
     }
 
     public static List<Locality> getLocalities(Integer provinceId) {

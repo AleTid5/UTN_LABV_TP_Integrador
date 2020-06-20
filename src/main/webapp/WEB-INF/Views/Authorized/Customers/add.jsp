@@ -5,7 +5,6 @@
 <layout:authorized>
   <jsp:body>
     <form method="POST" action="" class="form-horizontal">
-      <input type="hidden" name="method" value="PUT">
       <div class="row">
         <div class="col-md-12">
           <div class="card ">

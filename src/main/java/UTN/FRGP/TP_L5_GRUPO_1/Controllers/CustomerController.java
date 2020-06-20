@@ -9,7 +9,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LocationService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.Helper;
 import com.google.gson.Gson;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +27,7 @@ import java.util.Map;
 @Controller
 public class CustomerController {
 
-    @Qualifier
+    @Autowired
     AbstractController abstractController;
 
     @RequestMapping(method = RequestMethod.GET)
