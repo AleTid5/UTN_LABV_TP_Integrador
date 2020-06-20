@@ -94,6 +94,10 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
         return this.bornDate;
     }
 
+    public String getParsedBornDate() {
+        return new SimpleDateFormat("MM/dd/yyyy").format(this.bornDate);
+    }
+
     public void setAddress(String address) throws UserException {
         if (address == null || address.length() < 5 || address.length() > 50) {
             throw new UserException(User.ADDRESS);

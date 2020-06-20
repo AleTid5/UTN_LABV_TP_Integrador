@@ -17,9 +17,7 @@ public abstract class SessionService {
 
     public static Session getSession() {
         Session session = SessionService.sessionFactory.openSession();
-
         session.beginTransaction();
-
         return session;
     }
 

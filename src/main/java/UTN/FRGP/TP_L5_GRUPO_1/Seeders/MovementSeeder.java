@@ -1,7 +1,5 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Seeders;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Models.AccountType;
-import UTN.FRGP.TP_L5_GRUPO_1.Models.CurrencyType;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.MovementType;
 import org.hibernate.Session;

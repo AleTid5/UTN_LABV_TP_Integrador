@@ -16,7 +16,8 @@ public abstract class SuccessCodeFactory {
 
     private static Map<SuccessCode, String> mapOfEntries() {
         return Map.ofEntries(
-                Map.entry(SuccessCode.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!")
+                Map.entry(SuccessCode.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!"),
+                Map.entry(SuccessCode.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!")
         );
     }
 }

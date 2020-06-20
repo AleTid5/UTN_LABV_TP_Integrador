@@ -18,9 +18,7 @@ public abstract class LocationService {
 
         try {
             session = SessionService.getSession();
-
             countries = session.createCriteria(Country.class).list();
-
             SessionService.commitSession(session);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
@@ -29,15 +27,17 @@ public abstract class LocationService {
         return countries;
     }
 
-    public static List<Province> getProvincesByCountryId(Integer countryId) {
+    public static List<Province> getProvinces(Locality locality) {
+        return getProvinces(locality.getProvince().getCountry().getId());
+    }
+
+    public static List<Province> getProvinces(Integer countryId) {
         List<Province> provinces = null;
         Session session = null;
 
         try {
             session = SessionService.getSession();
-
             provinces = session.createCriteria(Province.class).add(Restrictions.eq("country.id", countryId)).list();
-
             SessionService.commitSession(session);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
@@ -46,15 +46,17 @@ public abstract class LocationService {
         return provinces;
     }
 
-    public static List<Locality> getLocalitiesByProvinceId(Integer provinceId) {
+    public static List<Province> getLocalities(Locality locality) {
+        return getProvinces(locality.getProvince().getId());
+    }
+
+    public static List<Locality> getLocalities(Integer provinceId) {
         List<Locality> localities = null;
         Session session = null;
 
         try {
             session = SessionService.getSession();
-
             localities = session.createCriteria(Locality.class).add(Restrictions.eq("province.id", provinceId)).list();
-
             SessionService.commitSession(session);
         } catch (Exception e) {
             SessionService.rollbackSession(session);

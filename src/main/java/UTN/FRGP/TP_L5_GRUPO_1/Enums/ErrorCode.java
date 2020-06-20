@@ -2,6 +2,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Enums;
 
 public enum ErrorCode {
     DUPLICATED_CUSTOMER,
+    INVALID_ID,
     INVALID_DNI,
     INVALID_NAME,
     INVALID_LAST_NAME,

@@ -1,6 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LocationService;
+import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,12 @@ public class LocationController {
     @RequestMapping(method = RequestMethod.GET, value = "/provinces/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String provinceList(@PathVariable("id") int provinceId) {
-        return new Gson().toJson(LocationService.getProvincesByCountryId(provinceId));
+        return new Gson().toJson(new JsonResponse(LocationService.getProvinces(provinceId)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/localities/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String localityList(@PathVariable("id") int localityId) {
-        return new Gson().toJson(LocationService.getLocalitiesByProvinceId(localityId));
+        return new Gson().toJson(new JsonResponse(LocationService.getLocalities(localityId)));
     }
 }

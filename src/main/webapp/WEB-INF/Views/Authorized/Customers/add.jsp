@@ -148,7 +148,7 @@
             <div class="card-footer" style="margin: 0 0px 10px;">
               <div class="row" style="width: 100%">
                 <div class="col-2" style="padding-left: 30px;">
-                  <a href="../customers" class="btn btn-fill btn-dark">Cancelar</a>
+                  <a href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers" class="btn btn-fill btn-dark">Cancelar</a>
                 </div>
                 <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
                   <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Finalizar</button>
@@ -170,13 +170,13 @@
     $("#locality").addClass("hidden");
 
     $.ajax({
-      url: "../locations/provinces/" + $('[name="country"]').val(),
+      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/provinces/" + $('[name="country"]').val(),
       success: provinces => {
-        if (!provinces) return;
+        if (! provinces || ! provinces.status) return;
 
         $('[name="province"]')
                 .html('<option value="" selected>Seleccione una provincia</option>' +
-                        provinces.map(province => '<option value="' + province.id + '">' + province.name + '</option>').join(""))
+                        provinces.data.map(province => '<option value="' + province.id + '">' + province.name + '</option>').join(""))
                 .selectpicker('refresh')
       }
     });
@@ -186,13 +186,13 @@
     $("#locality").removeClass("hidden");
 
     $.ajax({
-      url: "../locations/localities/" + $('[name="country"]').val(),
+      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/localities/" + $('[name="country"]').val(),
       success: localities => {
-        if (!localities) return;
+        if (! localities || ! localities.status) return;
 
         $('[name="locality"]')
                 .html('<option value="" selected>Seleccione una localidad</option>' +
-                        localities.map(locality => '<option value="' + locality.id + '">' + locality.name + '</option>').join(""))
+                        localities.data.map(locality => '<option value="' + locality.id + '">' + locality.name + '</option>').join(""))
                 .selectpicker('refresh')
       }
     });

@@ -7,12 +7,16 @@ import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LocationService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.Helper;
+import com.google.gson.Gson;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +27,7 @@ import java.util.Map;
 @Controller
 public class CustomerController {
 
-    @Autowired
+    @Qualifier
     AbstractController abstractController;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -34,14 +38,14 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public String createCustomerForm(ModelMap modelMap) {
+    public String createCustomer(ModelMap modelMap) {
         modelMap.addAttribute("countries", LocationService.getCountries());
 
         return "/Authorized/Customers/add";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public void createCustomer(HttpServletResponse response, HttpServletRequest request) {
+    public void saveCustomer(HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
         String url = "customers";
 
@@ -64,29 +68,34 @@ public class CustomerController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/edit}")
-    public String editCustomerForm(ModelMap modelMap) {
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
+    public String editCustomer(@PathVariable("id") int userId, ModelMap modelMap) {
+        Customer customer = CustomerService.getCustomerById(userId);
+        modelMap.addAttribute("customer", customer);
         modelMap.addAttribute("countries", LocationService.getCountries());
+        modelMap.addAttribute("provinces", LocationService.getProvinces(customer.getLocality()));
+        modelMap.addAttribute("localities", LocationService.getLocalities(customer.getLocality()));
 
         return "/Authorized/Customers/edit";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/edit")
-    public void editCustomer(HttpServletResponse response, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
+    public void updateCustomer(@PathVariable("id") int userId, HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
         String url = "customers";
 
         try {
-            Customer customer = Helper.buildCustomerFromRequest(request);
+            Customer customer = Helper.buildCustomerFromRequest(request, CustomerService.getCustomerById(userId));
+            customer.setId(userId);
 
-            CustomerService.saveCustomer(customer);
-            parameters.put("successCode", SuccessCode.CUSTOMER_CREATED);
+            CustomerService.updateCustomer(customer);
+            parameters.put("successCode", SuccessCode.CUSTOMER_UPDATED);
         } catch (ConstraintViolationException e) {
             parameters.put("errorCode", ErrorCode.DUPLICATED_CUSTOMER);
-            url += "/add";
+            url += "/edit/" + userId;
         } catch (UserException e) {
             parameters.put("errorCode", ErrorCode.valueOf("INVALID_" + e.getField().toString()));
-            url += "/add";
+            url += "/edit/" + userId;
         }  catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -94,8 +103,12 @@ public class CustomerController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/delete")
-    public String deleteCustomer(ModelMap modelMap) {
-        return customerList(modelMap);
+    @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteCustomer(@PathVariable("id") int userId) {
+        Customer customer = CustomerService.getCustomerById(userId);
+        customer.setIsActive(false);
+
+        return new Gson().toJson(CustomerService.removeCustomer(customer));
     }
 }

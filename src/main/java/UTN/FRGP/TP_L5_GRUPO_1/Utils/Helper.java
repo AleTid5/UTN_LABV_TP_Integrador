@@ -10,7 +10,9 @@ import java.text.ParseException;
 @Service
 public abstract class Helper {
     public static Customer buildCustomerFromRequest(HttpServletRequest request) throws UserException, ParseException {
-        Customer customer = new Customer();
+        return buildCustomerFromRequest(request, new Customer());
+    }
+    public static Customer buildCustomerFromRequest(HttpServletRequest request, Customer customer) throws UserException, ParseException {
         customer.setName(request.getParameter("name"));
         customer.setLastName(request.getParameter("lastName"));
         customer.setUserName(request.getParameter("userName"));

@@ -51,7 +51,7 @@
                     <td>${ customer.userName }</td>
                     <td>${ customer.maxLoanAmount }</td>
                     <td>
-                      <a href="edit?id=${ customer.id }" class="btn btn-link btn-warning btn-just-icon edit">
+                      <a href="customers/edit/${ customer.id }" class="btn btn-link btn-warning btn-just-icon edit">
                         <i class="material-icons">dvr</i>
                       </a>
                       <button onclick="onRemove(${ customer.id })" class="btn btn-link btn-danger btn-just-icon remove">
@@ -85,13 +85,13 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: 'customers/delete?id=' + id,
+          url: '${request.getContextPath()}/UTN_LABV_TP_Integrador/customers/delete/' + id,
           type: 'POST',
           data: {
             id
           },
           success: function (data) {
-            return ! data ? handleError() : handleSuccess(id);
+            return data && data.status ? handleSuccess(id) : handleError();
           }
         });
       }
@@ -104,7 +104,7 @@
     Swal.fire({
       icon: 'success',
       title: '¡Eliminado!',
-      text: 'El Préstamo ha sido eliminado.',
+      text: 'El cliente ha sido eliminado exitosamente.',
       confirmButtonColor: '#52af50',
     })
   };

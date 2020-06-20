@@ -32,12 +32,14 @@ public class User {
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private final Date creationDate = new Date();
+    private final Date creationDate;
 
     @Column(nullable = false)
     private Boolean isActive;
 
-    public User() {}
+    public User() {
+        this.creationDate = new Date();
+    }
 
     public User(Integer dni, String name, String lastName, String email, String password) throws UserException {
         this.setDni(dni);
@@ -46,6 +48,15 @@ public class User {
         this.setEmail(email);
         this.setPassword(password);
         this.setIsActive(true);
+        this.creationDate = new Date();
+    }
+
+    public void setId(Integer id) throws UserException {
+        if (id == null) {
+            throw new UserException(UTN.FRGP.TP_L5_GRUPO_1.Enums.User.ID);
+        }
+
+        this.id = id;
     }
 
     public Integer getId() {

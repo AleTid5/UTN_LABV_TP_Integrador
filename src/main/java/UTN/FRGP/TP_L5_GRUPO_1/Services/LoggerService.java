@@ -7,9 +7,7 @@ import org.hibernate.SessionFactory;
 public abstract class LoggerService {
     public static void log(String message) {
         Session session = SessionService.getSession();
-
         session.save(new Log(message));
-
         SessionService.commitSession(session);
     }
 }

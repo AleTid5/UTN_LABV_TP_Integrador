@@ -1,7 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class Locality {

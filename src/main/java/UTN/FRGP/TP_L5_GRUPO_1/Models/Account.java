@@ -1,7 +1,5 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Date;
 

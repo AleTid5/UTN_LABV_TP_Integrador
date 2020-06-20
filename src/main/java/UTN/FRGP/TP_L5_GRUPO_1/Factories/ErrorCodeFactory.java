@@ -17,6 +17,7 @@ public abstract class ErrorCodeFactory {
     private static Map<ErrorCode, String> mapOfEntries() {
         return Map.ofEntries(
                 Map.entry(ErrorCode.DUPLICATED_CUSTOMER, "El cliente ingresado tiene datos duplicados con otro cliente (DNI, E-Mail o Nombre de usuario)"),
+                Map.entry(ErrorCode.INVALID_ID, "El Id del usuario es inválido."),
                 Map.entry(ErrorCode.INVALID_DNI, "La información del DNI del cliente es inválido."),
                 Map.entry(ErrorCode.INVALID_NAME, "La información del nombre del cliente es inválido."),
                 Map.entry(ErrorCode.INVALID_LAST_NAME, "La información del apellido del cliente es inválido."),
