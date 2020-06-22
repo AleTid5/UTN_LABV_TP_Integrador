@@ -1,8 +1,10 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Factories;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCode;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SuccessCodeFactory {
@@ -15,9 +17,10 @@ public abstract class SuccessCodeFactory {
     }
 
     private static Map<SuccessCode, String> mapOfEntries() {
-        return Map.ofEntries(
-                Map.entry(SuccessCode.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!"),
-                Map.entry(SuccessCode.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!")
-        );
+        Map<SuccessCode, String> map = new HashMap<>();
+        map.put(SuccessCode.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!");
+        map.put(SuccessCode.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!");
+
+        return map;
     }
 }
