@@ -141,4 +141,9 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
     public Integer getMaxLoanAmount() {
         return this.maxLoanAmount;
     }
+
+    @Override
+    public String toString() {
+        return super.getLastName() + ", " + super.getName();
+    }
 }

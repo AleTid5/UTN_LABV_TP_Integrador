@@ -30,7 +30,7 @@ public class Account {
     private Date creationDate;
 
 	@Column(nullable = false)
-    private Boolean status;
+    private Boolean isActive;
 
     public Account() {}
 
@@ -41,7 +41,7 @@ public class Account {
 		this.setAccountType(accountType);
 		this.setBalance(10000);
 		this.setAccountNumber(accountNumber);
-		this.setStatus(true);
+		this.setIsActive(true);
 	}
 
 	public String getCBU() {
@@ -92,11 +92,11 @@ public class Account {
 		this.accountNumber = accountNumber;
 	}
 
-	public Boolean getStatus() {
-		return status;
+	public Boolean getIsActive() {
+		return isActive;
 	}
 
-	public void setStatus(Boolean status) {
-		this.status = status;
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 }
