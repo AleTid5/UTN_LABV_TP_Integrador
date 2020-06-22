@@ -16,7 +16,7 @@ public abstract class Seeder {
     public static void plant() {
         Session session = SessionService.getSession();
 
-        ArrayList<Seeder> seeders = new ArrayList<>() {{
+        ArrayList<Seeder> seeders = new ArrayList<Seeder>() {{
             add(new LocationSeeder());
             add(new CurrencySeeder());
             add(new UserSeeder());
