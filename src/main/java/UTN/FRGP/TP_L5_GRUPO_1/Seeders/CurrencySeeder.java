@@ -22,7 +22,7 @@ public class CurrencySeeder extends Seeder {
         }
     };
 
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         currencyTypes.forEach(session::save);
         currencyValues.forEach(session::save);
     }

@@ -21,7 +21,7 @@ public class LoanSeeder extends Seeder {
         }
     };
     
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         loans.forEach(session::save);
     }
 }

@@ -32,7 +32,7 @@ public class LocationSeeder extends Seeder {
         }
     };
 
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         countries.forEach(session::save); // Automatically injects each Country
         provinces.forEach(session::save); // Automatically injects each Province
         localities.forEach(session::save); // Automatically injects each Locality

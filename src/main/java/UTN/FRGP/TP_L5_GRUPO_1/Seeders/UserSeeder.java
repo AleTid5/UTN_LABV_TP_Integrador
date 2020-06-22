@@ -35,7 +35,7 @@ public class UserSeeder extends Seeder {
         }
     };
 
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         UserSeeder.customers.forEach(session::save);
         UserSeeder.bankAdministrators.forEach(session::save);
     }

@@ -29,7 +29,7 @@ public class AccountSeeder extends Seeder {
         }
     };
 
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         accountTypes.forEach(session::save);
         accounts.forEach(session::save);
     }
