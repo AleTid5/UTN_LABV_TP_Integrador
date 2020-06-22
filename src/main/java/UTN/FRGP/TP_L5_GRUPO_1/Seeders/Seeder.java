@@ -1,18 +1,12 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Seeders;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
-import org.burningwave.core.assembler.ComponentContainer;
-import org.burningwave.core.assembler.ComponentSupplier;
-import org.burningwave.core.classes.CacheableSearchConfig;
-import org.burningwave.core.classes.ClassCriteria;
-import org.burningwave.core.classes.ClassHunter;
-import org.burningwave.core.classes.SearchConfig;
 import org.hibernate.Session;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public abstract class Seeder {
-    public static void hydrate(Session session) {
+    public void hydrate(Session session) {
         System.out.println("La base de datos se está populando...");
     }
 
@@ -21,24 +15,17 @@ public abstract class Seeder {
      */
     public static void plant() {
         Session session = SessionService.getSession();
-        ComponentSupplier componentSupplier = ComponentContainer.getInstance();
 
-        CacheableSearchConfig searchConfig = SearchConfig.forPaths(componentSupplier.getPathHelper().getMainClassPaths())
-                .by(ClassCriteria.create()
-                        .byClasses((uploadedClasses, currentScannedClass) -> uploadedClasses
-                                .get(Seeder.class)
-                                .isAssignableFrom(currentScannedClass))
-                .useClasses(Seeder.class));
+        ArrayList<Seeder> seeders = new ArrayList<>() {{
+            add(new LocationSeeder());
+            add(new CurrencySeeder());
+            add(new UserSeeder());
+            add(new AccountSeeder());
+            add(new LoanSeeder());
+            add(new MovementSeeder());
+        }};
 
-        ClassHunter.SearchResult searchResult = componentSupplier.getClassHunter().loadInCache(searchConfig).find();
-
-        searchResult.getClasses().forEach((Class<?> T) -> {
-            try {
-                T.getMethod("hydrate", Session.class).invoke(Seeder.class, session);
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        });
+        seeders.forEach((Seeder seeder) -> seeder.hydrate(session));
 
         SessionService.commitSession(session);
         SessionService.closeSessionFactory();
