@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
     <wb-module deploy-name="TP_L5_GRUPO_1">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <property name="context-root" value="TP_L5_GRUPO_1"/>
         <property name="java-output-path" value="/TP_L5_GRUPO_1/target/classes"/>
+=======
+    <wb-module deploy-name="UTN_LABV_TP_Integrador">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <property name="context-root" value="UTN_LABV_TP_Integrador"/>
+        <property name="java-output-path" value="/UTN_LABV_TP_Integrador/target/classes"/>
+>>>>>>> 135ce9f5b129d6687303bc1abefac456efc24b6c
     </wb-module>
 </project-modules>
