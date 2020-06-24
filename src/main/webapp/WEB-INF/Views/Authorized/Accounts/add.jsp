@@ -4,7 +4,7 @@
 
 <layout:authorized>
   <jsp:body>
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" action="" class="form-horizontal" onsubmit="return onSubmit()">
       <div class="row">
         <div class="col-md-12">
           <div class="card ">
@@ -17,17 +17,62 @@
               <ul class="nav nav-pills nav-pills-rose nav-pills-icons justify-content-center" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active show" data-toggle="tab" href="#base-info" role="tablist">
-                    <i class="material-icons">info</i> Información básica
+                    <i class="material-icons">settings</i>
+                    <span class="notification pulse" id="base-info-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Información básica
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#customer-data" role="tablist">
-                    <i class="material-icons">location_on</i> Cliente
+                    <i class="material-icons">person</i>
+                    <span class="notification pulse" id="customer-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Cliente
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#account-type" role="tablist">
-                    <i class="material-icons">gavel</i> Tipo de cuenta
+                    <i class="material-icons">work</i>
+                    <span class="notification pulse" id="account-type-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Tipo de cuenta
                   </a>
                 </li>
               </ul>
@@ -37,7 +82,7 @@
                     <label class="col-sm-2 col-form-label">Número de cuenta</label>
                     <div class="col-sm-10">
                       <div class="form-group">
-                        <input required type="number" name="accountNumber" class="form-control" placeholder="Ingrese número de cuenta">
+                        <input type="number" name="accountNumber" class="form-control" placeholder="Ingrese número de cuenta">
                       </div>
                     </div>
                   </div>
@@ -45,7 +90,7 @@
                     <label class="col-sm-2 col-form-label">Alias</label>
                     <div class="col-sm-10">
                       <div class="form-group">
-                        <input type="text" required name="alias" class="form-control" placeholder="Ingrese el alias del usuario">
+                        <input type="text" name="alias" class="form-control" placeholder="Ingrese el alias del usuario">
                       </div>
                     </div>
                   </div>
@@ -102,7 +147,7 @@
                 </div>
                 <div class="tab-pane" id="account-type">
                   <div class="material-datatables">
-                    <table id="datatables2" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" required>
+                    <table id="datatables2" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                       <tr>
                         <th>Tipo de cuenta</th>
@@ -125,7 +170,7 @@
                           <td>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="currencyType" value="${ accountType.id }" required>
+                                <input class="form-check-input" type="radio" name="currencyType" value="${ accountType.id }">
                                 <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -157,5 +202,31 @@
   </jsp:body>
 </layout:authorized>
 <script>
+  function onSubmit() {
+    const validations = [];
+    validations.push(document.getElementsByName("accountNumber")[0].value !== "");
+    validations.push(document.getElementsByName("alias")[0].value !== "");
+    validations.push(Array.from(document.getElementsByName("customer")).some(input => input.checked));
+    validations.push(Array.from(document.getElementsByName("currencyType")).some(input => input.checked));
 
+    const [accountNumberValidated, aliasValidated, customerValidated, currencyTypeValidated] = validations;
+
+    toggleBaseInfoError(accountNumberValidated && aliasValidated);
+    toggleCustomerError(customerValidated);
+    toggleAccountTypeError(currencyTypeValidated);
+
+    return ! validations.some(validation => ! validation); // Si alguna validación es falsa, no puede submitear.
+  }
+
+  const toggleBaseInfoError = isValid => {
+    isValid ? $("#base-info-error").hide("slow") : $("#base-info-error").fadeIn("slow");
+  }
+
+  const toggleCustomerError = isValid => {
+    isValid ? $("#customer-error").hide("slow") : $("#customer-error").fadeIn("slow");
+  }
+
+  const toggleAccountTypeError = isValid => {
+    isValid ? $("#account-type-error").hide("slow") : $("#account-type-error").fadeIn("slow");
+  }
 </script>
