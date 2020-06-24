@@ -15,7 +15,7 @@ public class Account {
     @Column(unique = true, nullable = false)
     private String CBU;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String alias;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Account {
     @Column(nullable = false)
     private Integer balance;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private Integer accountNumber;
 
 	@Column(updatable = false)
