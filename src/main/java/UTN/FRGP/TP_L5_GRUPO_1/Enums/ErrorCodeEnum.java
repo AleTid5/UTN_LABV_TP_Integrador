@@ -1,6 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Enums;
 
-public enum ErrorCode {
+public enum ErrorCodeEnum {
 	DUPLICATED_ACCOUNT,
     DUPLICATED_CUSTOMER,
     INVALID_ID,

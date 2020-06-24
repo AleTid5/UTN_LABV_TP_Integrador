@@ -32,24 +32,25 @@ public abstract class AccountService {
 
         return accounts;
     }
-    
+
     public static Account getAccountById(Integer accountId) { ;
-    Account account = null;
+        Account account = null;
 
-    try {
-        session = SessionService.getSession();
-        account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("id", accountId)).uniqueResult();
-        SessionService.commitSession(session);
-    } catch (Exception e) {
-        SessionService.rollbackSession(session);
+        try {
+            session = SessionService.getSession();
+            account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("id", accountId)).uniqueResult();
+            SessionService.commitSession(session);
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+        }
+
+        return account;
     }
-
-    return account;
-}
 
     public static void saveAccount(Account account) {
         try {
             session = SessionService.getSession();
+            // ToDo: Agregar validación de 4 cuentas!
             session.save(account);
             SessionService.commitSession(session);
         } catch (Exception e) {
@@ -59,6 +60,7 @@ public abstract class AccountService {
     }
     public static JsonResponse removeAccount(Account account) {
         try {
+            account.setIsActive(false);
             session = SessionService.getSession();
             session.update(account);
             session.flush();

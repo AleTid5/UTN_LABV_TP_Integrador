@@ -34,4 +34,8 @@ public class AccountType {
     public String getName() {
         return this.name;
     }
+
+    public CurrencyType getCurrencyType() {
+        return this.currencyType;
+    }
 }

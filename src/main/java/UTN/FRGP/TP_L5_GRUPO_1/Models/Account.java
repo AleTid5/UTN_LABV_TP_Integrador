@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountE;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 
 import java.util.Date;
 import java.util.Random;
@@ -32,13 +32,19 @@ public class Account {
     @Column(nullable = false)
     private Integer accountNumber;
 
-    @Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
 	@Column(nullable = false)
     private Boolean isActive;
 
-    public Account() {}
+    public Account() {
+		this.createCBU();
+		this.setBalance(10000);
+		this.setIsActive(true);
+		this.creationDate = new Date();
+	}
 
 	public Account(String alias, Customer customer, AccountType accountType, Integer accountNumber) {
 		this.createCBU();
@@ -48,6 +54,7 @@ public class Account {
 		this.setBalance(10000);
 		this.setAccountNumber(accountNumber);
 		this.setIsActive(true);
+		this.creationDate = new Date();
 	}
 
 	private void createCBU() {
@@ -88,7 +95,7 @@ public class Account {
 	
 	public void setCustomer(Integer customerId) throws AccountException {
 	    if (customerId == null) {
-            throw new AccountException(AccountE.CUSTOMER);
+            throw new AccountException(AccountEnum.CUSTOMER);
         }
 
         this.customer = new Customer(customerId);
@@ -103,7 +110,7 @@ public class Account {
 	}
 	public void setAccountType(Integer accountTypeId) throws AccountException {
 	    if (accountTypeId == null) {
-            throw new AccountException(AccountE.ACCOUNTTYPE);
+            throw new AccountException(AccountEnum.ACCOUNTTYPE);
         }
 
         this.accountType = new AccountType(accountTypeId);

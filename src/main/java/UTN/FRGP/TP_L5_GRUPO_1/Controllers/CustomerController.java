@@ -1,7 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode;
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCode;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
@@ -54,12 +54,12 @@ public class CustomerController {
             customer.setPassword(request.getParameter("dni"));
 
             CustomerService.saveCustomer(customer);
-            parameters.put("successCode", SuccessCode.CUSTOMER_CREATED);
+            parameters.put("successCode", SuccessCodeEnum.CUSTOMER_CREATED);
         } catch (ConstraintViolationException e) {
-            parameters.put("errorCode", ErrorCode.DUPLICATED_CUSTOMER);
+            parameters.put("errorCode", ErrorCodeEnum.DUPLICATED_CUSTOMER);
             url += "/add";
         } catch (UserException e) {
-            parameters.put("errorCode", ErrorCode.valueOf("INVALID_" + e.getField().toString()));
+            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/add";
         }  catch (Exception e) {
             e.printStackTrace();
@@ -89,12 +89,12 @@ public class CustomerController {
             customer.setId(userId);
 
             CustomerService.updateCustomer(customer);
-            parameters.put("successCode", SuccessCode.CUSTOMER_UPDATED);
+            parameters.put("successCode", SuccessCodeEnum.CUSTOMER_UPDATED);
         } catch (ConstraintViolationException e) {
-            parameters.put("errorCode", ErrorCode.DUPLICATED_CUSTOMER);
+            parameters.put("errorCode", ErrorCodeEnum.DUPLICATED_CUSTOMER);
             url += "/edit/" + userId;
         } catch (UserException e) {
-            parameters.put("errorCode", ErrorCode.valueOf("INVALID_" + e.getField().toString()));
+            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/edit/" + userId;
         }  catch (Exception e) {
             e.printStackTrace();
@@ -106,9 +106,6 @@ public class CustomerController {
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteCustomer(@PathVariable("id") int userId) {
-        Customer customer = CustomerService.getCustomerById(userId);
-        customer.setIsActive(false);
-
-        return new Gson().toJson(CustomerService.removeCustomer(customer));
+        return new Gson().toJson(CustomerService.removeCustomer(CustomerService.getCustomerById(userId)));
     }
 }

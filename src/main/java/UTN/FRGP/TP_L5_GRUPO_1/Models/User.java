@@ -1,5 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.UserEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.LoggerService;
 
@@ -38,6 +39,7 @@ public class User {
     private Boolean isActive;
 
     public User() {
+        this.setIsActive(true);
         this.creationDate = new Date();
     }
 
@@ -57,7 +59,7 @@ public class User {
 
     public void setId(Integer id) throws UserException {
         if (id == null) {
-            throw new UserException(UTN.FRGP.TP_L5_GRUPO_1.Enums.User.ID);
+            throw new UserException(UserEnum.ID);
         }
 
         this.id = id;
@@ -69,7 +71,7 @@ public class User {
 
     public void setDni(Integer dni) throws UserException {
         if (dni == null || dni < 0) {
-            throw new UserException(UTN.FRGP.TP_L5_GRUPO_1.Enums.User.DNI);
+            throw new UserException(UserEnum.DNI);
         }
 
         this.dni = dni;

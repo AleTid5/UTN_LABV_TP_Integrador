@@ -16,31 +16,32 @@ public abstract class AccountTypeService {
     private static Session session;
 
     @Autowired
-    private static List<AccountType> accountType;
-	
-    public static List<AccountType> getAccounts() {
+    private static List<AccountType> accountTypes;
+
+    public static List<AccountType> getAccountTypes() {
         try {
             session = SessionService.getSession();
-            accountType = session.createCriteria(AccountType.class).add(Restrictions.eq("isActive", true)).list();
+            accountTypes = session.createCriteria(AccountType.class).list();
             SessionService.commitSession(session);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
         }
-        
-        return accountType;
-    }
-    public static AccountType getAccountById(Integer accountTypeId) { ;
-    AccountType accountType = null;
 
-    try {
-        session = SessionService.getSession();
-        accountType = (AccountType) session.createCriteria(AccountType.class).add(Restrictions.eq("id", accountTypeId)).uniqueResult();
-        SessionService.commitSession(session);
-    } catch (Exception e) {
-        SessionService.rollbackSession(session);
+        return accountTypes;
     }
 
-    return accountType;
-}
+    public static AccountType getAccountById(Integer accountTypesId) { ;
+        AccountType accountTypes = null;
+
+        try {
+            session = SessionService.getSession();
+            accountTypes = (AccountType) session.createCriteria(AccountType.class).uniqueResult();
+            SessionService.commitSession(session);
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+        }
+
+        return accountTypes;
+    }
 
 }

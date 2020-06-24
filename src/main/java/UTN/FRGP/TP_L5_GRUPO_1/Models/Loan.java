@@ -38,7 +38,11 @@ public class Loan {
 
     private Date endDate;
 
-    public Loan() {}
+    public Loan() {
+        this.setBankAdministrator(null);
+        this.setIsApproved(false);
+        this.setPayedFees(0);
+    }
 
     public Loan(Account account, Integer amount, Integer feesToPay, Integer feeValue, String endDate) throws ParseException {
         this.setAccount(account);
