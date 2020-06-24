@@ -211,22 +211,16 @@
 
     const [accountNumberValidated, aliasValidated, customerValidated, currencyTypeValidated] = validations;
 
-    toggleBaseInfoError(accountNumberValidated && aliasValidated);
-    toggleCustomerError(customerValidated);
-    toggleAccountTypeError(currencyTypeValidated);
+    toggleError(accountNumberValidated && aliasValidated, "base-info-error");
+    toggleError(customerValidated, "customer-error");
+    toggleError(currencyTypeValidated, "account-type-error");
 
     return ! validations.some(validation => ! validation); // Si alguna validación es falsa, no puede submitear.
   }
 
-  const toggleBaseInfoError = isValid => {
-    isValid ? $("#base-info-error").hide("slow") : $("#base-info-error").fadeIn("slow");
-  }
+  const toggleError = (isValid, id) => {
+    const selector = $("#" + id);
 
-  const toggleCustomerError = isValid => {
-    isValid ? $("#customer-error").hide("slow") : $("#customer-error").fadeIn("slow");
-  }
-
-  const toggleAccountTypeError = isValid => {
-    isValid ? $("#account-type-error").hide("slow") : $("#account-type-error").fadeIn("slow");
+    isValid ? selector.hide("slow") : selector.fadeIn("slow");
   }
 </script>
