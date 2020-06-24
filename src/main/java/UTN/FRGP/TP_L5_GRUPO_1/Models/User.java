@@ -32,7 +32,7 @@ public class User {
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private final Date creationDate;
+    private Date creationDate;
 
     @Column(nullable = false)
     private Boolean isActive;
@@ -49,6 +49,10 @@ public class User {
         this.setPassword(password);
         this.setIsActive(true);
         this.creationDate = new Date();
+    }
+    
+    public User(Integer id){
+    	this.id=id;
     }
 
     public void setId(Integer id) throws UserException {

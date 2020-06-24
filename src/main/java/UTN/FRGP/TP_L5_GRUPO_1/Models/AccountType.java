@@ -21,6 +21,11 @@ public class AccountType {
         this.name = name;
         this.currencyType = currencyType;
     }
+    public AccountType(int accountTypeId) {
+    	this.id=accountTypeId;
+    	this.name = null;
+        this.currencyType = null;
+    }
 
     public Integer getId() {
         return this.id;

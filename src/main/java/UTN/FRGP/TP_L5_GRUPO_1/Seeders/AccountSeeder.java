@@ -18,13 +18,13 @@ public class AccountSeeder extends Seeder {
     };
     public static final ArrayList<Account> accounts = new ArrayList<Account>() {
         {
-            add(new Account("0000007900204047542202", "FRUTILLA.VELO.ESPINA",
+            add(new Account("FRUTILLA.VELO.ESPINA",
                     UserSeeder.customers.get(0), accountTypes.get(2), 123123456));
-            add(new Account("0000007900205234255678", "MESA.ASIA.ZAPALLO",
+            add(new Account("MESA.ASIA.ZAPALLO",
                     UserSeeder.customers.get(0), accountTypes.get(0), 341435542));
-            add(new Account("0002512987896541231233", "CIRCULO.CASA.TORNILLO",
+            add(new Account("CIRCULO.CASA.TORNILLO",
                     UserSeeder.customers.get(1), accountTypes.get(2), 523423455));
-            add(new Account("0002512413896541231235", "ESTANTE.EQUIPO.MEDIA",
+            add(new Account("ESTANTE.EQUIPO.MEDIA",
                     UserSeeder.customers.get(1), accountTypes.get(2), 432433212));
         }
     };
