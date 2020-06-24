@@ -1,7 +1,13 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
 import javax.persistence.*;
+
+
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountE;
+
 import java.util.Date;
+import java.util.Random;
 
 @Entity
 public class Account {
@@ -34,14 +40,26 @@ public class Account {
 
     public Account() {}
 
-	public Account(String CBU, String alias, Customer customer, AccountType accountType, Integer accountNumber) {
-		this.setCBU(CBU);
+	public Account(String alias, Customer customer, AccountType accountType, Integer accountNumber) {
+		this.createCBU();
 		this.setAlias(alias);
 		this.setCustomer(customer);
 		this.setAccountType(accountType);
 		this.setBalance(10000);
 		this.setAccountNumber(accountNumber);
 		this.setIsActive(true);
+	}
+
+	private void createCBU() {
+		String availableNumbers = "1234567890";
+        StringBuilder CBU = new StringBuilder();
+        Random rnd = new Random();
+
+        while (CBU.length() < 22) {
+            CBU.append(availableNumbers.charAt((int) (rnd.nextFloat() * availableNumbers.length())));
+        }
+
+        this.CBU = CBU.toString();
 	}
 
 	public String getCBU() {
@@ -67,6 +85,14 @@ public class Account {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
+	public void setCustomer(Integer customerId) throws AccountException {
+	    if (customerId == null) {
+            throw new AccountException(AccountE.CUSTOMER);
+        }
+
+        this.customer = new Customer(customerId);
+	}
 
 	public AccountType getAccountType() {
 		return accountType;
@@ -75,7 +101,14 @@ public class Account {
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
+	public void setAccountType(Integer accountTypeId) throws AccountException {
+	    if (accountTypeId == null) {
+            throw new AccountException(AccountE.ACCOUNTTYPE);
+        }
 
+        this.accountType = new AccountType(accountTypeId);
+	}
+	
 	public Integer getBalance() {
 		return balance;
 	}

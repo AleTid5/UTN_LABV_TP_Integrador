@@ -42,6 +42,10 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
         this.setLocality(locality);
         this.setAddress(address);
     }
+    
+    public Customer(Integer id){
+    	super(id);
+    }
 
     public void setUserName(String userName) throws UserException {
         if (userName == null || userName.length() < 5 || userName.length() > 20) {
