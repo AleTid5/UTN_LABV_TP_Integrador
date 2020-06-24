@@ -42,6 +42,7 @@
                 <tbody>
                 <c:forEach var="account" items="${ accounts }">
                   <tr id="account-${ account.CBU }">
+                    <td>${ account.CBU }</td>
                     <td>${ account.alias }</td>
                     <td>${ account.customer }</td>
                     <td>${ account.accountType.name }</td>

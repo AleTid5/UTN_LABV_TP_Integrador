@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="sidebar" data-color="orange" data-background-color="black" data-image="${ assetsPath }/img/sidebar-1.jpg">
+<div class="sidebar" data-color="orange" data-background-color="black" data-image="<c:url value="/assets/img/sidebar-1.jpg" />">
 	<div class="logo">
-		<a href="http://www.creative-tim.com" class="simple-text logo-mini" style="width: 34px;">
+		<a href="#" class="simple-text logo-mini" style="width: 34px;">
 			<div class="user mt-0">
 				<div class="photo ml-0">
-					<img src="${ assetsPath }/img/utn.png" />
+					<img src="<c:url value="/assets/img/utn.png" />" />
 				</div>
 			</div>
 		</a> <a href="http://www.creative-tim.com" class="simple-text logo-normal">
@@ -14,7 +14,7 @@
 	<div class="sidebar-wrapper">
 		<div class="user">
 			<div class="photo">
-				<img src="${ assetsPath }/img/default-avatar.png" />
+				<img src="<c:url value="/assets/img/default-avatar.png" />" />
 			</div>
 			<div class="user-info">
 				<a data-toggle="collapse" class="username">
