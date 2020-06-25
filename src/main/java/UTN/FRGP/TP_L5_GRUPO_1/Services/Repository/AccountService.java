@@ -33,12 +33,12 @@ public abstract class AccountService {
         return accounts;
     }
 
-    public static Account getAccountById(Integer accountId) { ;
+    public static Account getAccountByCBU(String accountCBU) { ;
         Account account = null;
 
         try {
             session = SessionService.getSession();
-            account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("id", accountId)).uniqueResult();
+            account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("CBU", accountCBU)).uniqueResult();
             SessionService.commitSession(session);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
@@ -58,6 +58,19 @@ public abstract class AccountService {
             throw e;
         }
     }
+
+    public static void updateAccount(Account account) {
+        try {
+            session = SessionService.getSession();
+            session.update(account);
+            session.flush();
+            SessionService.commitSession(session);
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+            throw e;
+        }
+    }
+
     public static JsonResponse removeAccount(Account account) {
         try {
             account.setIsActive(false);

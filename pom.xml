@@ -29,7 +29,6 @@
     <mysql.connector.version>8.0.15</mysql.connector.version>
     <tomcat.version>8.5.53</tomcat.version>
     <slf4j.version>1.5.2</slf4j.version>
-    <burningwave.version>6.1.1</burningwave.version>
   </properties>
 
   <dependencies>
@@ -99,12 +98,6 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.connector.version}</version>
-    </dependency>
-    <!-- BURNINGWAVE -->
-    <dependency>
-      <groupId>org.burningwave</groupId>
-      <artifactId>core</artifactId>
-      <version>${burningwave.version}</version>
     </dependency>
     <!-- SERVLETS -->
     <dependency>
