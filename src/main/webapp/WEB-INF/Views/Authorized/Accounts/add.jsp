@@ -207,13 +207,13 @@
     validations.push(document.getElementsByName("accountNumber")[0].value !== "");
     validations.push(document.getElementsByName("alias")[0].value !== "");
     validations.push(Array.from(document.getElementsByName("customer")).some(input => input.checked));
-    validations.push(Array.from(document.getElementsByName("currencyType")).some(input => input.checked));
+    validations.push(Array.from(document.getElementsByName("accountType")).some(input => input.checked));
 
-    const [accountNumberValidated, aliasValidated, customerValidated, currencyTypeValidated] = validations;
+    const [accountNumberValidated, aliasValidated, customerValidated, accountTypeValidated] = validations;
 
     toggleError(accountNumberValidated && aliasValidated, "base-info-error");
     toggleError(customerValidated, "customer-error");
-    toggleError(currencyTypeValidated, "account-type-error");
+    toggleError(accountTypeValidated, "account-type-error");
 
     return ! validations.some(validation => ! validation); // Si alguna validación es falsa, no puede submitear.
   }
