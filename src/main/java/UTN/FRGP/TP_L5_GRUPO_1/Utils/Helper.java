@@ -35,7 +35,7 @@ public abstract class Helper {
     public static Account buildAccountFromRequest(HttpServletRequest request, Account account) throws NumberFormatException, AccountException {
     	account.setAccountNumber(Integer.parseInt(request.getParameter("accountNumber")));
     	account.setAlias(request.getParameter("alias"));
-        account.setAccountType(Integer.parseInt(request.getParameter("currencyType")));
+        account.setAccountType(Integer.parseInt(request.getParameter("accountType")));
         account.setCustomer(Integer.parseInt(request.getParameter("customer")));
     	return account;
     }

@@ -170,7 +170,7 @@
                           <td>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="currencyType" value="${ accountType.id }">
+                                <input class="form-check-input" type="radio" name="accountType" value="${ accountType.id }">
                                 <span class="circle">
                               <span class="check"></span>
                             </span>
