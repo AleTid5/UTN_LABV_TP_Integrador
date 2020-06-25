@@ -24,8 +24,7 @@ public class MovementType {
 
     public MovementType() {}
 
-    public MovementType(String name, CurrencyType currencyType)
-    {
+    public MovementType(String name, CurrencyType currencyType) {
         this.setName(name);
         this.setCurrencyType(currencyType);
     }

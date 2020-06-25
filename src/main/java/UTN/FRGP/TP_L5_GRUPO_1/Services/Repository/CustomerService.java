@@ -70,6 +70,7 @@ public abstract class CustomerService {
 
     public static JsonResponse removeCustomer(Customer customer) {
         try {
+            customer.setIsActive(false);
             session = SessionService.getSession();
             session.update(customer);
             session.flush();

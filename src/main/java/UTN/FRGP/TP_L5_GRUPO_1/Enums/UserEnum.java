@@ -1,6 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Enums;
 
-public enum User {
+public enum UserEnum {
     ID,
     DNI,
     NAME,

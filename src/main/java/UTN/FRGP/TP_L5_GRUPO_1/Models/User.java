@@ -1,5 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.UserEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.LoggerService;
 
@@ -32,12 +33,13 @@ public class User {
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private final Date creationDate;
+    private Date creationDate;
 
     @Column(nullable = false)
     private Boolean isActive;
 
     public User() {
+        this.setIsActive(true);
         this.creationDate = new Date();
     }
 
@@ -50,10 +52,14 @@ public class User {
         this.setIsActive(true);
         this.creationDate = new Date();
     }
+    
+    public User(Integer id){
+    	this.id=id;
+    }
 
     public void setId(Integer id) throws UserException {
         if (id == null) {
-            throw new UserException(UTN.FRGP.TP_L5_GRUPO_1.Enums.User.ID);
+            throw new UserException(UserEnum.ID);
         }
 
         this.id = id;
@@ -65,7 +71,7 @@ public class User {
 
     public void setDni(Integer dni) throws UserException {
         if (dni == null || dni < 0) {
-            throw new UserException(UTN.FRGP.TP_L5_GRUPO_1.Enums.User.DNI);
+            throw new UserException(UserEnum.DNI);
         }
 
         this.dni = dni;

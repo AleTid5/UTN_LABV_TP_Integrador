@@ -26,7 +26,7 @@
                   <th>DNI</th>
                   <th>E-Mail</th>
                   <th>Usuario</th>
-                  <th>Monto máximo asignable</th>
+                  <th>Monto máximo para préstamo</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -37,7 +37,7 @@
                   <th>DNI</th>
                   <th>E-Mail</th>
                   <th>Usuario</th>
-                  <th>Monto máximo asignable</th>
+                  <th>Monto máximo para préstamo</th>
                   <th></th>
                 </tr>
                 </tfoot>

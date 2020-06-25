@@ -1,14 +1,13 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Factories;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode;
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCode;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SuccessCodeFactory {
-    public static String getDescription(SuccessCode successCode) throws ErrorCodeException {
+    public static String getDescription(SuccessCodeEnum successCode) throws ErrorCodeException {
         if (mapOfEntries().containsKey(successCode)) {
             return mapOfEntries().get(successCode);
         }
@@ -16,10 +15,12 @@ public abstract class SuccessCodeFactory {
         throw new ErrorCodeException("El codigo ingresado es inválido");
     }
 
-    private static Map<SuccessCode, String> mapOfEntries() {
-        Map<SuccessCode, String> map = new HashMap<>();
-        map.put(SuccessCode.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!");
-        map.put(SuccessCode.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!");
+    private static Map<SuccessCodeEnum, String> mapOfEntries() {
+        Map<SuccessCodeEnum, String> map = new HashMap<>();
+        map.put(SuccessCodeEnum.ACCOUNT_CREATED, "La cuenta ha sido creada exitosamente!");
+        map.put(SuccessCodeEnum.ACCOUNT_UPDATED, "La cuenta ha sido actualizada exitosamente!");
+        map.put(SuccessCodeEnum.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!");
+        map.put(SuccessCodeEnum.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!");
 
         return map;
     }

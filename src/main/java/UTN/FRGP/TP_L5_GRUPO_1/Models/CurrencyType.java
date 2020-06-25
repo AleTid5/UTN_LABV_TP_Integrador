@@ -20,4 +20,9 @@ public class CurrencyType {
         this.name = name;
         this.isForeignCurrency = isForeignCurrency;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

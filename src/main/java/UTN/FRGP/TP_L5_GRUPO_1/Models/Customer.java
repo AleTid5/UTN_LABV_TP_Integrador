@@ -1,6 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.User;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.UserEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 
 import javax.persistence.*;
@@ -41,11 +41,16 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
         this.setMaxLoanAmount(maxLoanAmount);
         this.setLocality(locality);
         this.setAddress(address);
+        this.setIsActive(true);
+    }
+    
+    public Customer(Integer id){
+    	super(id);
     }
 
     public void setUserName(String userName) throws UserException {
         if (userName == null || userName.length() < 5 || userName.length() > 20) {
-            throw new UserException(User.ADDRESS);
+            throw new UserException(UserEnum.ADDRESS);
         }
 
         this.userName = userName;
@@ -57,7 +62,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setGender(String gender) throws UserException {
         if (gender == null || gender.length() > 1) {
-            throw new UserException(User.GENDER);
+            throw new UserException(UserEnum.GENDER);
         }
 
         this.gender = gender;
@@ -69,7 +74,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public String parseBornDate(String bornDate) throws ParseException, UserException {
         if (bornDate == null) {
-            throw new UserException(User.BORN_DATE);
+            throw new UserException(UserEnum.BORN_DATE);
         }
 
         Date initDate = new SimpleDateFormat("MM/dd/yyyy").parse(bornDate);
@@ -78,13 +83,13 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setBornDate(String bornDate) throws ParseException, UserException {
         if (bornDate == null) {
-            throw new UserException(User.BORN_DATE);
+            throw new UserException(UserEnum.BORN_DATE);
         }
 
         Date formattedBornDate = new SimpleDateFormat("yyyy-MM-dd").parse(bornDate);
 
         if (formattedBornDate.compareTo(new Date()) > 0) {
-            throw new UserException(User.BORN_DATE);
+            throw new UserException(UserEnum.BORN_DATE);
         }
 
         this.bornDate = formattedBornDate;
@@ -100,7 +105,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setAddress(String address) throws UserException {
         if (address == null || address.length() < 5 || address.length() > 50) {
-            throw new UserException(User.ADDRESS);
+            throw new UserException(UserEnum.ADDRESS);
         }
 
         this.address = address;
@@ -112,7 +117,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setLocality(Locality locality) throws UserException {
         if (locality == null) {
-            throw new UserException(User.LOCALITY);
+            throw new UserException(UserEnum.LOCALITY);
         }
 
         this.locality = locality;
@@ -120,7 +125,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setLocality(Integer localityId) throws UserException {
         if (localityId == null) {
-            throw new UserException(User.LOCALITY);
+            throw new UserException(UserEnum.LOCALITY);
         }
 
         this.locality = new Locality(localityId);
@@ -132,7 +137,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
 
     public void setMaxLoanAmount(Integer maxLoanAmount) throws UserException {
         if (maxLoanAmount == null || maxLoanAmount < 0) {
-            throw new UserException(User.MAX_LOAN_AMOUNT);
+            throw new UserException(UserEnum.MAX_LOAN_AMOUNT);
         }
 
         this.maxLoanAmount = maxLoanAmount;

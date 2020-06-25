@@ -21,6 +21,11 @@ public class AccountType {
         this.name = name;
         this.currencyType = currencyType;
     }
+    public AccountType(int accountTypeId) {
+    	this.id=accountTypeId;
+    	this.name = null;
+        this.currencyType = null;
+    }
 
     public Integer getId() {
         return this.id;
@@ -28,5 +33,9 @@ public class AccountType {
 
     public String getName() {
         return this.name;
+    }
+
+    public CurrencyType getCurrencyType() {
+        return this.currencyType;
     }
 }

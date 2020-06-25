@@ -1,7 +1,7 @@
-<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.SuccessCodeFactory" %>
-<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCode" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum" %>
 <%@tag description="Authorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>
 <%@attribute name="scripts" fragment="true"%>
@@ -10,10 +10,10 @@
 <%
 	try {
 		if (request.getParameter("errorCode") != null)
-			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCode.valueOf(request.getParameter("errorCode"))));
+			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCodeEnum.valueOf(request.getParameter("errorCode"))));
 
 		if (request.getParameter("successCode") != null)
-			request.setAttribute("successMessage", SuccessCodeFactory.getDescription(SuccessCode.valueOf(request.getParameter("successCode"))));
+			request.setAttribute("successMessage", SuccessCodeFactory.getDescription(SuccessCodeEnum.valueOf(request.getParameter("successCode"))));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

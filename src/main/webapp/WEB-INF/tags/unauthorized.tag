@@ -1,4 +1,4 @@
-<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCode" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
 <%@tag description="Unauthorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>
@@ -8,7 +8,7 @@
 <%
 	try {
 		if (request.getParameter("errorCode") != null)
-			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCode.valueOf(request.getParameter("errorCode"))));
+			request.setAttribute("errorMessage", ErrorCodeFactory.getDescription(ErrorCodeEnum.valueOf(request.getParameter("errorCode"))));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

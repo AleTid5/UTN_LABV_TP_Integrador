@@ -3,120 +3,224 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:authorized>
-    <jsp:body>
-        <form method="POST" action="" class="form-horizontal" validate>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card ">
-                        <div class="card-header card-header-rose card-header-text">
-                            <div class="card-text">
-                                <h4 class="card-title">Agregar cuenta</h4>
-                            </div>
-                        </div>
-                        <div class="card-body ">
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">DNI</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="number" name="DNI" class="form-control" placeholder="Ingrese DNI">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Nombre</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="text" name="name" class="form-control" placeholder="Ingrese nombre">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Apellido</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="text" name="lastname" class="form-control" placeholder="Ingrese apellido">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Fecha Nacimiento</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="text" name="borndate" class="form-control datepicker" placeholder="Ingrese fecha de nacimiento">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Dirección</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="text" name="address" class="form-control" placeholder="Ingrese la dirección">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Localidad</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <select required name="location" class="selectpicker" data-style="select-with-transition">
-                                            <c:forEach var="location" items="${ locations }">
-                                                <option value="${ location.getId() }"
-                                                    ${! location.getStatus().equals("A") ? "disabled": ""}>
-                                                        ${ location.getName() }
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Provincia</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <select required name="province" class="selectpicker" data-style="select-with-transition">
-                                            <c:forEach var="province" items="${ provinces }">
-                                                <option value="${ province.getId() }"
-                                                        ${! province.getStatus().equals("A") ? "disabled": ""}>
-                                                        ${ province.getName() }
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">E-Mail</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="email" name="email" class="form-control" placeholder="Ingrese el e-mail">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">Teléfono</label>
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <input required type="number" name="phoneNumber" class="form-control" placeholder="Ingrese el teléfono">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="margin: 0 0px 10px;">
-                            <div class="row" style="width: 100%">
-                                <div class="col-2" style="padding-left: 30px;">
-                                    <a href="../teachers" class="btn btn-fill btn-dark">Cancelar</a>
-                                </div>
-                                <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
-                                    <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Finalizar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <jsp:body>
+    <form method="POST" action="" class="form-horizontal" onsubmit="return onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card ">
+            <div class="card-header card-header-rose card-header-text">
+              <div class="card-text">
+                <h4 class="card-title">Agregar Cuenta</h4>
+              </div>
             </div>
-        </form>
-    </jsp:body>
+            <div class="card-body ">
+              <ul class="nav nav-pills nav-pills-rose nav-pills-icons justify-content-center" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active show" data-toggle="tab" href="#base-info" role="tablist">
+                    <i class="material-icons">settings</i>
+                    <span class="notification pulse" id="base-info-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Información básica
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#customer-data" role="tablist">
+                    <i class="material-icons">person</i>
+                    <span class="notification pulse" id="customer-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Cliente
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#account-type" role="tablist">
+                    <i class="material-icons">work</i>
+                    <span class="notification pulse" id="account-type-error" style="
+                    display: none;
+                    position: absolute;
+                    top: 4px;
+                    border: 1px solid #fff;
+                    font-size: 9px;
+                    background: #f44336;
+                    color: #fff;
+                    min-width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    line-height: 19px;">
+                      !
+                    </span>
+                    Tipo de cuenta
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content tab-space tab-subcategories">
+                <div class="tab-pane active show" id="base-info">
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">Número de cuenta</label>
+                    <div class="col-sm-10">
+                      <div class="form-group">
+                        <input type="number" name="accountNumber" class="form-control" placeholder="Ingrese número de cuenta">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">Alias</label>
+                    <div class="col-sm-10">
+                      <div class="form-group">
+                        <input type="text" name="alias" class="form-control" placeholder="Ingrese el alias del usuario">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="customer-data">
+                  <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                      <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>E-Mail</th>
+                        <th>Usuario</th>
+                        <th>Monto máximo para préstamo</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tfoot>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>E-Mail</th>
+                        <th>Usuario</th>
+                        <th>Monto máximo para préstamo</th>
+                        <th></th>
+                      </tr>
+                      </tfoot>
+                      <tbody>
+                      <c:forEach var="customer" items="${ customers }">
+                        <tr id="customer-${ customer.id }">
+                          <td>${ customer.name }</td>
+                          <td>${ customer.lastName }</td>
+                          <td>${ customer.dni }</td>
+                          <td>${ customer.email }</td>
+                          <td>${ customer.userName }</td>
+                          <td>${ customer.maxLoanAmount }</td>
+                          <td>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="customer" value="${ customer.id }">
+                                <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="account-type">
+                  <div class="material-datatables">
+                    <table id="datatables2" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                      <thead>
+                      <tr>
+                        <th>Tipo de cuenta</th>
+                        <th>Moneda</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+                      <tfoot>
+                      <tr>
+                        <th>Tipo de cuenta</th>
+                        <th>Moneda</th>
+                        <th></th>
+                      </tr>
+                      </tfoot>
+                      <tbody>
+                      <c:forEach var="accountType" items="${ accountTypes }">
+                        <tr id="customer-${ accountType.id }">
+                          <td>${ accountType.name }</td>
+                          <td>${ accountType.currencyType }</td>
+                          <td>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="accountType" value="${ accountType.id }">
+                                <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" style="margin: 0 0px 10px;">
+              <div class="row" style="width: 100%">
+                <div class="col-2" style="padding-left: 30px;">
+                  <a href="${request.getContextPath()}/UTN_LABV_TP_Integrador/accounts" class="btn btn-fill btn-dark">Cancelar</a>
+                </div>
+                <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
+                  <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Agregar cuenta</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </jsp:body>
 </layout:authorized>
 <script>
-    md.initFormExtendedDatetimepickers();
+  function onSubmit() {
+    const validations = [];
+    validations.push(document.getElementsByName("accountNumber")[0].value !== "");
+    validations.push(document.getElementsByName("alias")[0].value !== "");
+    validations.push(Array.from(document.getElementsByName("customer")).some(input => input.checked));
+    validations.push(Array.from(document.getElementsByName("accountType")).some(input => input.checked));
+
+    const [accountNumberValidated, aliasValidated, customerValidated, accountTypeValidated] = validations;
+
+    toggleError(accountNumberValidated && aliasValidated, "base-info-error");
+    toggleError(customerValidated, "customer-error");
+    toggleError(accountTypeValidated, "account-type-error");
+
+    return ! validations.some(validation => ! validation); // Si alguna validación es falsa, no puede submitear.
+  }
+
+  const toggleError = (isValid, id) => {
+    const selector = $("#" + id);
+
+    isValid ? selector.hide("slow") : selector.fadeIn("slow");
+  }
 </script>
