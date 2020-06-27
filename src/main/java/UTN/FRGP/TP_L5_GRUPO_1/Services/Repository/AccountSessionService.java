@@ -1,7 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
-import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class AccountService {
+public abstract class AccountSessionService {
 
     @Autowired
     private static Session session;

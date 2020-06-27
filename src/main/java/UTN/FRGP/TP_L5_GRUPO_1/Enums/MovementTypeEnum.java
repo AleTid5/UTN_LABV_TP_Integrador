@@ -1,0 +1,9 @@
+package UTN.FRGP.TP_L5_GRUPO_1.Enums;
+
+public enum MovementTypeEnum {
+    TRANSFER_OWN_ACCOUNT,
+    TRANSFER_EXTERNAL_ACCOUNT,
+    BUY_DOLLARS,
+    SELL_DOLLARS,
+    TRANSFER_DOLLARS,
+}

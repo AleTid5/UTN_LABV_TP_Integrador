@@ -29,7 +29,7 @@ public class Loan {
     private Integer feesToPay;
 
     @Column(nullable = false)
-    private Integer feeValue;
+    private Double feeValue;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
@@ -42,17 +42,19 @@ public class Loan {
         this.setBankAdministrator(null);
         this.setIsApproved(false);
         this.setPayedFees(0);
+        this.creationDate = new Date();
     }
 
-    public Loan(Account account, Integer amount, Integer feesToPay, Integer feeValue, String endDate) throws ParseException {
+    public Loan(Account account, Integer amount, Integer feesToPay, String endDate) throws ParseException {
         this.setAccount(account);
         this.setAmount(amount);
         this.setFeesToPay(feesToPay);
-        this.setFeeValue(feeValue);
+        this.setFeeValue((double) (amount / feesToPay));
         this.setPayedFees(0);
         this.setBankAdministrator(null);
         this.setEndDate(endDate);
         this.setIsApproved(false);
+        this.creationDate = new Date();
     }
 
     public Account getAccount() {
@@ -79,11 +81,11 @@ public class Loan {
         this.feesToPay = feesToPay;
     }
 
-    public Integer getFeeValue() {
+    public Double getFeeValue() {
         return feeValue;
     }
 
-    public void setFeeValue(Integer feeValue) {
+    public void setFeeValue(Double feeValue) {
         this.feeValue = feeValue;
     }
 

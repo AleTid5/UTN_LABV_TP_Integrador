@@ -43,14 +43,18 @@ public class User {
         this.creationDate = new Date();
     }
 
-    public User(Integer dni, String name, String lastName, String email, String password) throws UserException {
+    public User(Integer dni, String name, String lastName, String email) throws UserException {
+        this();
         this.setDni(dni);
         this.setName(name);
         this.setLastName(lastName);
         this.setEmail(email);
-        this.setPassword(password);
         this.setIsActive(true);
-        this.creationDate = new Date();
+    }
+
+    public User(Integer dni, String name, String lastName, String email, String password) throws UserException {
+        this(dni, name, lastName, email);
+        this.setPassword(password);
     }
     
     public User(Integer id){

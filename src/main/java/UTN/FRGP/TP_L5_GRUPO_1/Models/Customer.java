@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
-    @Column(unique = true, length = 20)
+    @Column(unique = true, length = 30)
     private String userName;
 
     private Integer maxLoanAmount;
@@ -28,9 +28,7 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
     @Column(length = 1)
     private String gender;
 
-    public Customer() {
-        this.setIsActive(true);
-    }
+    public Customer() {}
 
     public Customer(Integer dni, String name, String lastName, String email, String password, String userName, Integer maxLoanAmount,
                     Locality locality, String address, String bornDate, String gender) throws ParseException, UserException {
@@ -41,7 +39,6 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
         this.setMaxLoanAmount(maxLoanAmount);
         this.setLocality(locality);
         this.setAddress(address);
-        this.setIsActive(true);
     }
     
     public Customer(Integer id){
@@ -49,8 +46,8 @@ public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
     }
 
     public void setUserName(String userName) throws UserException {
-        if (userName == null || userName.length() < 5 || userName.length() > 20) {
-            throw new UserException(UserEnum.ADDRESS);
+        if (userName == null || userName.length() < 5 || userName.length() > 30) {
+            throw new UserException(UserEnum.USERNAME);
         }
 
         this.userName = userName;

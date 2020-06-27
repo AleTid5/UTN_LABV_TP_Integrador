@@ -72,6 +72,8 @@
 <script src="<c:url value="/assets/js/plugins/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/assets/js/components/datatable.js" />"></script>
 <script>
+  window.history.replaceState({}, document.title, "/UTN_LABV_TP_Integrador/customers")
+
   onRemove = id => {
     Swal.fire({
       title: '¿Está seguro de eliminar al usuario?',

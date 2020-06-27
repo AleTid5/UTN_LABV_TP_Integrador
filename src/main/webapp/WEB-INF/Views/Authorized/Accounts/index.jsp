@@ -51,7 +51,7 @@
                       <a href="accounts/edit/${ account.CBU }" class="btn btn-link btn-warning btn-just-icon edit">
                         <i class="material-icons">dvr</i>
                       </a>
-                      <button onclick="onRemove(${ account.CBU })" class="btn btn-link btn-danger btn-just-icon remove">
+                      <button onclick="onRemove('${ account.CBU }')" class="btn btn-link btn-danger btn-just-icon remove">
                         <i class="material-icons">close</i>
                       </button>
                     </td>
@@ -69,6 +69,8 @@
 <script src="<c:url value="/assets/js/plugins/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/assets/js/components/datatable.js" />"></script>
 <script>
+  window.history.replaceState({}, document.title, "/UTN_LABV_TP_Integrador/accounts")
+
   onRemove = CBU => {
     Swal.fire({
       title: '¿Está seguro de eliminar la cuenta?',

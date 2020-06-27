@@ -1,9 +1,12 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Listeners.MovementListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@EntityListeners(MovementListener.class)
 public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,10 +19,6 @@ public class Movement {
     @OneToOne
     @JoinColumn
     private Account destinationAccount;
-
-    @OneToOne
-    @JoinColumn
-    private CurrencyType currencyType;
 
     @OneToOne
     @JoinColumn
@@ -37,13 +36,15 @@ public class Movement {
 
     public Movement() {}
 
-    public Movement(Account originAccount, Account destinationAccount, CurrencyType currencyType,
-                    MovementType movementType, Integer amount, String concept) {
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount) {
         this.setOriginAccount(originAccount);
         this.setDestinationAccount(destinationAccount);
-        this.setCurrencyType(currencyType);
         this.setMovementType(movementType);
         this.setAmount(amount);
+    }
+
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount, String concept) {
+        this(originAccount, destinationAccount, movementType, amount);
         this.setConcept(concept);
     }
 
@@ -61,14 +62,6 @@ public class Movement {
 
     public void setDestinationAccount(Account destinationAccount) {
         this.destinationAccount = destinationAccount;
-    }
-
-    public CurrencyType getCurrencyType() {
-        return currencyType;
-    }
-
-    public void setCurrencyType(CurrencyType currencyType) {
-        this.currencyType = currencyType;
     }
 
     public MovementType getMovementType() {

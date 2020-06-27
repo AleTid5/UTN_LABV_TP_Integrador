@@ -1,5 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,17 +26,17 @@ public class MovementType {
 
     public MovementType() {}
 
-    public MovementType(String name, CurrencyType currencyType) {
-        this.setName(name);
+    public MovementType(MovementTypeEnum movementTypeEnum, CurrencyType currencyType) {
+        this.setMovementType(movementTypeEnum);
         this.setCurrencyType(currencyType);
     }
 
-    public String getName() {
-        return name;
+    public MovementTypeEnum getName() {
+        return MovementTypeEnum.valueOf(this.name);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMovementType(MovementTypeEnum movementTypeEnum) {
+        this.name = movementTypeEnum.toString();
     }
 
     public CurrencyType getCurrencyType() {
