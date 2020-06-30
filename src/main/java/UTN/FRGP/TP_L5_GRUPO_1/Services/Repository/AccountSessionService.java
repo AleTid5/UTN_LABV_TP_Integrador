@@ -1,5 +1,8 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
+import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class AccountSessionService {
+public abstract class AccountSessionService implements iAccount {
 
     @Autowired
     private static Session session;
@@ -24,9 +27,8 @@ public abstract class AccountSessionService {
         try {
             session = SessionService.getSession();
             accounts = session.createCriteria(Account.class).add(Restrictions.eq("isActive", true)).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return accounts;
@@ -46,10 +48,25 @@ public abstract class AccountSessionService {
         return account;
     }
 
+    public static void canUserHaveAnotherAccount(Account account) throws AccountException {
+        try {
+            session = SessionService.getSession();
+            accounts = session.createCriteria(Account.class)
+                    .add(Restrictions.eq("customer.id", account.getCustomer().getId()))
+                    .add(Restrictions.eq("isActive", true))
+                    .list();
+
+            if (MAX_ACCOUNTS_ALLOWED.equals(accounts.size())) {
+                throw new AccountException(AccountEnum.CUSTOMER);
+            }
+        } finally {
+            SessionService.commitSession(session);
+        }
+    }
+
     public static void saveAccount(Account account) {
         try {
             session = SessionService.getSession();
-            // ToDo: Agregar validación de 4 cuentas!
             session.save(account);
             SessionService.commitSession(session);
         } catch (Exception e) {

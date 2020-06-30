@@ -1,6 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Enums;
 
 public enum ErrorCodeEnum {
+    ACCOUNTS_MAX_LIMIT,
 	DUPLICATED_ACCOUNT,
     DUPLICATED_CUSTOMER,
     INVALID_ID,

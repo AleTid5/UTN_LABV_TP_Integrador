@@ -12,9 +12,9 @@
 		UTN FRGP </a>
 	</div>
 	<div class="sidebar-wrapper">
-		<div class="user">
+		<div class="user" style="display: flex;justify-content: center;">
 			<div class="photo">
-				<img src="<c:url value="/assets/img/default-avatar.png" />" />
+				<img src="https://lh3.googleusercontent.com/proxy/LFGOHR1CHpRQCzBEmipbFmmDjI-x-p7rKDaDKnx7OQz3BgyG7hEhxyVCCqDLZKh6zRHh4Ic2rhauJTHC2pgikKAXtVi0MArRQsOAvr33dB_xaeZCjIMhmw" />
 			</div>
 			<div class="user-info">
 				<a data-toggle="collapse" class="username">
@@ -24,78 +24,50 @@
 		</div>
 		<ul class="nav">
 			<c:if test="true">
-				<li class="nav-item ${ currentLink.equals("/dashboard") ? "active" : ""}">
-					<a class="nav-link" href="${ mainPath }/dashboard"> <i class="material-icons">dashboard</i>
-						<p>Dashboard</p>
+				<li class="nav-item disabled">
+					<a class="nav-link" href="${ mainPath }/dashboard"> <i class="material-icons" style="color: #616161">dashboard</i>
+						<p style="color: #616161">Dashboard (Deshabilitado)</p>
 					</a>
 				</li>
 				<li class="nav-item ${ currentLink.contains("/students") ? "active" : ""}">
-					<a class="nav-link" data-toggle="collapse" href="#students"> <i class="material-icons">accessibility_new</i>
+					<a class="nav-link" data-toggle="collapse" href="#students"> <i class="material-icons">person</i>
 						<p>
-							Ver Alumnos <b class="caret"></b>
+							Clientes <b class="caret"></b>
 						</p>
 					</a>
 					<div class="collapse ${ currentLink.contains("/students") ? "show" : ""}" id="students">
 						<ul class="nav">
 							<li class="nav-item ${ currentLink.equals("/students") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/students">
+								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers">
 									<span class="sidebar-mini">L</span> <span class="sidebar-normal">Listado</span>
 								</a>
 							</li>
 							<li class="nav-item ${ currentLink.equals("/students/add") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/students/add">
-									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar Alumno</span>
+								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers/add">
+									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar cliente</span>
 								</a>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li class="nav-item ${ currentLink.contains("/teachers") ? "active" : ""}">
-					<a class="nav-link" data-toggle="collapse" href="#teachers"> <i class="material-icons">person</i>
-						<p>Ver Profesores <b class="caret"></b></p>
+					<a class="nav-link" data-toggle="collapse" href="#teachers"> <i class="material-icons">card_travel</i>
+						<p>Cuentas <b class="caret"></b></p>
 					</a>
 					<div class="collapse ${ currentLink.contains("/teachers") ? "show" : ""}" id="teachers">
 						<ul class="nav">
 							<li class="nav-item ${ currentLink.equals("/teachers") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/teachers">
+								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/accounts">
 									<span class="sidebar-mini">L</span> <span class="sidebar-normal">Listado</span>
 								</a>
 							</li>
 							<li class="nav-item ${ currentLink.equals("/teachers/add") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/teachers/add">
-									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar Profesor</span>
+								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/accounts/add">
+									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar cuenta</span>
 								</a>
 							</li>
 						</ul>
 					</div>
-				</li>
-				<li class="nav-item ${ currentLink.contains("/courses") ? "active" : ""}">
-					<a class="nav-link" data-toggle="collapse" href="#courses"> <i class="material-icons">school</i>
-						<p>
-							Ver Cursos <b class="caret"></b>
-						</p>
-					</a>
-					<div class="collapse ${ currentLink.contains("/courses") ? "show" : ""}" id="courses">
-						<ul class="nav">
-							<li class="nav-item ${ currentLink.equals("/courses") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/courses">
-									<span class="sidebar-mini">L</span> <span class="sidebar-normal">Listado</span>
-								</a>
-							</li>
-							<li class="nav-item ${ currentLink.equals("/courses/add") ? "active" : ""}">
-								<a class="nav-link" href="${ mainPath }/courses/add">
-									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar Curso</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-			</c:if>
-			<c:if test="true">
-				<li class="nav-item ${ currentLink.contains("/courses") ? "active" : ""}">
-					<a class="nav-link" href="${ mainPath }/courses"> <i class="material-icons">school</i>
-						<p>Ver Cursos</p>
-					</a>
 				</li>
 			</c:if>
 		</ul>

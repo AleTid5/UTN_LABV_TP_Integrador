@@ -17,6 +17,7 @@ public abstract class ErrorCodeFactory {
 
     private static Map<ErrorCodeEnum, String> mapOfEntries() {
         Map<ErrorCodeEnum, String> map = new HashMap<>();
+        map.put(ErrorCodeEnum.ACCOUNTS_MAX_LIMIT, "El cliente ha alcanzado el máximo permitido de cuentas.");
         map.put(ErrorCodeEnum.DUPLICATED_ACCOUNT, "La cuenta ingresada tiene datos duplicados con otra cuenta (CBU, número de cuenta o Nombre de usuario)");
         map.put(ErrorCodeEnum.DUPLICATED_CUSTOMER, "El cliente ingresado tiene datos duplicados con otro cliente (DNI, E-Mail o nombre de usuario)");
         map.put(ErrorCodeEnum.INVALID_ID, "El Id del usuario es inválido.");

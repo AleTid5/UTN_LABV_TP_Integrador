@@ -3,6 +3,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
+import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountSessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountTypeService;
@@ -53,10 +54,14 @@ public class AccountController {
 
         try {
             Account account = Helper.buildAccountFromRequest(request);
+            AccountSessionService.canUserHaveAnotherAccount(account);
             AccountSessionService.saveAccount(account);
             parameters.put("successCode", SuccessCodeEnum.ACCOUNT_CREATED);
         } catch (ConstraintViolationException e) {
             parameters.put("errorCode", ErrorCodeEnum.DUPLICATED_ACCOUNT);
+            url += "/add";
+        } catch (AccountException e) {
+            parameters.put("errorCode", ErrorCodeEnum.ACCOUNTS_MAX_LIMIT);
             url += "/add";
         } catch (Exception e) {
             e.printStackTrace();

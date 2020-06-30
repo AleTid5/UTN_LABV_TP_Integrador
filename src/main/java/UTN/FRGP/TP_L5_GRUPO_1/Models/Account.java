@@ -82,7 +82,7 @@ public class Account {
 	}
 
 	public void setAlias(String alias) {
-		this.alias = alias;
+		this.alias = alias.toUpperCase();
 	}
 
 	public Customer getCustomer() {

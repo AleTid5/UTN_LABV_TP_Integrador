@@ -86,7 +86,7 @@
                       <option value="" selected>Seleccione un país</option>
                       <c:forEach var="country" items="${ countries }">
                         <option value="${ country.id }">
-                        ${ country.name }
+                            ${ country.name }
                         </option>
                       </c:forEach>
                     </select>
@@ -185,7 +185,7 @@
     $("#locality").removeClass("hidden");
 
     $.ajax({
-      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/localities/" + $('[name="country"]').val(),
+      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/localities/" + $('[name="province"]').val(),
       success: localities => {
         if (! localities || ! localities.status) return;
 
