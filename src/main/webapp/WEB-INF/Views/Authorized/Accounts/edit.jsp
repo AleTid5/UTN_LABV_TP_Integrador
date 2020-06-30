@@ -228,7 +228,7 @@
         return alias.join(".").toUpperCase();
     }
 
-    const getRandomNumber = (maxValue = 1000000000) => Math.floor(Math.random() * (maxValue - 0));
+    const getRandomNumber = (maxValue = 1000000000) => Math.floor(Math.random() * maxValue);
 
     function onSubmit() {
         const validations = [];
