@@ -147,7 +147,7 @@
             <div class="card-footer" style="margin: 0 0px 10px;">
               <div class="row" style="width: 100%">
                 <div class="col-2" style="padding-left: 30px;">
-                  <a href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers" class="btn btn-fill btn-dark">Cancelar</a>
+                  <a href="${request.getContextPath()}/TP_L5_GRUPO_1/customers" class="btn btn-fill btn-dark">Cancelar</a>
                 </div>
                 <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
                   <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Finalizar</button>
@@ -169,7 +169,7 @@
     $("#locality").addClass("hidden");
 
     $.ajax({
-      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/provinces/" + $('[name="country"]').val(),
+      url: "${request.getContextPath()}/TP_L5_GRUPO_1/locations/provinces/" + $('[name="country"]').val(),
       success: provinces => {
         if (! provinces || ! provinces.status) return;
 
@@ -185,7 +185,7 @@
     $("#locality").removeClass("hidden");
 
     $.ajax({
-      url: "${request.getContextPath()}/UTN_LABV_TP_Integrador/locations/localities/" + $('[name="province"]').val(),
+      url: "${request.getContextPath()}/TP_L5_GRUPO_1/locations/localities/" + $('[name="province"]').val(),
       success: localities => {
         if (! localities || ! localities.status) return;
 

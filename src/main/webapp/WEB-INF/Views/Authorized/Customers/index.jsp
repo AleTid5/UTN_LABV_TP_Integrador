@@ -72,7 +72,7 @@
 <script src="<c:url value="/assets/js/plugins/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/assets/js/components/datatable.js" />"></script>
 <script>
-  window.history.replaceState({}, document.title, "/UTN_LABV_TP_Integrador/customers")
+  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/customers")
 
   onRemove = id => {
     Swal.fire({
@@ -87,7 +87,7 @@
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: '${request.getContextPath()}/UTN_LABV_TP_Integrador/customers/delete/' + id,
+          url: '${request.getContextPath()}/TP_L5_GRUPO_1/customers/delete/' + id,
           type: 'POST',
           data: {
             id

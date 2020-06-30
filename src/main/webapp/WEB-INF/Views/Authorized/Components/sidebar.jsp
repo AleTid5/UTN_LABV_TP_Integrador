@@ -38,12 +38,12 @@
 					<div class="collapse ${ currentLink.contains("/students") ? "show" : ""}" id="students">
 						<ul class="nav">
 							<li class="nav-item ${ currentLink.equals("/students") ? "active" : ""}">
-								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers">
+								<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/customers">
 									<span class="sidebar-mini">L</span> <span class="sidebar-normal">Listado</span>
 								</a>
 							</li>
 							<li class="nav-item ${ currentLink.equals("/students/add") ? "active" : ""}">
-								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/customers/add">
+								<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/customers/add">
 									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar cliente</span>
 								</a>
 							</li>
@@ -57,12 +57,12 @@
 					<div class="collapse ${ currentLink.contains("/teachers") ? "show" : ""}" id="teachers">
 						<ul class="nav">
 							<li class="nav-item ${ currentLink.equals("/teachers") ? "active" : ""}">
-								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/accounts">
+								<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/accounts">
 									<span class="sidebar-mini">L</span> <span class="sidebar-normal">Listado</span>
 								</a>
 							</li>
 							<li class="nav-item ${ currentLink.equals("/teachers/add") ? "active" : ""}">
-								<a class="nav-link" href="${request.getContextPath()}/UTN_LABV_TP_Integrador/accounts/add">
+								<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/accounts/add">
 									<span class="sidebar-mini">A</span> <span class="sidebar-normal">Agregar cuenta</span>
 								</a>
 							</li>
