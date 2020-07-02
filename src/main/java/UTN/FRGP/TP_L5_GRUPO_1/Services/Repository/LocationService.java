@@ -6,22 +6,32 @@ import UTN.FRGP.TP_L5_GRUPO_1.Models.Province;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public abstract class LocationService {
-    public static List<Country> getCountries() {
-        List<Country> countries = null;
-        Session session = null;
 
+    @Autowired
+    private static Session session;
+
+    @Autowired
+    private static List<Country> countries;
+
+    @Autowired
+    private static List<Province> provinces;
+
+    @Autowired
+    private static List<Locality> localities;
+
+    public static List<Country> getCountries() {
         try {
             session = SessionService.getSession();
             countries = session.createCriteria(Country.class).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
         
         return countries;
@@ -32,15 +42,11 @@ public abstract class LocationService {
     }
 
     public static List<Province> getProvinces(Integer countryId) {
-        List<Province> provinces = null;
-        Session session = null;
-
         try {
             session = SessionService.getSession();
             provinces = session.createCriteria(Province.class).add(Restrictions.eq("country.id", countryId)).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return provinces;
@@ -51,15 +57,11 @@ public abstract class LocationService {
     }
 
     public static List<Locality> getLocalities(Integer provinceId) {
-        List<Locality> localities = null;
-        Session session = null;
-
         try {
             session = SessionService.getSession();
             localities = session.createCriteria(Locality.class).add(Restrictions.eq("province.id", provinceId)).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return localities;

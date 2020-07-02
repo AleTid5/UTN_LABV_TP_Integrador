@@ -69,7 +69,7 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
-    public String editCustomer(@PathVariable("id") int userId, ModelMap modelMap) {
+    public String editCustomer(@PathVariable("id") Integer userId, ModelMap modelMap) {
         Customer customer = CustomerService.getCustomerById(userId);
         modelMap.addAttribute("customer", customer);
         modelMap.addAttribute("countries", LocationService.getCountries());
@@ -80,7 +80,7 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
-    public void updateCustomer(@PathVariable("id") int userId, HttpServletResponse response, HttpServletRequest request) {
+    public void updateCustomer(@PathVariable("id") Integer userId, HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
         String url = "customers";
 
@@ -105,7 +105,7 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteCustomer(@PathVariable("id") int userId) {
+    public String deleteCustomer(@PathVariable("id") Integer userId) {
         return new Gson().toJson(CustomerService.removeCustomer(CustomerService.getCustomerById(userId)));
     }
 }

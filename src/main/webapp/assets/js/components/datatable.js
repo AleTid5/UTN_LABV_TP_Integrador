@@ -16,6 +16,5 @@ $(document).ready(function() {
 
     $('#datatables').DataTable(config);
     $('#datatables2').DataTable(config);
-    $('#teachers-datatable').DataTable(config);
-    $('#students-datatable').DataTable(config);
+    $('#datatables3').DataTable(config);
 });

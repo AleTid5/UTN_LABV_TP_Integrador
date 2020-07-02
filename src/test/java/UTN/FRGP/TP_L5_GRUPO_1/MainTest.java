@@ -1,8 +1,8 @@
 package UTN.FRGP.TP_L5_GRUPO_1;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.

@@ -1,14 +1,11 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import UTN.FRGP.TP_L5_GRUPO_1.Models.AccountType;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
-import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public abstract class AccountTypeService {
 
@@ -22,26 +19,10 @@ public abstract class AccountTypeService {
         try {
             session = SessionService.getSession();
             accountTypes = session.createCriteria(AccountType.class).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return accountTypes;
     }
-
-    public static AccountType getAccountById(Integer accountTypesId) { ;
-        AccountType accountTypes = null;
-
-        try {
-            session = SessionService.getSession();
-            accountTypes = (AccountType) session.createCriteria(AccountType.class).uniqueResult();
-            SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
-        }
-
-        return accountTypes;
-    }
-
 }

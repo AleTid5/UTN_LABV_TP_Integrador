@@ -1,11 +1,9 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
-import javax.persistence.*;
-
-
-import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Random;
 

@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CustomerTest {
     @Test

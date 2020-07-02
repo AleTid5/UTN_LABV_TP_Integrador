@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class Customer extends UTN.FRGP.TP_L5_GRUPO_1.Models.User {
+public class Customer extends User {
     @Column(unique = true, length = 30)
     private String userName;
 

@@ -22,7 +22,6 @@ public class CurrencyValue {
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @Column(nullable = true)
     private Date endDate;
 
     public CurrencyValue() {}

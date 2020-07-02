@@ -8,6 +8,10 @@ import javax.persistence.Entity;
 public class BankAdministrator extends User {
     public BankAdministrator() {}
 
+    public BankAdministrator(Integer id) throws UserException {
+        super.setId(id);
+    }
+
     public BankAdministrator(Integer dni, String name, String lastName, String email) throws UserException {
         super(dni, name, lastName, email);
         this.setPassword(Integer.toString(dni));

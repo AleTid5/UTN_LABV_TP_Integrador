@@ -16,7 +16,7 @@ public class Loan {
     private Account account;
 
     @OneToOne
-    @JoinColumn(nullable = true)
+    @JoinColumn
     private BankAdministrator bankAdministrator;
 
     @Column(nullable = false)
@@ -32,7 +32,7 @@ public class Loan {
     private Double feeValue;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private final Date creationDate;
 
     private Boolean isApproved;
 
@@ -46,15 +46,16 @@ public class Loan {
     }
 
     public Loan(Account account, Integer amount, Integer feesToPay, String endDate) throws ParseException {
+        this();
         this.setAccount(account);
         this.setAmount(amount);
         this.setFeesToPay(feesToPay);
         this.setFeeValue((double) (amount / feesToPay));
-        this.setPayedFees(0);
-        this.setBankAdministrator(null);
         this.setEndDate(endDate);
-        this.setIsApproved(false);
-        this.creationDate = new Date();
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Account getAccount() {
@@ -119,5 +120,9 @@ public class Loan {
 
     public Boolean getIsApproved() {
         return this.isApproved;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 }

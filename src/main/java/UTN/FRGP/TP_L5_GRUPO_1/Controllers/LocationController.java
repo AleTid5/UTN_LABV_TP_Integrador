@@ -16,13 +16,13 @@ public class LocationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/provinces/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String provinceList(@PathVariable("id") int provinceId) {
+    public String provinceList(@PathVariable("id") Integer provinceId) {
         return new Gson().toJson(new JsonResponse(LocationService.getProvinces(provinceId)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/localities/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String localityList(@PathVariable("id") int localityId) {
+    public String localityList(@PathVariable("id") Integer localityId) {
         return new Gson().toJson(new JsonResponse(LocationService.getLocalities(localityId)));
     }
 }

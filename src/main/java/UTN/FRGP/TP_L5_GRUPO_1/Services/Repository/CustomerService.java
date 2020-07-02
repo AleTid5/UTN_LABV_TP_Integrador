@@ -23,9 +23,8 @@ public abstract class CustomerService {
         try {
             session = SessionService.getSession();
             customers = session.createCriteria(Customer.class).add(Restrictions.eq("isActive", true)).list();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
         
         return customers;
@@ -37,9 +36,8 @@ public abstract class CustomerService {
         try {
             session = SessionService.getSession();
             customer = (Customer) session.createCriteria(Customer.class).add(Restrictions.eq("id", userId)).uniqueResult();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return customer;

@@ -1,12 +1,9 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Seeders;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class Seeder {
@@ -15,7 +12,7 @@ public abstract class Seeder {
     }
 
     /**
-     * This method hydrates the database using the Reflection Pattern provided by "burningwave" library.
+     * This method hydrates the database using the Reflection Pattern.
      */
     public static void plant() {
         Session session = SessionService.getSession();

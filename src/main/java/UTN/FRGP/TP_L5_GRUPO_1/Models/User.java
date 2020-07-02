@@ -58,7 +58,7 @@ public class User {
     }
     
     public User(Integer id){
-    	this.id=id;
+    	this.id = id;
     }
 
     public void setId(Integer id) throws UserException {

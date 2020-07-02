@@ -6,7 +6,6 @@ import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class AccountSessionService implements iAccount {
+public abstract class AccountService implements iAccount {
 
     @Autowired
     private static Session session;
@@ -35,14 +34,13 @@ public abstract class AccountSessionService implements iAccount {
     }
 
     public static Account getAccountByCBU(String accountCBU) { ;
-        Account account = null;
+        Account account;
 
         try {
             session = SessionService.getSession();
             account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("CBU", accountCBU)).uniqueResult();
+        } finally {
             SessionService.commitSession(session);
-        } catch (Exception e) {
-            SessionService.rollbackSession(session);
         }
 
         return account;
