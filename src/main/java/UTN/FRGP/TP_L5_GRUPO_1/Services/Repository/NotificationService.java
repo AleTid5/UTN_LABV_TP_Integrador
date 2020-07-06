@@ -3,6 +3,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Notification;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.User;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.EmailService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -25,6 +26,7 @@ public abstract class NotificationService {
             session = SessionService.getSession();
             session.save(new Notification(user, message));
             SessionService.commitSession(session);
+            EmailService.sendEmail(user.getEmail(), message);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
             e.printStackTrace();

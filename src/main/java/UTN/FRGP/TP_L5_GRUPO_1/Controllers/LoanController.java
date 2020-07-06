@@ -26,12 +26,12 @@ public class LoanController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String loanList(ModelMap modelMap, HttpServletRequest request) {
-        if (request.getSession().getAttribute("user") instanceof BankAdministrator) {
+        if ((Boolean) request.getSession().getAttribute("isAdministrator")) {
             this.hydrateLoans(modelMap);
             return "/Authorized/Loans/index";
         }
 
-        this.hydrateLoans(modelMap, 1);
+        this.hydrateLoans(modelMap, (Integer) request.getSession().getAttribute("id"));
         return "/Authorized/Loans/customerIndex";
     }
 

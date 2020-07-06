@@ -4,6 +4,9 @@
 
 <layout:authorized>
   <jsp:body>
+    <div class="modal" id="loading" style="display: none">
+      <div class="loader"></div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="card ">
@@ -40,6 +43,7 @@
                     <thead>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -49,6 +53,7 @@
                     <tfoot>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -59,6 +64,7 @@
                     <c:forEach var="loan" items="${ unseenLoans }">
                       <tr id="loan-${ loan.id }">
                         <td>${ loan.account.accountType.name }</td>
+                        <td>${ loan.account.customer.lastName }, ${ loan.account.customer.name } (${ loan.account.customer.email })</td>
                         <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
                         <td>$${ loan.feeValue }</td>
@@ -82,6 +88,7 @@
                     <thead>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -92,6 +99,7 @@
                     <tfoot>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -103,6 +111,7 @@
                     <c:forEach var="loan" items="${ approvedLoans }">
                       <tr>
                         <td>${ loan.account.accountType.name }</td>
+                        <td>${ loan.account.customer.lastName }, ${ loan.account.customer.name } (${ loan.account.customer.email })</td>
                         <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
                         <td>$${ loan.feeValue }</td>
@@ -120,6 +129,7 @@
                     <thead>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -129,6 +139,7 @@
                     <tfoot>
                     <tr>
                       <th>Cuenta a depositar</th>
+                      <th>Cliente</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -139,6 +150,7 @@
                     <c:forEach var="loan" items="${ rejectedLoans }">
                       <tr>
                         <td>${ loan.account.accountType.name }</td>
+                        <td>${ loan.account.customer.lastName }, ${ loan.account.customer.name } (${ loan.account.customer.email })</td>
                         <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
                         <td>$${ loan.feeValue }</td>
@@ -171,10 +183,12 @@
       confirmButtonText: '¡Si, quiero aprobarlo!'
     }).then((result) => {
       if (result.value) {
+        $("#loading").css("display", "flex");
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/loans/approve/' + id,
           type: 'POST',
           success: function (data) {
+            $("#loading").hide();
             return data && data.status ? handleSuccessApprove(id) : handleError();
           }
         });
@@ -194,10 +208,12 @@
       confirmButtonText: '¡Si, recházalo!'
     }).then((result) => {
       if (result.value) {
+        $("#loading").css("display", "flex");
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/loans/reject/' + id,
           type: 'POST',
           success: function (data) {
+            $("#loading").hide();
             return data && data.status ? handleSuccessReject(id) : handleError();
           }
         });
@@ -206,29 +222,29 @@
   };
 
   const handleSuccessApprove = id => {
-    const [accountType, amount, fees, feesValue] = $('#loan-' + id)[0].children;
+    const [accountType, customer, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
-    $('#datatables2').DataTable().row.add([accountType.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "0", "lperisich@bank.com"]).draw();
+    $('#datatables2').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "0", "${ request.getSession().getAttribute("email") }"]).draw();
 
     Swal.fire({
       icon: 'success',
       title: '¡Aprobado!',
-      text: 'El cliente ha sido eliminado exitosamente.',
+      text: 'El préstamos ha sido aprobado exitosamente.',
       confirmButtonColor: '#52af50',
     })
   };
 
   const handleSuccessReject = id => {
-    const [accountType, amount, fees, feesValue] = $('#loan-' + id)[0].children;
+    const [accountType, customer, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
-    $('#datatables3').DataTable().row.add([accountType.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "lperisich@bank.com"]).draw();
+    $('#datatables3').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "${ request.getSession().getAttribute("email") }"]).draw();
 
     Swal.fire({
       icon: 'success',
       title: '¡Rechazado!',
-      text: 'El cliente ha sido eliminado exitosamente.',
+      text: 'El préstamos ha sido rechazado exitosamente.',
       confirmButtonColor: '#52af50',
     })
   };

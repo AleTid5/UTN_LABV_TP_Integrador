@@ -271,6 +271,12 @@
       <version>2.2.2</version>
       <scope>compile</scope>
     </dependency>
+    <!--  E-Mail sender -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
   </dependencies>
 
   <build>
