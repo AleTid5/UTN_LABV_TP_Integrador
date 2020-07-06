@@ -6,7 +6,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SuccessCodeFactory {
+public class SuccessCodeFactory {
     public static String getDescription(SuccessCodeEnum successCode) throws ErrorCodeException {
         if (mapOfEntries().containsKey(successCode)) {
             return mapOfEntries().get(successCode);

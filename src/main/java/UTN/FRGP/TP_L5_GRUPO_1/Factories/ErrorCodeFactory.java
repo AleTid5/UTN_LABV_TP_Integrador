@@ -6,7 +6,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ErrorCodeFactory {
+public class ErrorCodeFactory {
     public static String getDescription(ErrorCodeEnum errorCode) throws ErrorCodeException {
         if (mapOfEntries().containsKey(errorCode)) {
             return mapOfEntries().get(errorCode);
@@ -20,6 +20,7 @@ public abstract class ErrorCodeFactory {
         map.put(ErrorCodeEnum.ACCOUNTS_MAX_LIMIT, "El cliente ha alcanzado el máximo permitido de cuentas.");
         map.put(ErrorCodeEnum.DUPLICATED_ACCOUNT, "La cuenta ingresada tiene datos duplicados con otra cuenta (CBU, número de cuenta o Nombre de usuario)");
         map.put(ErrorCodeEnum.DUPLICATED_CUSTOMER, "El cliente ingresado tiene datos duplicados con otro cliente (DNI, E-Mail o nombre de usuario)");
+        map.put(ErrorCodeEnum.INVALID_CREDENTIALS, "Las credenciales son inválidas.");
         map.put(ErrorCodeEnum.INVALID_ID, "El Id del usuario es inválido.");
         map.put(ErrorCodeEnum.INVALID_DNI, "La información del DNI del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_NAME, "La información del nombre del cliente es inválido.");
@@ -30,6 +31,7 @@ public abstract class ErrorCodeFactory {
         map.put(ErrorCodeEnum.INVALID_LOCALITY, "La información de la localidad del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_ADDRESS, "La información del domicilio del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_GENDER, "El género del cliente es inválido.");
+        map.put(ErrorCodeEnum.MISSING_DATA, "Hay datos faltantes.");
 
         return map;
     }

@@ -110,12 +110,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        try {
-            BigInteger number = new BigInteger(1, MessageDigest.getInstance("MD5").digest(password.getBytes()));
-            this.password = number.toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            LoggerService.log(e.getMessage());
-        }
+        this.password = User.getHashedPassword(password);
     }
 
     public String getPassword() {
@@ -132,5 +127,18 @@ public class User {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public static String getHashedPassword(String password) {
+        String hashedPassword = null;
+
+        try {
+            BigInteger number = new BigInteger(1, MessageDigest.getInstance("MD5").digest(password.getBytes()));
+            hashedPassword = number.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            LoggerService.log(e.getMessage());
+        }
+
+        return hashedPassword;
     }
 }

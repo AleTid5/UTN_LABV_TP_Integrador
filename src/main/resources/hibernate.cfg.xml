@@ -23,6 +23,7 @@
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Log"/>
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Movement"/>
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.MovementType"/>
+        <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Notification"/>
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.Province"/>
         <mapping class="UTN.FRGP.TP_L5_GRUPO_1.Models.User"/>
     </session-factory>

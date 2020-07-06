@@ -9,12 +9,12 @@
           <h4 class="card-title">Iniciar sesión</h4>
         </div>
         <div class="card-body">
-            <div class="alert alert-info ${empty error ? "hidden" : null}">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="material-icons">close</i>
-              </button>
-              <span>${ error }</span>
-            </div>
+          <div class="alert alert-info ${empty error ? "hidden" : null}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            <span>${ error }</span>
+          </div>
           <p class="card-description text-center">Ingrese sus credenciales</p>
           <span class="bmd-form-group">
                     <div class="input-group">
@@ -23,8 +23,7 @@
                           <i class="material-icons">email</i>
                         </span>
                       </div>
-                      <input type="email" name="email" class="form-control"
-                             placeholder="Email...">
+                      <input required type="email" name="email" class="form-control" placeholder="Email...">
                     </div>
                   </span>
           <span class="bmd-form-group">
@@ -34,8 +33,7 @@
                           <i class="material-icons">lock_outline</i>
                         </span>
                       </div>
-                      <input type="password" name="password" class="form-control"
-                             placeholder="Contaseña...">
+                      <input required type="password" name="password" class="form-control" placeholder="Contaseña...">
                     </div>
                   </span>
         </div>
@@ -46,3 +44,6 @@
     </form>
   </jsp:body>
 </layout:unauthorized>
+<script>
+  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/")
+</script>

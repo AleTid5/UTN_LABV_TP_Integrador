@@ -2,9 +2,9 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
-import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.LoanException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.BankAdministrator;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Loan;
@@ -77,6 +77,7 @@ public abstract class LoanService {
 
     public static JsonResponse approveLoan(Loan loan, Boolean isApproved) {
         try {
+            NotificationService.addNotification(loan.getAccount().getCustomer(),isApproved ? NotificationEnum.LOAN_APPROVED : NotificationEnum.LOAN_REJECTED);
             loan.setIsApproved(isApproved);
             loan.setBankAdministrator(new BankAdministrator(11));
             session = SessionService.getSession();

@@ -2,6 +2,9 @@
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.SuccessCodeFactory" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.NotificationFactory" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum" %>
+<%@ tag import="java.util.Arrays" %>
 <%@tag description="Authorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>
 <%@attribute name="scripts" fragment="true"%>
@@ -14,6 +17,9 @@
 
 		if (request.getParameter("successCode") != null)
 			request.setAttribute("successMessage", SuccessCodeFactory.getDescription(SuccessCodeEnum.valueOf(request.getParameter("successCode"))));
+
+		if (request.getParameter("notifications") != null)
+			request.setAttribute("notifications", Arrays.asList(request.getParameter("notifications").split("\\s*,\\s*")));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -59,6 +65,19 @@
 			</span>
 		</div>
 	</c:if>
+	<c:forEach var="notification" items="${ notifications }" varStatus="loop">
+		<div class="alert alert-${ notification.equals(NotificationEnum.LOAN_APPROVED.name()) ? "success" : "danger" }"
+			 style="margin-top: ${loop.index * 120}px">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<i class="material-icons">close</i>
+			</button>
+			<span>
+				<b>${ notification.equals(NotificationEnum.LOAN_APPROVED.name()) ? "En hora buena! 🎉" : "Ups..." }</b>
+				<br>
+					${ NotificationFactory.getDescription(NotificationEnum.valueOf(notification)) }
+			</span>
+		</div>
+	</c:forEach>
 	<jsp:include page="../Components/sidebar.jsp" />
 	<div class="main-panel">
 		<jsp:include page="../Components/navbar.jsp" />

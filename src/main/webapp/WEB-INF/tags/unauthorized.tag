@@ -39,9 +39,10 @@
 						<i class="material-icons">close</i>
 					</button>
 					<span>
-						<b>Error</b><br>
-						${ errorMessage }
-					</span>
+				<b>Ups.. 🤦‍️</b>
+				<br>
+					${ errorMessage }
+			</span>
 				</div>
 			</c:if>
 			<div class="row">

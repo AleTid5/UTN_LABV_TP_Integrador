@@ -2,9 +2,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
-import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
-import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
-import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
+import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import org.hibernate.Session;
@@ -15,18 +13,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class AccountService implements iAccount {
+public abstract class AccountService implements Account {
 
     @Autowired
     private static Session session;
 
     @Autowired
-    private static List<Account> accounts;
+    private static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> accounts;
 
-    public static List<Account> getAccounts() {
+    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getAccounts() {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(Account.class)
+            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
                     .add(Restrictions.eq("isActive", true))
                     .list();
         } finally {
@@ -36,10 +34,10 @@ public abstract class AccountService implements iAccount {
         return accounts;
     }
 
-    public static List<Account> getAccounts(Integer customerId) { ;
+    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getAccounts(Integer customerId) { ;
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(Account.class)
+            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
                     .add(Restrictions.eq("isActive", true))
                     .add(Restrictions.eq("customer.id", customerId))
                     .list();
@@ -50,12 +48,12 @@ public abstract class AccountService implements iAccount {
         return accounts;
     }
 
-    public static Account getAccount(String accountCBU) { ;
-        Account account;
+    public static UTN.FRGP.TP_L5_GRUPO_1.Models.Account getAccount(String accountCBU) { ;
+        UTN.FRGP.TP_L5_GRUPO_1.Models.Account account;
 
         try {
             session = SessionService.getSession();
-            account = (Account) session.createCriteria(Account.class)
+            account = (UTN.FRGP.TP_L5_GRUPO_1.Models.Account) session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
                     .add(Restrictions.eq("CBU", accountCBU))
                     .uniqueResult();
         } finally {
@@ -65,7 +63,7 @@ public abstract class AccountService implements iAccount {
         return account;
     }
 
-    public static void saveAccount(Account account) throws AccountException {
+    public static void saveAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) throws AccountException {
         try {
             AccountService.canUserHaveAnotherAccount(account);
             session = SessionService.getSession();
@@ -77,7 +75,7 @@ public abstract class AccountService implements iAccount {
         }
     }
 
-    public static void updateAccount(Account account) {
+    public static void updateAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) {
         try {
             session = SessionService.getSession();
             session.update(account);
@@ -89,7 +87,7 @@ public abstract class AccountService implements iAccount {
         }
     }
 
-    public static JsonResponse removeAccount(Account account) {
+    public static JsonResponse removeAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) {
         try {
             account.setIsActive(false);
             session = SessionService.getSession();
@@ -103,10 +101,10 @@ public abstract class AccountService implements iAccount {
         }
     }
 
-    private static void canUserHaveAnotherAccount(Account account) throws AccountException {
+    private static void canUserHaveAnotherAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) throws AccountException {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(Account.class)
+            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
                     .add(Restrictions.eq("customer.id", account.getCustomer().getId()))
                     .add(Restrictions.eq("isActive", true))
                     .list();
