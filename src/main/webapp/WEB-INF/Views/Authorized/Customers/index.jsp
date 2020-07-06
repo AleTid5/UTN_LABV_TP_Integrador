@@ -74,7 +74,7 @@
 <script>
   window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/customers")
 
-  onRemove = id => {
+  const onRemove = id => {
     Swal.fire({
       title: '¿Está seguro de eliminar al usuario?',
       text: "No podrá revertir la acción",
@@ -89,9 +89,6 @@
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/customers/delete/' + id,
           type: 'POST',
-          data: {
-            id
-          },
           success: function (data) {
             return data && data.status ? handleSuccess(id) : handleError();
           }
@@ -100,7 +97,7 @@
     });
   };
 
-  handleSuccess = id => {
+  const handleSuccess = id => {
     $('#datatables').DataTable().rows('#customer-' + id).remove().draw();
 
     Swal.fire({
@@ -111,7 +108,7 @@
     })
   };
 
-  handleError = () => {
+  const handleError = () => {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:authorized>
   <jsp:body>
@@ -9,7 +9,7 @@
         <div class="card ">
           <div class="card-header card-header-rose card-header-text">
             <div class="card-text">
-              <h4 class="card-title">Agregar Cuenta</h4>
+              <h4 class="card-title">Préstamos</h4>
             </div>
           </div>
           <div class="card-body ">
@@ -39,7 +39,7 @@
                   <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -48,7 +48,7 @@
                     </thead>
                     <tfoot>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -59,9 +59,9 @@
                     <c:forEach var="loan" items="${ unseenLoans }">
                       <tr id="loan-${ loan.id }">
                         <td>${ loan.account.accountType.name }</td>
-                        <td>${ loan.amount }</td>
+                        <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
-                        <td>${ loan.feeValue }</td>
+                        <td>$${ loan.feeValue }</td>
                         <td>
                           <button onclick="onApprove(${ loan.id })" class="btn btn-link btn-success btn-just-icon">
                             <i class="material-icons">check_circle_outline</i>
@@ -81,7 +81,7 @@
                   <table id="datatables2" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -91,7 +91,7 @@
                     </thead>
                     <tfoot>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -103,9 +103,9 @@
                     <c:forEach var="loan" items="${ approvedLoans }">
                       <tr>
                         <td>${ loan.account.accountType.name }</td>
-                        <td>${ loan.amount }</td>
+                        <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
-                        <td>${ loan.feeValue }</td>
+                        <td>$${ loan.feeValue }</td>
                         <td>${ loan.payedFees }</td>
                         <td title="${ loan.bankAdministrator.lastName }, ${ loan.bankAdministrator.name }">${ loan.bankAdministrator.email }</td>
                       </tr>
@@ -119,7 +119,7 @@
                   <table id="datatables3" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -128,7 +128,7 @@
                     </thead>
                     <tfoot>
                     <tr>
-                      <th>Tipo de cuenta</th>
+                      <th>Cuenta a depositar</th>
                       <th>Monto solicitado</th>
                       <th>Cuotas</th>
                       <th>Valor cuota</th>
@@ -139,9 +139,9 @@
                     <c:forEach var="loan" items="${ rejectedLoans }">
                       <tr>
                         <td>${ loan.account.accountType.name }</td>
-                        <td>${ loan.amount }</td>
+                        <td>$${ loan.amount }</td>
                         <td>${ loan.feesToPay }</td>
-                        <td>${ loan.feeValue }</td>
+                        <td>$${ loan.feeValue }</td>
                         <td title="${ loan.bankAdministrator.lastName }, ${ loan.bankAdministrator.name }">${ loan.bankAdministrator.email }</td>
                       </tr>
                     </c:forEach>
@@ -159,7 +159,7 @@
 <script src="<c:url value="/assets/js/plugins/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/assets/js/components/datatable.js" />"></script>
 <script>
-  onApprove = id => {
+  const onApprove = id => {
     Swal.fire({
       title: '¿Está seguro que desea aprobar el préstamo?',
       text: "Le enviaremos un E-Mail al cliente. No podrá revertir la acción",
@@ -174,9 +174,6 @@
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/loans/approve/' + id,
           type: 'POST',
-          data: {
-            id
-          },
           success: function (data) {
             return data && data.status ? handleSuccessApprove(id) : handleError();
           }
@@ -185,7 +182,7 @@
     });
   };
 
-  onReject = id => {
+  const onReject = id => {
     Swal.fire({
       title: '¿Está seguro que desea rechazar éste préstamo?',
       text: "Le enviaremos un E-Mail al cliente. No podrá revertir la acción",
@@ -200,9 +197,6 @@
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/loans/reject/' + id,
           type: 'POST',
-          data: {
-            id
-          },
           success: function (data) {
             return data && data.status ? handleSuccessReject(id) : handleError();
           }
@@ -211,7 +205,7 @@
     });
   };
 
-  handleSuccessApprove = id => {
+  const handleSuccessApprove = id => {
     const [accountType, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
@@ -225,7 +219,7 @@
     })
   };
 
-  handleSuccessReject = id => {
+  const handleSuccessReject = id => {
     const [accountType, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
@@ -239,7 +233,7 @@
     })
   };
 
-  handleError = () => {
+  const handleError = () => {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

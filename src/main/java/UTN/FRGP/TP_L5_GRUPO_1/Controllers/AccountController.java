@@ -1,5 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Builders.AccountBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
@@ -7,7 +8,6 @@ import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountTypeService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
-import UTN.FRGP.TP_L5_GRUPO_1.Utils.Helper;
 import com.google.gson.Gson;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +52,7 @@ public class AccountController {
         String url = "accounts";
 
         try {
-            Account account = Helper.buildAccountFromRequest(request);
-            AccountService.canUserHaveAnotherAccount(account);
+            Account account = AccountBuilder.build(request);
             AccountService.saveAccount(account);
             parameters.put("successCode", SuccessCodeEnum.ACCOUNT_CREATED);
         } catch (ConstraintViolationException e) {
@@ -71,7 +70,7 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{cbu}")
     public String editCustomer(@PathVariable("cbu") String accountCBU, ModelMap modelMap) {
-        Account account = AccountService.getAccountByCBU(accountCBU);
+        Account account = AccountService.getAccount(accountCBU);
         modelMap.addAttribute("account", account);
         modelMap.addAttribute("customers", CustomerService.getCustomers());
         modelMap.addAttribute("accountTypes", AccountTypeService.getAccountTypes());
@@ -85,7 +84,7 @@ public class AccountController {
         String url = "accounts";
 
         try {
-            Account account = Helper.buildAccountFromRequest(request, AccountService.getAccountByCBU(accountCBU));
+            Account account = AccountBuilder.build(request, AccountService.getAccount(accountCBU));
 
             AccountService.updateAccount(account);
             parameters.put("successCode", SuccessCodeEnum.ACCOUNT_UPDATED);
@@ -105,6 +104,6 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{cbu}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteAccount(@PathVariable("cbu") String accountCBU) {
-        return new Gson().toJson(AccountService.removeAccount(AccountService.getAccountByCBU(accountCBU)));
+        return new Gson().toJson(AccountService.removeAccount(AccountService.getAccount(accountCBU)));
     }
 }

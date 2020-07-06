@@ -4,6 +4,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import org.hibernate.Session;
@@ -25,7 +26,9 @@ public abstract class AccountService implements iAccount {
     public static List<Account> getAccounts() {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(Account.class).add(Restrictions.eq("isActive", true)).list();
+            accounts = session.createCriteria(Account.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }
@@ -33,12 +36,28 @@ public abstract class AccountService implements iAccount {
         return accounts;
     }
 
-    public static Account getAccountByCBU(String accountCBU) { ;
+    public static List<Account> getAccounts(Integer customerId) { ;
+        try {
+            session = SessionService.getSession();
+            accounts = session.createCriteria(Account.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("customer.id", customerId))
+                    .list();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return accounts;
+    }
+
+    public static Account getAccount(String accountCBU) { ;
         Account account;
 
         try {
             session = SessionService.getSession();
-            account = (Account) session.createCriteria(Account.class).add(Restrictions.eq("CBU", accountCBU)).uniqueResult();
+            account = (Account) session.createCriteria(Account.class)
+                    .add(Restrictions.eq("CBU", accountCBU))
+                    .uniqueResult();
         } finally {
             SessionService.commitSession(session);
         }
@@ -46,24 +65,9 @@ public abstract class AccountService implements iAccount {
         return account;
     }
 
-    public static void canUserHaveAnotherAccount(Account account) throws AccountException {
+    public static void saveAccount(Account account) throws AccountException {
         try {
-            session = SessionService.getSession();
-            accounts = session.createCriteria(Account.class)
-                    .add(Restrictions.eq("customer.id", account.getCustomer().getId()))
-                    .add(Restrictions.eq("isActive", true))
-                    .list();
-
-            if (MAX_ACCOUNTS_ALLOWED.equals(accounts.size())) {
-                throw new AccountException(AccountEnum.CUSTOMER);
-            }
-        } finally {
-            SessionService.commitSession(session);
-        }
-    }
-
-    public static void saveAccount(Account account) {
-        try {
+            AccountService.canUserHaveAnotherAccount(account);
             session = SessionService.getSession();
             session.save(account);
             SessionService.commitSession(session);
@@ -96,6 +100,22 @@ public abstract class AccountService implements iAccount {
         } catch (Exception e) {
             SessionService.rollbackSession(session);
             return new JsonResponse(false);
+        }
+    }
+
+    private static void canUserHaveAnotherAccount(Account account) throws AccountException {
+        try {
+            session = SessionService.getSession();
+            accounts = session.createCriteria(Account.class)
+                    .add(Restrictions.eq("customer.id", account.getCustomer().getId()))
+                    .add(Restrictions.eq("isActive", true))
+                    .list();
+
+            if (MAX_ACCOUNTS_ALLOWED.equals(accounts.size())) {
+                throw new AccountException(AccountEnum.CUSTOMER);
+            }
+        } finally {
+            SessionService.commitSession(session);
         }
     }
 }

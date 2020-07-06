@@ -21,7 +21,4 @@
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.JstlView"/>
     </bean>
-
-    <bean id="account" class="UTN.FRGP.TP_L5_GRUPO_1.Models.Account"/>
-    <bean id="customer" class="UTN.FRGP.TP_L5_GRUPO_1.Models.Customer"/>
 </beans>

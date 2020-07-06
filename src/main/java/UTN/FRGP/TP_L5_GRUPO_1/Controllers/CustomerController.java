@@ -1,12 +1,12 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Builders.CustomerBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.UserException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Customer;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LocationService;
-import UTN.FRGP.TP_L5_GRUPO_1.Utils.Helper;
 import com.google.gson.Gson;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class CustomerController {
         String url = "customers";
 
         try {
-            Customer customer = Helper.buildCustomerFromRequest(request);
+            Customer customer = CustomerBuilder.build(request);
             customer.setPassword(request.getParameter("dni"));
 
             CustomerService.saveCustomer(customer);
@@ -85,7 +85,7 @@ public class CustomerController {
         String url = "customers";
 
         try {
-            Customer customer = Helper.buildCustomerFromRequest(request, CustomerService.getCustomerById(userId));
+            Customer customer = CustomerBuilder.build(request, CustomerService.getCustomerById(userId));
             customer.setId(userId);
 
             CustomerService.updateCustomer(customer);

@@ -25,7 +25,7 @@ public class Account {
     private AccountType accountType;
 
     @Column(nullable = false)
-    private Integer balance;
+    private Double balance;
 
     @Column(unique = true, nullable = false)
     private Integer accountNumber;
@@ -39,7 +39,7 @@ public class Account {
 
     public Account() {
 		this.createCBU();
-		this.setBalance(10000);
+		this.setBalance(10000.0);
 		this.setIsActive(true);
 		this.creationDate = new Date();
 	}
@@ -49,7 +49,7 @@ public class Account {
 		this.setAlias(alias);
 		this.setCustomer(customer);
 		this.setAccountType(accountType);
-		this.setBalance(10000);
+		this.setBalance(10000.0);
 		this.setAccountNumber(accountNumber);
 		this.setIsActive(true);
 		this.creationDate = new Date();
@@ -108,17 +108,17 @@ public class Account {
 	}
 	public void setAccountType(Integer accountTypeId) throws AccountException {
 	    if (accountTypeId == null) {
-            throw new AccountException(AccountEnum.ACCOUNTTYPE);
+            throw new AccountException(AccountEnum.ACCOUNT_TYPE);
         }
 
         this.accountType = new AccountType(accountTypeId);
 	}
 	
-	public Integer getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Integer balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

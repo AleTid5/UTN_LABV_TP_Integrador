@@ -15,4 +15,5 @@ public enum ErrorCodeEnum {
     INVALID_ADDRESS,
     INVALID_BORN_DATE,
     INVALID_GENDER,
+    MISSING_DATA
 }

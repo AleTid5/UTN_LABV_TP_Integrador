@@ -71,7 +71,7 @@
 <script>
   window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/accounts")
 
-  onRemove = CBU => {
+  const onRemove = CBU => {
     Swal.fire({
       title: '¿Está seguro de eliminar la cuenta?',
       text: "No podrá revertir la acción",
@@ -86,9 +86,6 @@
         $.ajax({
           url: '${request.getContextPath()}/TP_L5_GRUPO_1/accounts/delete/' + CBU,
           type: 'POST',
-          data: {
-            CBU
-          },
           success: function (data) {
             return data && data.status ? handleSuccess(CBU) : handleError();
           }
@@ -97,7 +94,7 @@
     });
   };
 
-  handleSuccess = CBU => {
+  const handleSuccess = CBU => {
     $('#datatables').DataTable().rows('#account-' + CBU).remove().draw();
 
     Swal.fire({
@@ -108,7 +105,7 @@
     })
   };
 
-  handleError = () => {
+  const handleError = () => {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

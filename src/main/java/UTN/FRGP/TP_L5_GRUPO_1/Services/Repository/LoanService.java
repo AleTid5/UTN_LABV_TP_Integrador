@@ -1,5 +1,11 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.LoanException;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.BankAdministrator;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Loan;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
@@ -25,10 +31,28 @@ public abstract class LoanService {
             session = SessionService.getSession();
             loans = nonNull(isLoanApproved) ?
                     session.createCriteria(Loan.class)
-                    .add(Restrictions.isNotNull("bankAdministrator"))
-                    .add(Restrictions.eq("isApproved", isLoanApproved))
-                    .list() :
-                    session.createCriteria(Loan.class).add(Restrictions.isNull("bankAdministrator")).list();
+                            .add(Restrictions.isNotNull("bankAdministrator"))
+                            .add(Restrictions.eq("isApproved", isLoanApproved))
+                            .list() :
+                    session.createCriteria(Loan.class)
+                            .add(Restrictions.isNull("bankAdministrator"))
+                            .list();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return loans;
+    }
+
+    public static List<Loan> getLoansByCustomerId(Integer customerId) {
+        try {
+            List<Account> accounts = AccountService.getAccounts(customerId);
+            session = SessionService.getSession();
+            loans = session.createCriteria(Loan.class)
+                    .add(Restrictions.eq("isApproved", true))
+                    .add(Restrictions.eq("isPayed", false))
+                    .add(Restrictions.in("account", accounts))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }
@@ -41,7 +65,9 @@ public abstract class LoanService {
 
         try {
             session = SessionService.getSession();
-            loan = (Loan) session.createCriteria(Loan.class).add(Restrictions.eq("id", loanId)).uniqueResult();
+            loan = (Loan) session.createCriteria(Loan.class)
+                    .add(Restrictions.eq("id", loanId))
+                    .uniqueResult();
         } finally {
             SessionService.commitSession(session);
         }
@@ -61,6 +87,39 @@ public abstract class LoanService {
         } catch (Exception e) {
             SessionService.rollbackSession(session);
             return new JsonResponse(false);
+        }
+    }
+
+    public static JsonResponse payLoan(Loan loan, Account account) {
+        try {
+            LoanService.canLoanBePayed(loan, account);
+            loan.setPayedFees(loan.getPayedFees() + 1);
+            account.setBalance(account.getBalance() - loan.getFeeValue());
+            session = SessionService.getSession();
+            session.update(loan);
+            session.update(account);
+            session.flush();
+            SessionService.commitSession(session);
+            return new JsonResponse();
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+            return new JsonResponse(e.getMessage(),false);
+        }
+    }
+
+    private static void canLoanBePayed(Loan loan, Account account) throws AccountException, ErrorCodeException {
+        if (loan == null || account == null) {
+            throw new ErrorCodeException(ErrorCodeEnum.MISSING_DATA.name());
+        }
+
+        // Los tipos de cuenta tienen que ser iguales.
+        if (!loan.getAccount().getAccountType().getCurrencyType().getId().equals(account.getAccountType().getCurrencyType().getId())) {
+            throw new AccountException(AccountEnum.ACCOUNT_TYPE);
+        }
+
+        // El valor de la cuota no puede ser mayor que el balance en cuenta.
+        if (loan.getFeeValue() > account.getBalance()) {
+            throw new AccountException(AccountEnum.BALANCE);
         }
     }
 }

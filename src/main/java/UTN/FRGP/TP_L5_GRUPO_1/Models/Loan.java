@@ -1,5 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +37,9 @@ public class Loan {
     private final Date creationDate;
 
     private Boolean isApproved;
+
+    @Formula(value = "payedFees >= feesToPay")
+    private Boolean isPayed;
 
     private Date endDate;
 
@@ -124,5 +129,9 @@ public class Loan {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public Boolean isPayed() {
+        return this.isPayed;
     }
 }

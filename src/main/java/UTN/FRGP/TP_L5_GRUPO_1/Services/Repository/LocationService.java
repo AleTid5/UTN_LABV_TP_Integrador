@@ -44,7 +44,9 @@ public abstract class LocationService {
     public static List<Province> getProvinces(Integer countryId) {
         try {
             session = SessionService.getSession();
-            provinces = session.createCriteria(Province.class).add(Restrictions.eq("country.id", countryId)).list();
+            provinces = session.createCriteria(Province.class)
+                    .add(Restrictions.eq("country.id", countryId))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }
@@ -59,7 +61,9 @@ public abstract class LocationService {
     public static List<Locality> getLocalities(Integer provinceId) {
         try {
             session = SessionService.getSession();
-            localities = session.createCriteria(Locality.class).add(Restrictions.eq("province.id", provinceId)).list();
+            localities = session.createCriteria(Locality.class)
+                    .add(Restrictions.eq("province.id", provinceId))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }

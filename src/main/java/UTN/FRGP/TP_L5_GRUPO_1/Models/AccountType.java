@@ -22,7 +22,7 @@ public class AccountType {
         this.currencyType = currencyType;
     }
     public AccountType(int accountTypeId) {
-    	this.id=accountTypeId;
+    	this.id = accountTypeId;
     	this.name = null;
         this.currencyType = null;
     }
@@ -37,5 +37,10 @@ public class AccountType {
 
     public CurrencyType getCurrencyType() {
         return this.currencyType;
+    }
+
+    @Override
+    public String toString() {
+        return this.currencyType + " " + this.name;
     }
 }

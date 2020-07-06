@@ -22,7 +22,9 @@ public abstract class CustomerService {
     public static List<Customer> getCustomers() {
         try {
             session = SessionService.getSession();
-            customers = session.createCriteria(Customer.class).add(Restrictions.eq("isActive", true)).list();
+            customers = session.createCriteria(Customer.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }
@@ -30,12 +32,14 @@ public abstract class CustomerService {
         return customers;
     }
 
-    public static Customer getCustomerById(Integer userId) { ;
-        Customer customer = null;
+    public static Customer getCustomerById(Integer userId) {
+        Customer customer;
 
         try {
             session = SessionService.getSession();
-            customer = (Customer) session.createCriteria(Customer.class).add(Restrictions.eq("id", userId)).uniqueResult();
+            customer = (Customer) session.createCriteria(Customer.class)
+                    .add(Restrictions.eq("id", userId))
+                    .uniqueResult();
         } finally {
             SessionService.commitSession(session);
         }

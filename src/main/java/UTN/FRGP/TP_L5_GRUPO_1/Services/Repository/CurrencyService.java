@@ -15,13 +15,17 @@ public abstract class CurrencyService {
     private static Session session;
 
     public static CurrencyValue getCurrencyValueByCurrencyTypeName(String currencyTypeName) {
-        CurrencyType currencyType = null;
-        CurrencyValue currencyValue = null;
+        CurrencyType currencyType;
+        CurrencyValue currencyValue;
 
         try {
             session = SessionService.getSession();
-            currencyType = (CurrencyType) session.createCriteria(CurrencyType.class).add(Restrictions.eq("name", currencyTypeName)).uniqueResult();
-            currencyValue = (CurrencyValue) session.createCriteria(CurrencyValue.class).add(Restrictions.eq("currencyType", currencyType.getId())).uniqueResult();
+            currencyType = (CurrencyType) session.createCriteria(CurrencyType.class)
+                    .add(Restrictions.eq("name", currencyTypeName))
+                    .uniqueResult();
+            currencyValue = (CurrencyValue) session.createCriteria(CurrencyValue.class)
+                    .add(Restrictions.eq("currencyType", currencyType.getId()))
+                    .uniqueResult();
         } finally {
             SessionService.commitSession(session);
         }
