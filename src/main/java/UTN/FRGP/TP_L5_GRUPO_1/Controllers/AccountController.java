@@ -8,6 +8,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountTypeService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementService;
 import com.google.gson.Gson;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/accounts")
@@ -105,5 +107,15 @@ public class AccountController {
     @ResponseBody
     public String deleteAccount(@PathVariable("cbu") String accountCBU) {
         return new Gson().toJson(AccountService.removeAccount(AccountService.getAccount(accountCBU)));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/history")
+    public String accountHistoryList(ModelMap modelMap, HttpServletRequest request) {
+        List<Account> accounts = AccountService.getHistory((Integer) request.getSession().getAttribute("id"));
+
+        modelMap.addAttribute("accounts", accounts);
+        modelMap.addAttribute("movements", MovementService.getMovements(accounts));
+
+        return "/Authorized/Accounts/indexHistory";
     }
 }

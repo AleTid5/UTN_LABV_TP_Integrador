@@ -4,7 +4,7 @@
 <layout:unauthorized>
   <jsp:body>
     <form class="form" method="POST" action="">
-      <div class="card card-login card-hidden">
+      <div class="card card-login">
         <div class="card-header card-header-rose text-center">
           <h4 class="card-title">Iniciar sesión</h4>
         </div>

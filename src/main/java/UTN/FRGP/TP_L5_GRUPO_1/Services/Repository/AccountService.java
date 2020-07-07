@@ -34,6 +34,20 @@ public abstract class AccountService implements Account {
         return accounts;
     }
 
+    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getHistory(Integer customerId) {
+        try {
+            session = SessionService.getSession();
+            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("customer.id", customerId))
+                    .list();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return accounts;
+    }
+
     public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getAccounts(Integer customerId) { ;
         try {
             session = SessionService.getSession();
