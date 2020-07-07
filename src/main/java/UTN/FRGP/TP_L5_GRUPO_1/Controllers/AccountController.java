@@ -116,6 +116,6 @@ public class AccountController {
         modelMap.addAttribute("accounts", accounts);
         modelMap.addAttribute("movements", MovementService.getMovements(accounts));
 
-        return "/Authorized/Accounts/index";
+        return "/Authorized/Accounts/indexHistory";
     }
 }

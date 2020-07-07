@@ -15,6 +15,9 @@ $(document).ready(function() {
     };
 
     $('#datatables').DataTable(config);
+    $('#datatables0').DataTable(config);
+    $('#datatables1').DataTable(config);
     $('#datatables2').DataTable(config);
+    $('#datatables3').DataTable(config);
     $('#datatables3').DataTable(config);
 });
