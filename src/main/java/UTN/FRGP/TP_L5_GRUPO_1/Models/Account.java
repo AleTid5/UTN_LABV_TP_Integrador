@@ -137,4 +137,8 @@ public class Account {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
 }

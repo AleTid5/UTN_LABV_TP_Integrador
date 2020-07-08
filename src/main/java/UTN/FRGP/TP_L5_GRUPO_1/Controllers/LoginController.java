@@ -40,7 +40,7 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public void login(HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
-        String url = "accounts";
+        String url = "dashboard";
 
         try {
             User user = LoginService.authenticateUser(request.getParameter("email"), request.getParameter("password"));
