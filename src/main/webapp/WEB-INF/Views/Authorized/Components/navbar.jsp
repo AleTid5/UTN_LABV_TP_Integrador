@@ -12,14 +12,12 @@
 		<div class="collapse navbar-collapse justify-content-end">
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
-					<a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="material-icons">person</i>
+					<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/">
+						<i class="material-icons">power_settings_new</i>
 						<p class="d-lg-none d-md-block">Account</p>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-						<a class="dropdown-item disabled" href="#"></a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="${ mainPath }/login">Log out</a>
+						<a class="dropdown-item" href="${request.getContextPath()}/TP_L5_GRUPO_1/"></a>
 					</div>
 				</li>
 			</ul>

@@ -2,29 +2,38 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
-import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.Account;
+import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.Objects.nonNull;
 
 @Service
-public abstract class AccountService implements Account {
+public abstract class AccountService implements iAccount {
 
     @Autowired
     private static Session session;
 
     @Autowired
-    private static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> accounts;
+    private static List<Account> accounts;
 
-    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getAccounts() {
+    public static List<Account> getAccounts() {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
+            accounts = session.createCriteria(Account.class)
                     .add(Restrictions.eq("isActive", true))
                     .list();
         } finally {
@@ -34,24 +43,10 @@ public abstract class AccountService implements Account {
         return accounts;
     }
 
-    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getHistory(Integer customerId) {
+    public static List<Account> getAccounts(Integer customerId) {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
-                    .add(Restrictions.eq("isActive", true))
-                    .add(Restrictions.eq("customer.id", customerId))
-                    .list();
-        } finally {
-            SessionService.commitSession(session);
-        }
-
-        return accounts;
-    }
-
-    public static List<UTN.FRGP.TP_L5_GRUPO_1.Models.Account> getAccounts(Integer customerId) { ;
-        try {
-            session = SessionService.getSession();
-            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
+            accounts = session.createCriteria(Account.class)
                     .add(Restrictions.eq("isActive", true))
                     .add(Restrictions.eq("customer.id", customerId))
                     .list();
@@ -62,12 +57,41 @@ public abstract class AccountService implements Account {
         return accounts;
     }
 
-    public static UTN.FRGP.TP_L5_GRUPO_1.Models.Account getAccount(String accountCBU) { ;
-        UTN.FRGP.TP_L5_GRUPO_1.Models.Account account;
+    public static Map<String, Long> getCreatedAccounts(String from, String to) {
+        Map<String, Long> createdAccounts = new HashMap<>();
 
         try {
             session = SessionService.getSession();
-            account = (UTN.FRGP.TP_L5_GRUPO_1.Models.Account) session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
+            Criteria criteria = session.createCriteria(Account.class)
+                    .setProjection(Projections.projectionList()
+                            .add(Projections.groupProperty("creationDate"))
+                            .add(Projections.count("CBU")));
+
+            if (nonNull(from) && nonNull(to)) {
+                try {
+                    Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(from);
+                    Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(to);
+                    criteria = criteria.add(Restrictions.between("creationDate", fromDate, toDate));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            List<Object[]> accountsList = criteria.list();
+            accountsList.stream().forEach(list -> createdAccounts.put(list[0].toString().substring(0, 10), (Long) list[1]));
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return createdAccounts;
+    }
+
+    public static Account getAccount(String accountCBU) {
+        Account account;
+
+        try {
+            session = SessionService.getSession();
+            account = (Account) session.createCriteria(Account.class)
                     .add(Restrictions.eq("CBU", accountCBU))
                     .uniqueResult();
         } finally {
@@ -77,7 +101,21 @@ public abstract class AccountService implements Account {
         return account;
     }
 
-    public static void saveAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) throws AccountException {
+    public static List<Account> getHistory(Integer customerId) {
+        try {
+            session = SessionService.getSession();
+            accounts = session.createCriteria(Account.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("customer.id", customerId))
+                    .list();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return accounts;
+    }
+
+    public static void saveAccount(Account account) throws AccountException {
         try {
             AccountService.canUserHaveAnotherAccount(account);
             session = SessionService.getSession();
@@ -89,7 +127,7 @@ public abstract class AccountService implements Account {
         }
     }
 
-    public static void updateAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) {
+    public static void updateAccount(Account account) {
         try {
             session = SessionService.getSession();
             session.update(account);
@@ -101,7 +139,7 @@ public abstract class AccountService implements Account {
         }
     }
 
-    public static JsonResponse removeAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) {
+    public static JsonResponse removeAccount(Account account) {
         try {
             account.setIsActive(false);
             session = SessionService.getSession();
@@ -115,10 +153,10 @@ public abstract class AccountService implements Account {
         }
     }
 
-    private static void canUserHaveAnotherAccount(UTN.FRGP.TP_L5_GRUPO_1.Models.Account account) throws AccountException {
+    private static void canUserHaveAnotherAccount(Account account) throws AccountException {
         try {
             session = SessionService.getSession();
-            accounts = session.createCriteria(UTN.FRGP.TP_L5_GRUPO_1.Models.Account.class)
+            accounts = session.createCriteria(Account.class)
                     .add(Restrictions.eq("customer.id", account.getCustomer().getId()))
                     .add(Restrictions.eq("isActive", true))
                     .list();

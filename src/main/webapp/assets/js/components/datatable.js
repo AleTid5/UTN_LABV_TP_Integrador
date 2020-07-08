@@ -19,5 +19,4 @@ $(document).ready(function() {
     $('#datatables1').DataTable(config);
     $('#datatables2').DataTable(config);
     $('#datatables3').DataTable(config);
-    $('#datatables3').DataTable(config);
 });

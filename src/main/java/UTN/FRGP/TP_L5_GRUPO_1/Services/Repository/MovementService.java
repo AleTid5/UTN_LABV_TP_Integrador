@@ -19,6 +19,17 @@ public abstract class MovementService {
     @Autowired
     private static Session session;
 
+    public static List<Movement> getMovements() {
+        try {
+            session = SessionService.getSession();
+            movements = session.createCriteria(Movement.class).list();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return movements;
+    }
+
     public static List<Movement> getMovements(List<Account> accounts) {
         try {
             session = SessionService.getSession();
@@ -30,6 +41,7 @@ public abstract class MovementService {
         } finally {
             SessionService.commitSession(session);
         }
+
         return movements;
     }
 }

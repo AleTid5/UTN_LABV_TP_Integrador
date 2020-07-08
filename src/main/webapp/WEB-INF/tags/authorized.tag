@@ -38,6 +38,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 	<link href="<c:url value="/assets/css/app.css" />" rel="stylesheet" />
 	<link href="<c:url value="/assets/css/app.min.css" />" rel="stylesheet" />
+	<link href="<c:url value="/assets/css/chartist.min.css" />" rel="stylesheet" />
 </head>
 <body>
 <div id="app" class="wrapper">
@@ -103,5 +104,6 @@
 <script src="<c:url value="/assets/js/plugins/bootstrap-notify.js" />"></script>
 <script src="<c:url value="/assets/js/app.min.js" />"></script>
 <script src="<c:url value="/assets/js/components/sidebar.js" />"></script>
+<script src="<c:url value="/assets/js/plugins/chartist.min.js" />"></script>
 </body>
 </html>
