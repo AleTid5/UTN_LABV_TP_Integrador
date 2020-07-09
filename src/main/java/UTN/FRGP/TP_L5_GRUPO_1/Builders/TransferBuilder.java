@@ -1,11 +1,15 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Builders;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.TransferEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.TransferException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.MovementType;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementTypeService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -46,6 +50,19 @@ public abstract class TransferBuilder {
         accounts.put(originAccount,destinationAccount);
 
         return accounts.entrySet().iterator().next();
+    }
+
+    public static Movement buildMovement(HttpServletRequest request) {
+        Movement movement = new Movement();
+        movement.setOriginAccount(AccountService.getAccount(request.getParameter("originAccount")));
+        movement.setDestinationAccount(AccountService.getAccount(request.getParameter("destinationAccount")));
+        movement.setAmount(Double.parseDouble(request.getParameter("amount")));
+        movement.setMovementType(MovementTypeService.getMovementType(MovementTypeEnum.TRANSFER_OWN_ACCOUNT));
+
+        movement.getOriginAccount().setBalance(movement.getOriginAccount().getBalance() - movement.getAmount());
+        movement.getDestinationAccount().setBalance(movement.getDestinationAccount().getBalance() + movement.getAmount());
+
+        return movement;
     }
 
     private static Map<TransferEnum, String> buildKey(String keyToBuild) throws AccountException {

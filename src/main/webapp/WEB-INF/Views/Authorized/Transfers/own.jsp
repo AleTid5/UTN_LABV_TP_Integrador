@@ -4,7 +4,7 @@
 
 <layout:authorized>
   <jsp:body>
-    <form method="POST" action="${request.getContextPath()}/TP_L5_GRUPO_1/transfers/thirdParty" class="form-horizontal">
+    <form method="POST" action="" class="form-horizontal">
       <div class="row">
         <div class="col-md-12">
           <div class="card ">
@@ -48,7 +48,7 @@
                 <label class="col-sm-2 col-form-label">Monto</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" disabled>
+                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" max="0" disabled>
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@
     const destinationAccount = $('[name="destinationAccount"]');
     const maxValue = parseFloat(originAccount[0].options[originAccount[0].selectedIndex].getAttribute('data-value'));
     const originAccountCurrency = parseInt(originAccount[0].options[originAccount[0].selectedIndex].getAttribute('data-currency'));
-    const destinationAccountCurrency = parseInt(originAccount[0].options[originAccount[0].selectedIndex].getAttribute('data-currency'));
+    const destinationAccountCurrency = parseInt(destinationAccount[0].options[destinationAccount[0].selectedIndex].getAttribute('data-currency'));
     $('[name="amount"]').attr("max", maxValue);
 
     if (maxValue === 0) {
@@ -91,6 +91,5 @@
     } else {
       $('[name="amount"],  #save-button').prop('disabled', false);
     }
-
   }
 </script>
