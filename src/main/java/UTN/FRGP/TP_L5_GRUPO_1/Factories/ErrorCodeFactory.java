@@ -32,6 +32,8 @@ public class ErrorCodeFactory {
         map.put(ErrorCodeEnum.INVALID_ADDRESS, "La información del domicilio del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_GENDER, "El género del cliente es inválido.");
         map.put(ErrorCodeEnum.MISSING_DATA, "Hay datos faltantes.");
+        map.put(ErrorCodeEnum.INVALID_ALIAS, "El Alias de la cuenta es inválido.");
+        map.put(ErrorCodeEnum.INVALID_CBU, "El CBU de la cuenta es inválido.");
 
         return map;
     }

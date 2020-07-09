@@ -101,6 +101,21 @@ public abstract class AccountService implements iAccount {
         return account;
     }
 
+    public static Account getAccountByAlias(String alias) {
+        Account account;
+
+        try {
+            session = SessionService.getSession();
+            account = (Account) session.createCriteria(Account.class)
+                    .add(Restrictions.eq("alias", alias))
+                    .uniqueResult();
+        } finally {
+            SessionService.commitSession(session);
+        }
+
+        return account;
+    }
+
     public static List<Account> getHistory(Integer customerId) {
         try {
             session = SessionService.getSession();
