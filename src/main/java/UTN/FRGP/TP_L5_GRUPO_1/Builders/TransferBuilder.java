@@ -36,6 +36,7 @@ public abstract class TransferBuilder {
                 throw new AccountException(AccountEnum.CBU);
             }
 
+            destinationAccount.setBalance(destinationAccount.getBalance()+Double.parseDouble(request.getParameter("amount")));
             accounts.put(originAccount,destinationAccount);
         } catch (AccountException exception) {
             throw exception;

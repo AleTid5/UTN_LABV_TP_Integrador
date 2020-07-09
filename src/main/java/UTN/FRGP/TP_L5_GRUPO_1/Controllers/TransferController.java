@@ -2,12 +2,14 @@ package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Builders.TransferBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementService;
-import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.TransferService;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,10 +41,14 @@ public class TransferController {
 
         try {
             Map.Entry<Account,Account> accounts = TransferBuilder.build(request).entrySet().iterator().next();
-            Movement movement = new Movement();
-            MovementService.saveMovement();
-            TransferService.saveTransfer(accounts,Double.parseDouble(request.getParameter("amount")),request.getParameter("concept"));
-            parameters.put("successCode", SuccessCodeEnum.TRANSFER_CREATED);
+            Movement movement = new Movement(accounts.getKey(),
+                    accounts.getValue(),
+                    MovementTypeService.getMovementType(MovementTypeEnum.TRANSFER_EXTERNAL_ACCOUNT),
+                    Double.parseDouble(request.getParameter("amount")),
+                    request.getParameter("concept"));
+            MovementService.saveMovement(movement);
+            AccountService.updateAccount(accounts.getValue());
+            parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
         } catch (AccountException e) {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/add";
