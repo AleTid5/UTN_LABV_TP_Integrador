@@ -34,9 +34,12 @@ public class Movement {
     private Date creationDate;
 
 
-    public Movement() {}
+    public Movement() {
+        this.creationDate = new Date();
+    }
 
     public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Double amount) {
+        this();
         this.setOriginAccount(originAccount);
         this.setDestinationAccount(destinationAccount);
         this.setMovementType(movementType);
@@ -86,5 +89,9 @@ public class Movement {
 
     public void setConcept(String concept) {
         this.concept = concept;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 }

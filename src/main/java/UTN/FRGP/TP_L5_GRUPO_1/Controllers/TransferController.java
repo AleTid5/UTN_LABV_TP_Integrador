@@ -65,4 +65,30 @@ public class TransferController {
             abstractController.redirectTo(response, request, url, parameters);
         }
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/own")
+    public String OnTransferOwn(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.addAttribute("accounts", AccountService.getAccounts((Integer) request.getSession().getAttribute("id")));
+
+        return "Authorized/Transfers/own";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/own")
+    public void OnTransferOwn(HttpServletResponse response, HttpServletRequest request) {
+        Map<String, Object> parameters = new HashMap<>();
+        String url = "transfers/own";
+
+        try {
+            Movement movement = TransferBuilder.buildMovement(request);
+            MovementService.saveMovement(movement);
+
+            AccountService.updateAccount(movement.getOriginAccount());
+            AccountService.updateAccount(movement.getDestinationAccount());
+            parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            abstractController.redirectTo(response, request, url, parameters);
+        }
+    }
 }

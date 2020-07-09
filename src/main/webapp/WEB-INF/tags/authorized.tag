@@ -68,7 +68,7 @@
 	</c:if>
 	<c:forEach var="notification" items="${ notifications }" varStatus="loop">
 		<div class="alert alert-${ notification.equals(NotificationEnum.LOAN_APPROVED.name()) ? "success" : "danger" }"
-			 style="margin-top: ${loop.index * 120}px">
+			 style="margin-top: ${loop.index * 120}px;z-index: 10">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<i class="material-icons">close</i>
 			</button>

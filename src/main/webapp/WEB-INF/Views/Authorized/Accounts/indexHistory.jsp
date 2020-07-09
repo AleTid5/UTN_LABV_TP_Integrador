@@ -56,7 +56,7 @@
                       <c:forEach var="movement" items="${ movements }">
                         <c:if test="${ movement.originAccount.CBU.equals(account.CBU) || movement.destinationAccount.CBU.equals(account.CBU) }">
                           <tr>
-                            <td> 06/07/2020 </td>
+                            <td>${ movement.creationDate }</td>
                             <td>${ movement.originAccount.accountNumber }</td>
                             <td>${ movement.destinationAccount.accountNumber }</td>
                             <td>${ movement.amount }</td>
