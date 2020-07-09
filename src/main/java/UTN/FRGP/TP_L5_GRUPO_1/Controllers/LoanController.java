@@ -1,8 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Models.BankAdministrator;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
-import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CustomerService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LoanService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import com.google.gson.Gson;

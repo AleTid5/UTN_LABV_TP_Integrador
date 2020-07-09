@@ -44,4 +44,16 @@ public abstract class MovementService {
 
         return movements;
     }
+
+    public static void saveMovement(Movement movement){
+        try {
+            session= SessionService.getSession();
+            session.save(movement);
+            SessionService.commitSession(session);
+
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+        }
+    }
+
 }
