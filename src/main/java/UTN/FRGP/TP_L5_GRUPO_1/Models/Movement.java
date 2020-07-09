@@ -36,7 +36,7 @@ public class Movement {
 
     public Movement() {}
 
-    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount) {
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Double amount) {
         this.setOriginAccount(originAccount);
         this.setDestinationAccount(destinationAccount);
         this.setMovementType(movementType);
