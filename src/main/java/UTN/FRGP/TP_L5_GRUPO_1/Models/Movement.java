@@ -25,7 +25,7 @@ public class Movement {
     private MovementType movementType;
 
     @Column(nullable = false)
-    private Integer amount;
+    private Double amount;
 
     @Column(length = 50)
     private String concept;
