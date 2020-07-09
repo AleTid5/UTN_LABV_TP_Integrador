@@ -1,21 +1,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:authorized>
   <jsp:body>
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" action="" class="form-horizontal" onsubmit="return onSubmit()">
       <div class="row">
         <div class="col-md-12">
           <div class="card ">
             <div class="card-header card-header-rose card-header-text">
               <div class="card-text">
-                <h4 class="card-title">Nueva transferencia a terceros</h4>
+                <h4 class="card-title">Solicitar Préstamo</h4>
               </div>
             </div>
             <div class="card-body ">
               <div class="row">
-                <label class="col-sm-2 col-form-label" for="originAccount">Cuenta origen</label>
+                <label class="col-sm-2 col-form-label" for="originAccount">Cuenta a depositar</label>
                 <div class="col-sm-10">
                   <div class="form-group">
                     <select name="originAccount" id="originAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange(this)">
@@ -30,26 +30,32 @@
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">CBU / Alias</label>
-                <div class="col-sm-10">
-                  <div class="form-group">
-                    <input required type="text" name="destinationAccount" class="form-control" placeholder="Ingrese CBU o Alias" disabled>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <label class="col-sm-2 col-form-label">Monto</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" disabled>
+                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" disabled>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">Mensaje o concepto</label>
+                <label class="col-sm-2 col-form-label" for="feesToPay">Cuotas</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input type="text" name="concept" class="form-control" placeholder="Ingrese mensaje o concepto" disabled>
+                    <select name="feesToPay" id="feesToPay" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onFeesChange(this.value)">
+                      <option value="2">2 cuotas</option>
+                      <option value="3">3 cuotas</option>
+                      <option value="6" selected>6 cuotas</option>
+                      <option value="12">12 cuotas</option>
+                      <option value="18">18 cuotas</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label" for="endDate">Fecha de fin</label>
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <input required type="text" name="endDate" class="form-control" placeholder="Ingrese monto" min="0" id="endDate" disabled>
                   </div>
                 </div>
               </div>
@@ -71,16 +77,33 @@
   </jsp:body>
 </layout:authorized>
 <script>
-  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/transfers/thirdParty");
+  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/loans/request");
 
   const onAccountChange = select => {
     const maxValue = parseFloat(select.options[select.selectedIndex].getAttribute('data-value'));
-    $('[name="amount"]').attr("max", maxValue);
 
     if (maxValue === 0) {
-      $('[name="destinationAccount"], [name="amount"], [name="concept"], #save-button').prop('disabled', true);
+      $('[name="destinationAccount"], [name="amount"], #save-button').prop('disabled', true);
     } else {
-      $('[name="destinationAccount"], [name="amount"], [name="concept"], #save-button').prop('disabled', false);
+      $('[name="destinationAccount"], [name="amount"], #save-button').prop('disabled', false);
     }
   }
+
+  const onFeesChange = feesQuantity => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + parseInt(feesQuantity));
+    console.log(date)
+
+    $('[name="endDate"]').val(date.getFullYear() + "-" +
+            (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) +
+            "-" + (date.getDate() > 9 ? date.getDate() : "0" + (date.getDate())));
+  }
+
+  function onSubmit() {
+    $('[name="endDate"]').prop('disabled', false);
+
+    return true;
+  }
+
+  onFeesChange(6);
 </script>

@@ -5,5 +5,6 @@ public enum SuccessCodeEnum {
     ACCOUNT_UPDATED,
     CUSTOMER_CREATED,
     CUSTOMER_UPDATED,
+    LOAN_CREATED,
     TRANSFER_SUCCESSFUL
 }

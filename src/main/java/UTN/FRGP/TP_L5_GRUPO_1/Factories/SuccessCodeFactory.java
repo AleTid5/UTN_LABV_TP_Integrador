@@ -21,6 +21,7 @@ public class SuccessCodeFactory {
         map.put(SuccessCodeEnum.ACCOUNT_UPDATED, "La cuenta ha sido actualizada exitosamente!");
         map.put(SuccessCodeEnum.CUSTOMER_CREATED, "El cliente ha sido creado exitosamente!");
         map.put(SuccessCodeEnum.CUSTOMER_UPDATED, "El cliente ha sido actualizado exitosamente!");
+        map.put(SuccessCodeEnum.LOAN_CREATED, "El préstamo ha sido solicitado exitosamente!");
         map.put(SuccessCodeEnum.TRANSFER_SUCCESSFUL, "La transferencia ha sido realizada exitosamente!");
 
         return map;

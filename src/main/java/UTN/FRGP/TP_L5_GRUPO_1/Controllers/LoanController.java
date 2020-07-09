@@ -1,5 +1,7 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Builders.LoanBuilder;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LoanService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("/loans")
 @Controller
@@ -31,7 +36,30 @@ public class LoanController {
         }
 
         this.hydrateLoans(modelMap, (Integer) request.getSession().getAttribute("id"));
+
         return "/Authorized/Loans/customerIndex";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/request")
+    public String moneyRequest(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.addAttribute("accounts", AccountService.getAccounts((Integer) request.getSession().getAttribute("id")));
+
+        return "/Authorized/Loans/request";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/request")
+    public void loanRequest(HttpServletResponse response, HttpServletRequest request) {
+        Map<String, Object> parameters = new HashMap<>();
+        String url = "loans";
+
+        try {
+            LoanService.saveLoan(LoanBuilder.build(request));
+            parameters.put("successCode", SuccessCodeEnum.LOAN_CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            abstractController.redirectTo(response, request, url, parameters);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/approve/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

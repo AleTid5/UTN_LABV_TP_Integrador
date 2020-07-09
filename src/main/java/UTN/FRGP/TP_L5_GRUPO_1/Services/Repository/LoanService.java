@@ -75,6 +75,16 @@ public abstract class LoanService {
         return loan;
     }
 
+    public static void saveLoan(Loan loan) {
+        try {
+            session = SessionService.getSession();
+            session.save(loan);
+            SessionService.commitSession(session);
+        } catch (Exception e) {
+            SessionService.rollbackSession(session);
+        }
+    }
+
     public static JsonResponse approveLoan(Loan loan, Boolean isApproved) {
         try {
             NotificationService.addNotification(loan.getAccount().getCustomer(),isApproved ? NotificationEnum.LOAN_APPROVED : NotificationEnum.LOAN_REJECTED);

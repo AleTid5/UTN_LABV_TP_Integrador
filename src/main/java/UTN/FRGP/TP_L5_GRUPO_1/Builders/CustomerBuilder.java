@@ -10,6 +10,7 @@ public abstract class CustomerBuilder {
     public static Customer build(HttpServletRequest request) throws UserException, ParseException {
         return build(request, new Customer());
     }
+
     public static Customer build(HttpServletRequest request, Customer customer) throws UserException, ParseException {
         customer.setName(request.getParameter("name"));
         customer.setLastName(request.getParameter("lastName"));
