@@ -5,5 +5,5 @@ public enum MovementTypeEnum {
     TRANSFER_EXTERNAL_ACCOUNT,
     BUY_DOLLARS,
     SELL_DOLLARS,
-    TRANSFER_DOLLARS,
+    TRANSFER_DOLLARS
 }

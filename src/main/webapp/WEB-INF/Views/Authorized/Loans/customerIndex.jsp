@@ -43,7 +43,7 @@
                     <td>${ loan.feesToPay - loan.payedFees }</td>
                     <td>$${ loan.feeValue }</td>
                     <td>
-                      <select name="account-${ loan.id }" class="selectpicker" data-live-search="true" data-style="select-with-transition">
+                      <select class="selectpicker" data-live-search="true" data-style="select-with-transition">
                         <option value="" selected>Seleccione una cuenta</option>
                         <c:forEach var="account" items="${ accounts }">
                           <option value="${ account.CBU }"

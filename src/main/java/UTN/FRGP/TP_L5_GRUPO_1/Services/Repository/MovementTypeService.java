@@ -20,7 +20,7 @@ public abstract class MovementTypeService {
         try {
             session = SessionService.getSession();
             movementType = (MovementType) session.createCriteria(MovementType.class)
-                    .add(Restrictions.eq("name",movementTypeEnum))
+                    .add(Restrictions.eq("name", movementTypeEnum.name()))
                     .uniqueResult();
         } finally {
             SessionService.commitSession(session);

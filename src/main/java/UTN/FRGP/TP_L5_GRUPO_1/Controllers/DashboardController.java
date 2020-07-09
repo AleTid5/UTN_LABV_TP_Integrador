@@ -29,6 +29,7 @@ public class DashboardController {
     public String dashboard(ModelMap modelMap, HttpServletRequest request) {
         if ((Boolean) request.getSession().getAttribute("isAdministrator")) {
             this.hydrateDashboard(modelMap);
+
             return "/Authorized/Dashboard/indexAdmin";
         }
 

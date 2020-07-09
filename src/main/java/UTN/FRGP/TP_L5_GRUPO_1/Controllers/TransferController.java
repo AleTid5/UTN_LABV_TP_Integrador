@@ -5,6 +5,7 @@ import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.TransferException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping("/tranfers")
+@RequestMapping("/transfers")
 @Controller
 public class TransferController {
 
@@ -29,30 +30,36 @@ public class TransferController {
     AbstractController abstractController;
 
     @RequestMapping(method = RequestMethod.GET, value = "/thirdParty")
-    public String transferList(ModelMap modelMap ) {
+    public String transferList(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.addAttribute("accounts", AccountService.getAccounts((Integer) request.getSession().getAttribute("id")));
 
-        return "/Authorized/Transfers/index";
+        return "Authorized/Transfers/thirdParty";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/thirdParty")
     public void saveTransfer(HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
-        String url = "transfers";
+        String url = "transfers/thirdParty";
 
         try {
-            Map.Entry<Account,Account> accounts = TransferBuilder.build(request).entrySet().iterator().next();
-            Movement movement = new Movement(accounts.getKey(),
+            Map.Entry<Account,Account> accounts = TransferBuilder.build(request);
+
+            MovementService.saveMovement(new Movement(
+                    accounts.getKey(),
                     accounts.getValue(),
                     MovementTypeService.getMovementType(MovementTypeEnum.TRANSFER_EXTERNAL_ACCOUNT),
                     Double.parseDouble(request.getParameter("amount")),
-                    request.getParameter("concept"));
-            MovementService.saveMovement(movement);
+                    request.getParameter("concept")
+            ));
+
+            AccountService.updateAccount(accounts.getKey());
             AccountService.updateAccount(accounts.getValue());
             parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
         } catch (AccountException e) {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
-            url += "/add";
-        }  catch (Exception e) {
+        } catch (TransferException e) {
+            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_TRANSFER_" + e.getField().toString()));
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             abstractController.redirectTo(response, request, url, parameters);

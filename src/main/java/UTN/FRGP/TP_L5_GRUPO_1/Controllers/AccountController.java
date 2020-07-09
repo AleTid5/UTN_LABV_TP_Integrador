@@ -34,10 +34,19 @@ public class AccountController {
     AbstractController abstractController;
 	
     @RequestMapping(method = RequestMethod.GET)
-    public String accountList(ModelMap modelMap) {
-        modelMap.addAttribute("accounts", AccountService.getAccounts());
+    public String accountList(ModelMap modelMap, HttpServletRequest request) {
+        if ((Boolean) request.getSession().getAttribute("isAdministrator")) {
+            modelMap.addAttribute("accounts", AccountService.getAccounts());
 
-        return "/Authorized/Accounts/index";
+            return "/Authorized/Accounts/index";
+        }
+
+        List<Account> accounts = AccountService.getHistory((Integer) request.getSession().getAttribute("id"));
+
+        modelMap.addAttribute("accounts", accounts);
+        modelMap.addAttribute("movements", MovementService.getMovements(accounts));
+
+        return "/Authorized/Accounts/indexHistory";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
@@ -107,15 +116,5 @@ public class AccountController {
     @ResponseBody
     public String deleteAccount(@PathVariable("cbu") String accountCBU) {
         return new Gson().toJson(AccountService.removeAccount(AccountService.getAccount(accountCBU)));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/history")
-    public String accountHistoryList(ModelMap modelMap, HttpServletRequest request) {
-        List<Account> accounts = AccountService.getHistory((Integer) request.getSession().getAttribute("id"));
-
-        modelMap.addAttribute("accounts", accounts);
-        modelMap.addAttribute("movements", MovementService.getMovements(accounts));
-
-        return "/Authorized/Accounts/indexHistory";
     }
 }

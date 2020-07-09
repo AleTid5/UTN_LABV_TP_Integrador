@@ -13,7 +13,7 @@ public class Account {
     @Column(unique = true, nullable = false)
     private String CBU;
 
-    @Column(unique = true, nullable = false, length = 20)
+    @Column(unique = true, nullable = false, length = 30)
     private String alias;
 
     @ManyToOne

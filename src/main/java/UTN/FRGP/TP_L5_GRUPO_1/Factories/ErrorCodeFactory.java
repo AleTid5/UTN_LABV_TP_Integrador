@@ -31,9 +31,14 @@ public class ErrorCodeFactory {
         map.put(ErrorCodeEnum.INVALID_LOCALITY, "La información de la localidad del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_ADDRESS, "La información del domicilio del cliente es inválido.");
         map.put(ErrorCodeEnum.INVALID_GENDER, "El género del cliente es inválido.");
+        map.put(ErrorCodeEnum.INVALID_ALIAS, "El Alias ingresado es inválido. Debe contener por lo menos 5 caracteres y como máximo 30.");
+        map.put(ErrorCodeEnum.INVALID_CBU, "El CBU ingresado es inválido. Debe contener 22 dígitos numéricos.");
+        map.put(ErrorCodeEnum.INVALID_TRANSFER_ALIAS, "No hemos podido hallar el Alias ingresado. Intente nuevamente.");
+        map.put(ErrorCodeEnum.INVALID_TRANSFER_CBU, "No hemos podido hallar el CBU ingresado. Intente nuevamente.");
+        map.put(ErrorCodeEnum.INVALID_TRANSFER_CUSTOMER, "La cuenta de destino no puede ser la misma que la de origen. Diríjase al módulo \"Transferencias a cuenta propia\".");
+        map.put(ErrorCodeEnum.INVALID_TRANSFER_ACCOUNT_TYPE, "No es posible enviar dinero a una cuenta con tipo de moneda diferente a la cuenta de origen.");
+        map.put(ErrorCodeEnum.INVALID_TRANSFER_BALANCE, "El monto ingresado es superior al remanente en su cuenta.");
         map.put(ErrorCodeEnum.MISSING_DATA, "Hay datos faltantes.");
-        map.put(ErrorCodeEnum.INVALID_ALIAS, "El Alias de la cuenta es inválido.");
-        map.put(ErrorCodeEnum.INVALID_CBU, "El CBU de la cuenta es inválido.");
 
         return map;
     }

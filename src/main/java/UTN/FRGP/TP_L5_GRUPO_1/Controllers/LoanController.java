@@ -26,6 +26,7 @@ public class LoanController {
     public String loanList(ModelMap modelMap, HttpServletRequest request) {
         if ((Boolean) request.getSession().getAttribute("isAdministrator")) {
             this.hydrateLoans(modelMap);
+
             return "/Authorized/Loans/index";
         }
 

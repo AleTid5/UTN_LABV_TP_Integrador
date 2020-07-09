@@ -125,7 +125,7 @@
 					</li>
 					<li class="nav-item ${ requestScope["javax.servlet.forward.request_uri"].contains("/accounts") ? "active" : ""}">
 						<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/accounts"> <i class="material-icons">history</i>
-							<p>Historial de cuentas</p>
+							<p>Movimientos de cuentas</p>
 						</a>
 					</li>
 				</c:otherwise>

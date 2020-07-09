@@ -115,7 +115,7 @@
                         <div class="card-footer" style="margin: 0 0px 10px;">
                             <div class="row" style="width: 100%">
                                 <div class="col-2" style="padding-left: 30px;">
-                                    <a href="../students" class="btn btn-fill btn-dark">Cancelar</a>
+                                    <a href="${request.getContextPath()}/TP_L5_GRUPO_1/loans" class="btn btn-fill btn-dark">Cancelar</a>
                                 </div>
                                 <div class="offset-6 col-2 offset-sm-8 col-sm-2" style="padding-right: 5px;">
                                     <button type="submit" class="btn btn-fill btn-rose" style="float: right;">Finalizar</button>
