@@ -25,7 +25,7 @@ public class Movement {
     private MovementType movementType;
 
     @Column(nullable = false)
-    private Integer amount;
+    private Double amount;
 
     @Column(length = 50)
     private String concept;
@@ -36,14 +36,14 @@ public class Movement {
 
     public Movement() {}
 
-    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount) {
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Double amount) {
         this.setOriginAccount(originAccount);
         this.setDestinationAccount(destinationAccount);
         this.setMovementType(movementType);
         this.setAmount(amount);
     }
 
-    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount, String concept) {
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Double amount, String concept) {
         this(originAccount, destinationAccount, movementType, amount);
         this.setConcept(concept);
     }
@@ -72,11 +72,11 @@ public class Movement {
         this.movementType = movementType;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

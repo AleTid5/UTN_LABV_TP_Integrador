@@ -18,9 +18,9 @@ public class MovementSeeder extends Seeder {
     );
 
     public static final List<Movement> movements = Arrays.asList(
-            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(2), movementTypes.get(0), 10000, "Arreglo chapista"),
-            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(1), movementTypes.get(0), 10000, "Mudanza"),
-            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(0), movementTypes.get(1), 18000)
+            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(2), movementTypes.get(0), 10000.0, "Arreglo chapista"),
+            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(1), movementTypes.get(0), 10000.0, "Mudanza"),
+            new Movement(AccountSeeder.accounts.get(0), AccountSeeder.accounts.get(0), movementTypes.get(1), 18000.0)
     );
 
     public void hydrate(Session session) {
