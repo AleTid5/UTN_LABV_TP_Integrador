@@ -11,6 +11,9 @@
             <div class="card-text">
               <h4 class="card-title">Préstamos</h4>
             </div>
+            <div style="position: absolute;left: 120px;top: 20px;">
+              <a href="#" onclick="openModal()">Ver historial de préstamos</a>
+            </div>
           </div>
           <div class="card-body ">
             <div class="material-datatables">
@@ -64,6 +67,106 @@
               </table>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;display: none" id="historyModal">
+      <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;width: 64em;">
+        <div class="swal2-header">
+          <h2 class="swal2-title" id="swal2-title" style="display: flex;">Historial de préstamos</h2>
+        </div>
+        <div class="swal2-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card ">
+                <div class="card-body ">
+                  <ul class="nav nav-pills nav-pills-rose nav-pills-icons justify-content-center" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#unseen-loans" role="tablist">
+                        <i class="material-icons">sync</i>
+                        Préstamos solicitados
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#rejected-loans" role="tablist">
+                        <i class="material-icons">highlight_off</i>
+                        Préstamos rechazados
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content tab-space tab-subcategories">
+                    <div class="tab-pane active show" id="unseen-loans">
+                      <div class="material-datatables">
+                        <table id="datatables2" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                          <thead>
+                          <tr>
+                            <th>Cuenta a depositar</th>
+                            <th>Monto solicitado</th>
+                            <th>Cuotas</th>
+                            <th>Valor cuota</th>
+                          </tr>
+                          </thead>
+                          <tfoot>
+                          <tr>
+                            <th>Cuenta a depositar</th>
+                            <th>Monto solicitado</th>
+                            <th>Cuotas</th>
+                            <th>Valor cuota</th>
+                          </tr>
+                          </tfoot>
+                          <tbody>
+                          <c:forEach var="loan" items="${ unseenLoans }">
+                            <tr id="loan-${ loan.id }">
+                              <td>${ loan.account.accountType.name }</td>
+                              <td>$${ loan.amount }</td>
+                              <td>${ loan.feesToPay }</td>
+                              <td>$${ loan.feeValue }</td>
+                            </tr>
+                          </c:forEach>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="rejected-loans">
+                      <div class="material-datatables">
+                        <table id="datatables3" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                          <thead>
+                          <tr>
+                            <th>Cuenta a depositar</th>
+                            <th>Monto solicitado</th>
+                            <th>Cuotas</th>
+                            <th>Valor cuota</th>
+                          </tr>
+                          </thead>
+                          <tfoot>
+                          <tr>
+                            <th>Cuenta a depositar</th>
+                            <th>Monto solicitado</th>
+                            <th>Cuotas</th>
+                            <th>Valor cuota</th>
+                          </tr>
+                          </tfoot>
+                          <tbody>
+                          <c:forEach var="loan" items="${ rejectedLoans }">
+                            <tr>
+                              <td>${ loan.account.accountType.name }</td>
+                              <td>$${ loan.amount }</td>
+                              <td>${ loan.feesToPay }</td>
+                              <td>$${ loan.feeValue }</td>
+                            </tr>
+                          </c:forEach>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swal2-actions" style="display: flex;">
+          <button type="button" class="swal2-confirm btn btn-success" aria-label="" onclick="closeModal()">Cerrar</button>
         </div>
       </div>
     </div>
@@ -121,4 +224,8 @@
       confirmButtonColor: '#52af50',
     })
   };
+
+  const openModal = () => $('#historyModal').fadeIn("slow");
+
+  const closeModal = () => $('#historyModal').hide("slow");
 </script>

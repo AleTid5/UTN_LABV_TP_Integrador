@@ -55,7 +55,7 @@ public class Loan {
         this.setAccount(account);
         this.setAmount(amount);
         this.setFeesToPay(feesToPay);
-        this.setFeeValue((double) (amount / feesToPay));
+        this.setFeeValue();
         this.setEndDate(endDate);
     }
 
@@ -91,8 +91,8 @@ public class Loan {
         return feeValue;
     }
 
-    public void setFeeValue(Double feeValue) {
-        this.feeValue = feeValue;
+    public void setFeeValue() {
+        this.feeValue = (double) (this.amount / this.feesToPay);
     }
 
     public BankAdministrator getBankAdministrator() {

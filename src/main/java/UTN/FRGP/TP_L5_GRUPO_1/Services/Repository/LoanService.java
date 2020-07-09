@@ -29,14 +29,14 @@ public abstract class LoanService {
     public static List<Loan> getLoans(Boolean isLoanApproved) {
         try {
             session = SessionService.getSession();
-            loans = nonNull(isLoanApproved) ?
-                    session.createCriteria(Loan.class)
-                            .add(Restrictions.isNotNull("bankAdministrator"))
-                            .add(Restrictions.eq("isApproved", isLoanApproved))
-                            .list() :
-                    session.createCriteria(Loan.class)
-                            .add(Restrictions.isNull("bankAdministrator"))
-                            .list();
+            loans = nonNull(isLoanApproved)
+                    ? session.createCriteria(Loan.class)
+                    .add(Restrictions.isNotNull("bankAdministrator"))
+                    .add(Restrictions.eq("isApproved", isLoanApproved))
+                    .list()
+                    : session.createCriteria(Loan.class)
+                    .add(Restrictions.isNull("bankAdministrator"))
+                    .list();
         } finally {
             SessionService.commitSession(session);
         }
@@ -44,12 +44,19 @@ public abstract class LoanService {
         return loans;
     }
 
-    public static List<Loan> getLoansByCustomerId(Integer customerId) {
+    public static List<Loan> getLoansByCustomerId(Boolean isLoanApproved, Integer customerId) {
         try {
             List<Account> accounts = AccountService.getAccounts(customerId);
             session = SessionService.getSession();
-            loans = session.createCriteria(Loan.class)
-                    .add(Restrictions.eq("isApproved", true))
+            loans = nonNull(isLoanApproved)
+                    ? session.createCriteria(Loan.class)
+                    .add(Restrictions.isNotNull("bankAdministrator"))
+                    .add(Restrictions.eq("isApproved", isLoanApproved))
+                    .add(Restrictions.eq("isPayed", false))
+                    .add(Restrictions.in("account", accounts))
+                    .list()
+                    : session.createCriteria(Loan.class)
+                    .add(Restrictions.isNull("bankAdministrator"))
                     .add(Restrictions.eq("isPayed", false))
                     .add(Restrictions.in("account", accounts))
                     .list();

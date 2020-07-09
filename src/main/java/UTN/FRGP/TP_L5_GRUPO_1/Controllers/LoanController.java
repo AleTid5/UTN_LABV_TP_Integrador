@@ -87,7 +87,9 @@ public class LoanController {
     }
 
     private void hydrateLoans(ModelMap modelMap, Integer customerId) {
-        modelMap.addAttribute("approvedLoans", LoanService.getLoansByCustomerId(customerId));
+        modelMap.addAttribute("approvedLoans", LoanService.getLoansByCustomerId(true, customerId));
+        modelMap.addAttribute("unseenLoans", LoanService.getLoansByCustomerId(null, customerId));
+        modelMap.addAttribute("rejectedLoans", LoanService.getLoansByCustomerId(false, customerId));
         modelMap.addAttribute("accounts", AccountService.getAccounts(customerId));
     }
 }

@@ -15,6 +15,7 @@ public abstract class LoanBuilder {
         loan.setAmount(Integer.parseInt(request.getParameter("amount")));
         loan.setFeesToPay(Integer.parseInt(request.getParameter("feesToPay")));
         loan.setEndDate(request.getParameter("endDate"));
+        loan.setFeeValue();
 
         return loan;
     }
