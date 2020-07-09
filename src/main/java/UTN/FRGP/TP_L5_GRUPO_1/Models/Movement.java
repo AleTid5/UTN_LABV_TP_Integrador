@@ -43,7 +43,7 @@ public class Movement {
         this.setAmount(amount);
     }
 
-    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Integer amount, String concept) {
+    public Movement(Account originAccount, Account destinationAccount, MovementType movementType, Double amount, String concept) {
         this(originAccount, destinationAccount, movementType, amount);
         this.setConcept(concept);
     }
