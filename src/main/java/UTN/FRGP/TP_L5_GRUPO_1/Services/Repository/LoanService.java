@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
@@ -47,8 +48,11 @@ public abstract class LoanService {
     }
 
     public static List<Loan> getLoansByCustomerId(Boolean isLoanApproved, Integer customerId) {
+        List<Account> accounts = AccountService.getAccounts(customerId);
+
+        if (accounts.size() == 0) return new ArrayList<>();
+
         try {
-            List<Account> accounts = AccountService.getAccounts(customerId);
             session = SessionService.getSession();
             loans = nonNull(isLoanApproved)
                     ? session.createCriteria(Loan.class)

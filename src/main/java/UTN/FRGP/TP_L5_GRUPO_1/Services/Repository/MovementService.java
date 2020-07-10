@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +32,8 @@ public abstract class MovementService {
     }
 
     public static List<Movement> getMovements(List<Account> accounts) {
+        if (accounts.size() == 0) return new ArrayList<>();
+
         try {
             session = SessionService.getSession();
             movements = session.createCriteria(Movement.class)

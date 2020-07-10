@@ -9,8 +9,10 @@
 					<img src="<c:url value="/assets/img/utn.png" />" />
 				</div>
 			</div>
-		</a> <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-		UTN FRGP </a>
+		</a>
+		<a href="${request.getContextPath()}/TP_L5_GRUPO_1/dashboard" class="simple-text logo-normal">
+			UTN FRGP
+		</a>
 	</div>
 	<div class="sidebar-wrapper">
 		<div class="user" style="padding-bottom: 15px">

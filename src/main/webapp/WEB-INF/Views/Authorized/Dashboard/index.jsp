@@ -54,7 +54,9 @@
         </div>
       </div>
     </div>
-    <h3>Cuentas</h3>
+    <c:if test="${ accounts.size() > 0 }">
+      <h3>Cuentas</h3>
+    </c:if>
     <div class="row">
       <c:forEach items="${ accounts }" var="account">
         <div class="col-md-${ Math.round(12 / accounts.size()) } col-sm-6">
