@@ -8,16 +8,16 @@ import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Objects.nonNull;
 
@@ -58,13 +58,13 @@ public abstract class AccountService implements iAccount {
     }
 
     public static Map<String, Long> getCreatedAccounts(String from, String to) {
-        Map<String, Long> createdAccounts = new HashMap<>();
+        LinkedHashMap<String, Long> createdAccounts = new LinkedHashMap<>();
 
         try {
             session = SessionService.getSession();
             Criteria criteria = session.createCriteria(Account.class)
                     .setProjection(Projections.projectionList()
-                            .add(Projections.groupProperty("creationDate"))
+                            .add(Projections.alias(Projections.sqlGroupProjection("date(creationDate) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE }), "createdDate"))
                             .add(Projections.count("CBU")));
 
             if (nonNull(from) && nonNull(to)) {
@@ -77,7 +77,7 @@ public abstract class AccountService implements iAccount {
                 }
             }
 
-            List<Object[]> accountsList = criteria.list();
+            List<Object[]> accountsList = criteria.addOrder(Order.asc("createdDate")).list();
             accountsList.stream().forEach(list -> createdAccounts.put(list[0].toString().substring(0, 10), (Long) list[1]));
         } finally {
             SessionService.commitSession(session);

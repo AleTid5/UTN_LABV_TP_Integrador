@@ -115,7 +115,7 @@ public class Account {
 	}
 	
 	public Double getBalance() {
-		return balance;
+		return Math.floor(this.balance * 100) / 100;
 	}
 
 	public void setBalance(Double balance) {

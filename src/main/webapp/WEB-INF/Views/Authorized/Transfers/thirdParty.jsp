@@ -41,7 +41,7 @@
                 <label class="col-sm-2 col-form-label">Monto</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" disabled>
+                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" step="0.01" disabled>
                   </div>
                 </div>
               </div>

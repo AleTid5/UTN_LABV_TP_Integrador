@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:authorized>
   <jsp:body>
@@ -11,7 +12,7 @@
               <i class="fa fa-line-chart"></i>
             </div>
             <p class="card-category">Cuentas abiertas</p>
-            <h3 class="card-title">${ accounts }</h3>
+            <h3 class="card-title">${ accounts.size() }</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -52,6 +53,27 @@
           </div>
         </div>
       </div>
+    </div>
+    <h3>Cuentas</h3>
+    <div class="row">
+      <c:forEach items="${ accounts }" var="account">
+        <div class="col-md-${ Math.round(12 / accounts.size()) } col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">store</i>
+              </div>
+              <p class="card-category">Balance</p>
+              <h3 class="card-title">$${ account.balance }</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">attach_money</i> ${ account.accountType } (${ account.CBU })
+              </div>
+            </div>
+          </div>
+        </div>
+      </c:forEach>
     </div>
   </jsp:body>
 </layout:authorized>

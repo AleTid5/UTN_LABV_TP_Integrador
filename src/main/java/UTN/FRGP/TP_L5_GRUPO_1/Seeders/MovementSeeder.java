@@ -13,8 +13,7 @@ public class MovementSeeder extends Seeder {
             new MovementType(MovementTypeEnum.TRANSFER_OWN_ACCOUNT, CurrencySeeder.currencyTypes.get(0)),
             new MovementType(MovementTypeEnum.TRANSFER_EXTERNAL_ACCOUNT, CurrencySeeder.currencyTypes.get(0)),
             new MovementType(MovementTypeEnum.BUY_DOLLARS, CurrencySeeder.currencyTypes.get(1)),
-            new MovementType(MovementTypeEnum.SELL_DOLLARS, CurrencySeeder.currencyTypes.get(1)),
-            new MovementType(MovementTypeEnum.TRANSFER_DOLLARS, CurrencySeeder.currencyTypes.get(1))
+            new MovementType(MovementTypeEnum.SELL_DOLLARS, CurrencySeeder.currencyTypes.get(1))
     );
 
     public static final List<Movement> movements = Arrays.asList(

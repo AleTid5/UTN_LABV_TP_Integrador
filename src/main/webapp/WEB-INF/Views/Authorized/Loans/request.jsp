@@ -4,7 +4,7 @@
 
 <layout:authorized>
   <jsp:body>
-    <form method="POST" action="" class="form-horizontal" onsubmit="return onSubmit()">
+    <form method="POST" action="" class="form-horizontal">
       <div class="row">
         <div class="col-md-12">
           <div class="card ">
@@ -33,7 +33,7 @@
                 <label class="col-sm-2 col-form-label">Monto</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" disabled>
+                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" step="0.01" disabled>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                 <label class="col-sm-2 col-form-label" for="endDate">Fecha de fin</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="text" name="endDate" class="form-control" placeholder="Ingrese monto" min="0" id="endDate" disabled>
+                    <input required type="text" class="form-control" placeholder="Ingrese monto" min="0" id="endDate" disabled>
                   </div>
                 </div>
               </div>
@@ -94,15 +94,9 @@
     date.setMonth(date.getMonth() + parseInt(feesQuantity));
     console.log(date)
 
-    $('[name="endDate"]').val(date.getFullYear() + "-" +
+    $('#endDate').val(date.getFullYear() + "-" +
             (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) +
             "-" + (date.getDate() > 9 ? date.getDate() : "0" + (date.getDate())));
-  }
-
-  function onSubmit() {
-    $('[name="endDate"]').prop('disabled', false);
-
-    return true;
   }
 
   onFeesChange(6);

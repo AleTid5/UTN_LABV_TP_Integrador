@@ -52,7 +52,7 @@ public class DashboardController {
 
     private void hydrateDashboard(ModelMap modelMap, Integer customerId) {
         List<Account> accounts =  AccountService.getAccounts(customerId);
-        modelMap.addAttribute("accounts", accounts.size());
+        modelMap.addAttribute("accounts", accounts);
         modelMap.addAttribute("approvedLoans", LoanService.getLoansByCustomerId(true, customerId).size());
         modelMap.addAttribute("movements", MovementService.getMovements(accounts).size());
     }

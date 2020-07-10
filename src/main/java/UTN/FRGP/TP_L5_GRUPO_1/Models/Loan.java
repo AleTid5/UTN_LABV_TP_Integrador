@@ -3,8 +3,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Models;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,7 +21,7 @@ public class Loan {
     private BankAdministrator bankAdministrator;
 
     @Column(nullable = false)
-    private Integer amount;
+    private Double amount;
 
     @Column(nullable = false)
     private Integer payedFees;
@@ -50,13 +49,12 @@ public class Loan {
         this.creationDate = new Date();
     }
 
-    public Loan(Account account, Integer amount, Integer feesToPay, String endDate) throws ParseException {
+    public Loan(Account account, Double amount, Integer feesToPay) {
         this();
         this.setAccount(account);
         this.setAmount(amount);
         this.setFeesToPay(feesToPay);
         this.setFeeValue();
-        this.setEndDate(endDate);
     }
 
     public Integer getId() {
@@ -71,11 +69,11 @@ public class Loan {
         this.account = account;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -84,15 +82,17 @@ public class Loan {
     }
 
     public void setFeesToPay(Integer feesToPay) {
+        this.endDate = java.sql.Date.valueOf(LocalDate.now().plusMonths(feesToPay));
+
         this.feesToPay = feesToPay;
     }
 
     public Double getFeeValue() {
-        return feeValue;
+        return Math.floor(this.feeValue * 100) / 100;
     }
 
     public void setFeeValue() {
-        this.feeValue = (double) (this.amount / this.feesToPay);
+        this.feeValue = this.amount / this.feesToPay;
     }
 
     public BankAdministrator getBankAdministrator() {
@@ -113,10 +113,6 @@ public class Loan {
 
     public Date getEndDate() {
         return endDate;
-    }
-
-    public void setEndDate(String endDate) throws ParseException {
-        this.endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
     }
 
     public void setIsApproved(Boolean isApproved) {
