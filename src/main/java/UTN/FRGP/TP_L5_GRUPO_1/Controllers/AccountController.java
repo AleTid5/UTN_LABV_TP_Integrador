@@ -50,11 +50,18 @@ public class AccountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public String createAccount(ModelMap modelMap) {
-        modelMap.addAttribute("customers", CustomerService.getCustomers());
-        modelMap.addAttribute("accountTypes", AccountTypeService.getAccountTypes());
+    public String createAccount(ModelMap modelMap, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+            modelMap.addAttribute("customers", CustomerService.getCustomers());
+            modelMap.addAttribute("accountTypes", AccountTypeService.getAccountTypes());
 
-        return "/Authorized/Accounts/add";
+            return "/Authorized/Accounts/add";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
@@ -63,6 +70,7 @@ public class AccountController {
         String url = "accounts";
 
         try {
+            abstractController.validateIsAdministrator(request.getSession());
             Account account = AccountBuilder.build(request);
             AccountService.saveAccount(account);
             parameters.put("successCode", SuccessCodeEnum.ACCOUNT_CREATED);
@@ -73,6 +81,7 @@ public class AccountController {
             parameters.put("errorCode", ErrorCodeEnum.ACCOUNTS_MAX_LIMIT);
             url += "/add";
         } catch (Exception e) {
+            url = "";
             e.printStackTrace();
         } finally {
             abstractController.redirectTo(response, request, url, parameters);
@@ -80,13 +89,20 @@ public class AccountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{cbu}")
-    public String editCustomer(@PathVariable("cbu") String accountCBU, ModelMap modelMap) {
-        Account account = AccountService.getAccount(accountCBU);
-        modelMap.addAttribute("account", account);
-        modelMap.addAttribute("customers", CustomerService.getCustomers());
-        modelMap.addAttribute("accountTypes", AccountTypeService.getAccountTypes());
+    public String editCustomer(@PathVariable("cbu") String accountCBU, ModelMap modelMap, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+            Account account = AccountService.getAccount(accountCBU);
+            modelMap.addAttribute("account", account);
+            modelMap.addAttribute("customers", CustomerService.getCustomers());
+            modelMap.addAttribute("accountTypes", AccountTypeService.getAccountTypes());
 
-        return "/Authorized/Accounts/edit";
+            return "/Authorized/Accounts/edit";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{cbu}")
@@ -95,6 +111,7 @@ public class AccountController {
         String url = "accounts";
 
         try {
+            abstractController.validateIsAdministrator(request.getSession());
             Account account = AccountBuilder.build(request, AccountService.getAccount(accountCBU));
 
             AccountService.updateAccount(account);
@@ -106,6 +123,7 @@ public class AccountController {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/edit/" + accountCBU;
         }  catch (Exception e) {
+            url = "";
             e.printStackTrace();
         } finally {
             abstractController.redirectTo(response, request, url, parameters);
@@ -114,7 +132,15 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{cbu}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteAccount(@PathVariable("cbu") String accountCBU) {
-        return new Gson().toJson(AccountService.removeAccount(AccountService.getAccount(accountCBU)));
+    public String deleteAccount(@PathVariable("cbu") String accountCBU, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+
+            return new Gson().toJson(AccountService.removeAccount(AccountService.getAccount(accountCBU)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 }

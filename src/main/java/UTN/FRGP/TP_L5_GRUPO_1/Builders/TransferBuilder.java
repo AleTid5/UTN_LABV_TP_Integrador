@@ -17,14 +17,12 @@ import java.util.Map;
 import static java.util.Objects.isNull;
 
 public abstract class TransferBuilder {
-    public static Map.Entry<Account, Account> build(HttpServletRequest request) throws AccountException, TransferException {
-        Map<Account, Account> accounts = new HashMap<>();
-
+    public static Movement build(HttpServletRequest request) throws AccountException, TransferException {
+        Movement movement = new Movement();
         Map.Entry<TransferEnum, String> transferEnumStringMap = buildKey(request.getParameter("destinationAccount")).entrySet().iterator().next();
-        Account originAccount = AccountService.getAccount(request.getParameter("originAccount"));
-        Account destinationAccount;
 
-        destinationAccount = transferEnumStringMap.getKey().equals(TransferEnum.ALIAS)
+        Account originAccount = AccountService.getAccount(request.getParameter("originAccount"));
+        Account destinationAccount = transferEnumStringMap.getKey().equals(TransferEnum.ALIAS)
                 ? AccountService.getAccountByAlias(transferEnumStringMap.getValue())
                 : AccountService.getAccount(transferEnumStringMap.getValue());
 
@@ -46,9 +44,13 @@ public abstract class TransferBuilder {
 
         destinationAccount.setBalance(destinationAccount.getBalance() + Double.parseDouble(request.getParameter("amount")));
         originAccount.setBalance(originAccount.getBalance() - Double.parseDouble(request.getParameter("amount")));
-        accounts.put(originAccount,destinationAccount);
+        movement.setOriginAccount(originAccount);
+        movement.setDestinationAccount(destinationAccount);
+        movement.setAmount(Double.parseDouble(request.getParameter("amount")));
+        movement.setConcept(request.getParameter("concept"));
+        movement.setMovementType(MovementTypeService.getMovementType(MovementTypeEnum.TRANSFER_EXTERNAL_ACCOUNT));
 
-        return accounts.entrySet().iterator().next();
+        return movement;
     }
 
     public static Movement buildMovement(HttpServletRequest request) {

@@ -42,18 +42,11 @@ public class TransferController {
         String url = "transfers/thirdParty";
 
         try {
-            Map.Entry<Account,Account> accounts = TransferBuilder.build(request);
+            Movement movement = TransferBuilder.build(request);
 
-            MovementService.saveMovement(new Movement(
-                    accounts.getKey(),
-                    accounts.getValue(),
-                    MovementTypeService.getMovementType(MovementTypeEnum.TRANSFER_EXTERNAL_ACCOUNT),
-                    Double.parseDouble(request.getParameter("amount")),
-                    request.getParameter("concept")
-            ));
-
-            AccountService.updateAccount(accounts.getKey());
-            AccountService.updateAccount(accounts.getValue());
+            MovementService.saveMovement(movement);
+            AccountService.updateAccount(movement.getOriginAccount());
+            AccountService.updateAccount(movement.getDestinationAccount());
             parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
         } catch (AccountException e) {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));

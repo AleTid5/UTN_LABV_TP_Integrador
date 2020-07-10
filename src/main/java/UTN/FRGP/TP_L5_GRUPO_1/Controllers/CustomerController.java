@@ -31,17 +31,31 @@ public class CustomerController {
     AbstractController abstractController;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String customerList(ModelMap modelMap) {
-        modelMap.addAttribute("customers", CustomerService.getCustomers());
+    public String customerList(ModelMap modelMap, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+            modelMap.addAttribute("customers", CustomerService.getCustomers());
 
-        return "/Authorized/Customers/index";
+            return "/Authorized/Customers/index";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
-    public String createCustomer(ModelMap modelMap) {
-        modelMap.addAttribute("countries", LocationService.getCountries());
+    public String createCustomer(ModelMap modelMap, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+            modelMap.addAttribute("countries", LocationService.getCountries());
 
-        return "/Authorized/Customers/add";
+            return "/Authorized/Customers/add";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
@@ -50,6 +64,7 @@ public class CustomerController {
         String url = "customers";
 
         try {
+            abstractController.validateIsAdministrator(request.getSession());
             Customer customer = CustomerBuilder.build(request);
             customer.setPassword(request.getParameter("dni"));
 
@@ -62,6 +77,7 @@ public class CustomerController {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/add";
         }  catch (Exception e) {
+            url = "";
             e.printStackTrace();
         } finally {
             abstractController.redirectTo(response, request, url, parameters);
@@ -69,14 +85,21 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
-    public String editCustomer(@PathVariable("id") Integer userId, ModelMap modelMap) {
-        Customer customer = CustomerService.getCustomerById(userId);
-        modelMap.addAttribute("customer", customer);
-        modelMap.addAttribute("countries", LocationService.getCountries());
-        modelMap.addAttribute("provinces", LocationService.getProvinces(customer.getLocality()));
-        modelMap.addAttribute("localities", LocationService.getLocalities(customer.getLocality()));
+    public String editCustomer(@PathVariable("id") Integer userId, ModelMap modelMap, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+            Customer customer = CustomerService.getCustomerById(userId);
+            modelMap.addAttribute("customer", customer);
+            modelMap.addAttribute("countries", LocationService.getCountries());
+            modelMap.addAttribute("provinces", LocationService.getProvinces(customer.getLocality()));
+            modelMap.addAttribute("localities", LocationService.getLocalities(customer.getLocality()));
 
-        return "/Authorized/Customers/edit";
+            return "/Authorized/Customers/edit";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/edit/{id}")
@@ -85,6 +108,7 @@ public class CustomerController {
         String url = "customers";
 
         try {
+            abstractController.validateIsAdministrator(request.getSession());
             Customer customer = CustomerBuilder.build(request, CustomerService.getCustomerById(userId));
             customer.setId(userId);
 
@@ -97,6 +121,7 @@ public class CustomerController {
             parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
             url += "/edit/" + userId;
         }  catch (Exception e) {
+            url = "";
             e.printStackTrace();
         } finally {
             abstractController.redirectTo(response, request, url, parameters);
@@ -105,7 +130,15 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteCustomer(@PathVariable("id") Integer userId) {
-        return new Gson().toJson(CustomerService.removeCustomer(CustomerService.getCustomerById(userId)));
+    public String deleteCustomer(@PathVariable("id") Integer userId, HttpServletRequest request) {
+        try {
+            abstractController.validateIsAdministrator(request.getSession());
+
+            return new Gson().toJson(CustomerService.removeCustomer(CustomerService.getCustomerById(userId)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/Unauthorized/Login/index";
     }
 }

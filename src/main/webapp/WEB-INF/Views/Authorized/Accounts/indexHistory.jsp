@@ -59,7 +59,9 @@
                             <td>${ movement.creationDate }</td>
                             <td>${ movement.originAccount != null ? movement.originAccount.accountNumber : "Banco (Préstamo otorgado)" }</td>
                             <td>${ movement.destinationAccount.accountNumber }</td>
-                            <td>${ movement.amount }</td>
+                            <td class="text-${ account.accountNumber.equals(movement.originAccount.accountNumber) ? "danger" : "success" }">
+                                $${ movement.amount }
+                            </td>
                             <td>${ movement.destinationAccount.accountType.currencyType }</td>
                             <td>${ movement.concept != null ? movement.concept : "-" }</td>
                           </tr>
