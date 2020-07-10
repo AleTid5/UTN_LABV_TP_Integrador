@@ -145,7 +145,7 @@ public abstract class AccountService {
         }
     }
 
-    public static void updateAccount(Account account) throws AccountException {
+    public static void updateAccount(Account account) {
         try {
             session = SessionService.getSession();
             session.update(account);

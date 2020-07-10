@@ -2,7 +2,6 @@ package UTN.FRGP.TP_L5_GRUPO_1.Builders;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
-import UTN.FRGP.TP_L5_GRUPO_1.Models.MovementType;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CurrencyService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementTypeService;

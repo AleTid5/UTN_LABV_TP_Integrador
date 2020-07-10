@@ -1,7 +1,6 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Builders.DollarBuilder;
-import UTN.FRGP.TP_L5_GRUPO_1.Builders.MovementBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
