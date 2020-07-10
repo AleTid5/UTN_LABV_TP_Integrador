@@ -33,7 +33,6 @@ public class Movement {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-
     public Movement() {
         this.creationDate = new Date();
     }

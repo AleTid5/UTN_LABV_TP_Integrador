@@ -1,9 +1,9 @@
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.ErrorCodeFactory" %>
-<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.SuccessCodeFactory" %>
 <%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.NotificationFactory" %>
-<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum" %>
+<%@ tag import="UTN.FRGP.TP_L5_GRUPO_1.Factories.SuccessCodeFactory" %>
 <%@ tag import="java.util.Arrays" %>
 <%@tag description="Authorized Layout" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true"%>

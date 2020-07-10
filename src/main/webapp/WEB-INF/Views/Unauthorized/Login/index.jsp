@@ -9,12 +9,6 @@
           <h4 class="card-title">Iniciar sesión</h4>
         </div>
         <div class="card-body">
-          <div class="alert alert-info ${empty error ? "hidden" : null}">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <i class="material-icons">close</i>
-            </button>
-            <span>${ error }</span>
-          </div>
           <p class="card-description text-center">Ingrese sus credenciales</p>
           <span class="bmd-form-group">
                     <div class="input-group">
