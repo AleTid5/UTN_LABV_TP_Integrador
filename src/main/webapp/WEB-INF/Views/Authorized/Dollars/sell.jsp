@@ -82,7 +82,7 @@
   </jsp:body>
 </layout:authorized>
 <script>
-  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/dollars/buy");
+  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/dollars/sell");
 
   const onAccountChange = select => {
     const maxValue = parseFloat(select.options[select.selectedIndex].getAttribute('data-value'));

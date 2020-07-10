@@ -32,9 +32,9 @@ public abstract class DollarBuilder {
         movement.getOriginAccount().setBalance(movement.getOriginAccount().getBalance() - movement.getAmount());
 
         if (movementTypeEnum.equals(MovementTypeEnum.BUY_DOLLARS)) {
-            movement.getDestinationAccount().setBalance(movement.getDestinationAccount().getBalance() + movement.getAmount() / value);
+            movement.getDestinationAccount().setBalance(movement.getDestinationAccount().getBalance() + (movement.getAmount() / value));
         } else {
-            movement.getDestinationAccount().setBalance(movement.getDestinationAccount().getBalance() + movement.getAmount() * value);
+            movement.getDestinationAccount().setBalance(movement.getDestinationAccount().getBalance() + (movement.getAmount() * value));
         }
 
         return movement;
