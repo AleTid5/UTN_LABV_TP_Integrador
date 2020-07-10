@@ -2,7 +2,6 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
-import UTN.FRGP.TP_L5_GRUPO_1.Interfaces.iAccount;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
@@ -25,7 +24,7 @@ import java.util.Map;
 import static java.util.Objects.nonNull;
 
 @Service
-public abstract class AccountService implements iAccount {
+public abstract class AccountService {
 
     @Autowired
     private static Session session;
@@ -146,7 +145,9 @@ public abstract class AccountService implements iAccount {
         }
     }
 
-    public static void updateAccount(Account account) {
+    public static void updateAccount(Account account) throws AccountException {
+        AccountService.canUserHaveAnotherAccount(account);
+
         try {
             session = SessionService.getSession();
             session.update(account);
@@ -180,7 +181,7 @@ public abstract class AccountService implements iAccount {
                     .add(Restrictions.eq("isActive", true))
                     .list();
 
-            if (MAX_ACCOUNTS_ALLOWED.equals(accounts.size())) {
+            if (accounts.size() == 4) {
                 throw new AccountException(AccountEnum.CUSTOMER);
             }
         } finally {

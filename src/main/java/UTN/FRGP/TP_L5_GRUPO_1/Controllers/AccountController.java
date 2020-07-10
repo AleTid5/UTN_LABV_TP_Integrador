@@ -120,7 +120,7 @@ public class AccountController {
             parameters.put("errorCode", ErrorCodeEnum.DUPLICATED_ACCOUNT);
             url += "/edit/" + accountCBU;
         } catch (AccountException e) {
-            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
+            parameters.put("errorCode", ErrorCodeEnum.ACCOUNTS_MAX_LIMIT);
             url += "/edit/" + accountCBU;
         }  catch (Exception e) {
             url = "";
