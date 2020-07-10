@@ -32,4 +32,12 @@ public class CurrencyValue {
         this.saleValue = saleValue;
         this.endDate = endDate;
     }
+
+    public Double getSaleValue() {
+        return saleValue;
+    }
+
+    public Double getPurchaseValue() {
+        return purchaseValue;
+    }
 }

@@ -83,6 +83,27 @@
 					</li>
 				</c:when>
 				<c:otherwise>
+					<li class="nav-item ${ requestScope["javax.servlet.forward.request_uri"].contains("/dollars") ? "active" : ""}">
+						<a class="nav-link" data-toggle="collapse" href="#dollars"> <i class="material-icons">credit_card</i>
+							<p>
+								Compra-Venta Dólares <b class="caret"></b>
+							</p>
+						</a>
+						<div class="collapse ${ requestScope["javax.servlet.forward.request_uri"].contains("/dollars") ? "show" : ""}" id="dollars">
+							<ul class="nav">
+								<li class="nav-item ${ requestScope["javax.servlet.forward.request_uri"].equals("/TP_L5_GRUPO_1/dollars/buy") ? "active" : ""}">
+									<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/dollars/buy">
+										<span class="sidebar-mini">C</span> <span class="sidebar-normal">Comprar</span>
+									</a>
+								</li>
+								<li class="nav-item ${ requestScope["javax.servlet.forward.request_uri"].equals("/TP_L5_GRUPO_1/dollars/sell") ? "active" : ""}">
+									<a class="nav-link" href="${request.getContextPath()}/TP_L5_GRUPO_1/dollars/sell">
+										<span class="sidebar-mini">V</span> <span class="sidebar-normal">Vender</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
 					<li class="nav-item ${ requestScope["javax.servlet.forward.request_uri"].contains("/loans") ? "active" : ""}">
 						<a class="nav-link" data-toggle="collapse" href="#loans"> <i class="material-icons">credit_card</i>
 							<p>

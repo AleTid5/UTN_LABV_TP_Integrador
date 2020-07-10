@@ -18,7 +18,7 @@
                 <label class="col-sm-2 col-form-label" for="originAccount">Cuenta origen</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select name="originAccount" id="originAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange(this)">
+                    <select required name="originAccount" id="originAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange(this)">
                       <option value="" data-value="0" selected>Seleccione una cuenta</option>
                       <c:forEach var="account" items="${ accounts }">
                         <option value="${ account.CBU }" data-value="${ account.balance }">

@@ -24,7 +24,7 @@ public abstract class CurrencyService {
                     .add(Restrictions.eq("name", currencyTypeName))
                     .uniqueResult();
             currencyValue = (CurrencyValue) session.createCriteria(CurrencyValue.class)
-                    .add(Restrictions.eq("currencyType", currencyType.getId()))
+                    .add(Restrictions.eq("currencyType.id", currencyType.getId()))
                     .uniqueResult();
         } finally {
             SessionService.commitSession(session);

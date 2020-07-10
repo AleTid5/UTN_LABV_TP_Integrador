@@ -1,12 +1,11 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
+import UTN.FRGP.TP_L5_GRUPO_1.Builders.DollarBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Builders.MovementBuilder;
-import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
-import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
-import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.TransferException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
+import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.CurrencyService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.MovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,36 +18,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping("/transfers")
+@RequestMapping("/dollars")
 @Controller
-public class TransferController {
+public class DollarController {
 
     @Autowired
     AbstractController abstractController;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/thirdParty")
-    public String transferList(ModelMap modelMap, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.GET, value = "/buy")
+    public String buyDollarsForm(ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("accounts", AccountService.getAccounts((Integer) request.getSession().getAttribute("id")));
+        modelMap.addAttribute("purchaseValue", CurrencyService.getCurrencyValueByCurrencyTypeName("USD").getPurchaseValue());
 
-        return "Authorized/Transfers/thirdParty";
+        return "Authorized/Dollars/buy";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/thirdParty")
-    public void saveTransfer(HttpServletResponse response, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.POST, value = "/buy")
+    public void buyDollars(HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
-        String url = "transfers/thirdParty";
+        String url = "dollars/buy";
 
         try {
-            Movement movement = MovementBuilder.build(request);
+            Movement movement = DollarBuilder.buildDollarPurchase(request);
 
             MovementService.saveMovement(movement);
             AccountService.updateAccount(movement.getOriginAccount());
             AccountService.updateAccount(movement.getDestinationAccount());
-            parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
-        } catch (AccountException e) {
-            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_" + e.getField().toString()));
-        } catch (TransferException e) {
-            parameters.put("errorCode", ErrorCodeEnum.valueOf("INVALID_TRANSFER_" + e.getField().toString()));
+            parameters.put("successCode", SuccessCodeEnum.DOLLARS_PURCHASED);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -56,25 +52,26 @@ public class TransferController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/own")
-    public String OnTransferOwn(ModelMap modelMap, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.GET, value = "/sell")
+    public String sellDollarsForm(ModelMap modelMap, HttpServletRequest request) {
         modelMap.addAttribute("accounts", AccountService.getAccounts((Integer) request.getSession().getAttribute("id")));
+        modelMap.addAttribute("saleValue", CurrencyService.getCurrencyValueByCurrencyTypeName("USD").getSaleValue());
 
-        return "Authorized/Transfers/own";
+        return "Authorized/Dollars/sell";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/own")
-    public void OnTransferOwn(HttpServletResponse response, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.POST, value = "/sell")
+    public void sellDollars(HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
-        String url = "transfers/own";
+        String url = "dollars/sell";
 
         try {
-            Movement movement = MovementBuilder.buildMovement(request);
+            Movement movement = DollarBuilder.buildDollarSale(request);
 
             MovementService.saveMovement(movement);
             AccountService.updateAccount(movement.getOriginAccount());
             AccountService.updateAccount(movement.getDestinationAccount());
-            parameters.put("successCode", SuccessCodeEnum.TRANSFER_SUCCESSFUL);
+            parameters.put("successCode", SuccessCodeEnum.DOLLARS_SOLD);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

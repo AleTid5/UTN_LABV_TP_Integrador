@@ -39,6 +39,7 @@
                         <th>Cuenta Destino</th>
                         <th>Monto</th>
                         <th>Moneda</th>
+                        <th>Tipo de movimiento</th>
                         <th>Concepto</th>
                       </tr>
                       </thead>
@@ -49,6 +50,7 @@
                         <th>Cuenta Destino</th>
                         <th>Monto</th>
                         <th>Moneda</th>
+                        <th>Tipo de movimiento</th>
                         <th>Concepto</th>
                       </tr>
                       </tfoot>
@@ -63,6 +65,7 @@
                                 $${ movement.amount }
                             </td>
                             <td>${ movement.destinationAccount.accountType.currencyType }</td>
+                            <td>${ movement.movementType }</td>
                             <td>${ movement.concept != null ? movement.concept : "-" }</td>
                           </tr>
                         </c:if>

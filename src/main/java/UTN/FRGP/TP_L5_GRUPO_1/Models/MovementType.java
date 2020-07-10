@@ -46,4 +46,17 @@ public class MovementType {
     public void setCurrencyType(CurrencyType currencyType) {
         this.currencyType = currencyType;
     }
+
+    @Override
+    public String toString() {
+        return this.name.equals("TRANSFER_OWN_ACCOUNT")
+                ? "Transferencia en cuenta propia"
+                : this.name.equals("TRANSFER_EXTERNAL_ACCOUNT")
+                ? "Transferencia a cuenta extenera"
+                : this.name.equals("BUY_DOLLARS")
+                ? "Compra de dólares"
+                : this.name.equals("SELL_DOLLARS")
+                ? "Venta de dólares"
+                : "Aprobación de Préstamo";
+    }
 }

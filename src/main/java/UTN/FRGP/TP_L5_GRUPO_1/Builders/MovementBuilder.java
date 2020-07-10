@@ -16,7 +16,7 @@ import java.util.Map;
 
 import static java.util.Objects.isNull;
 
-public abstract class TransferBuilder {
+public abstract class MovementBuilder {
     public static Movement build(HttpServletRequest request) throws AccountException, TransferException {
         Movement movement = new Movement();
         Map.Entry<TransferEnum, String> transferEnumStringMap = buildKey(request.getParameter("destinationAccount")).entrySet().iterator().next();

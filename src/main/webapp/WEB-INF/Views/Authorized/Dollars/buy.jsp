@@ -10,35 +10,39 @@
           <div class="card ">
             <div class="card-header card-header-rose card-header-text">
               <div class="card-text">
-                <h4 class="card-title">Transferencia a cuenta propia</h4>
+                <h4 class="card-title">Compra de dolares</h4>
               </div>
             </div>
             <div class="card-body ">
               <div class="row">
-                <label class="col-sm-2 col-form-label" for="originAccount">Cuenta origen</label>
+                <label class="col-sm-2 col-form-label" for="originAccount">Cuenta a debitar</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select name="originAccount" id="originAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange()">
+                    <select required name="originAccount" id="originAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange(this)">
                       <option value="" data-value="0" selected>Seleccione una cuenta</option>
                       <c:forEach var="account" items="${ accounts }">
-                        <option value="${ account.CBU }" data-value="${ account.balance }" data-currency="${ account.accountType.currencyType.id }">
-                            ${ account.accountType } ($${ account.balance })
-                        </option>
+                        <c:if test="${ account.accountType.currencyType.id == 1 }">
+                          <option value="${ account.CBU }" data-value="${ account.balance }">
+                              ${ account.accountType } ($${ account.balance })
+                          </option>
+                        </c:if>
                       </c:forEach>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label" for="destinationAccount">Cuenta destino</label>
+                <label class="col-sm-2 col-form-label" for="destinationAccount">Cuenta a depositar</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select required name="destinationAccount" id="destinationAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition" onchange="onAccountChange()">
+                    <select required name="destinationAccount" id="destinationAccount" class="selectpicker" data-live-search="true" data-style="select-with-transition">
                       <option value="" data-value="0" selected>Seleccione una cuenta</option>
                       <c:forEach var="account" items="${ accounts }">
-                        <option value="${ account.CBU }" data-currency="${ account.accountType.currencyType.id }">
-                            ${ account.accountType } ($${ account.balance })
-                        </option>
+                        <c:if test="${ account.accountType.currencyType.id == 2 }">
+                          <option value="${ account.CBU }">
+                              ${ account.accountType } ($${ account.balance })
+                          </option>
+                        </c:if>
                       </c:forEach>
                     </select>
                   </div>
@@ -48,7 +52,15 @@
                 <label class="col-sm-2 col-form-label">Monto</label>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" step="0.01" disabled>
+                    <input required type="number" name="amount" class="form-control" placeholder="Ingrese monto" min="0" max="0" step="0.01" onkeyup="onAmountChange(this.value)" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">Monto en dólares</label>
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <input required type="text" class="form-control" value="0" id="dollarAmount" disabled>
                   </div>
                 </div>
               </div>
@@ -70,26 +82,20 @@
   </jsp:body>
 </layout:authorized>
 <script>
-  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/transfers/own");
+  window.history.replaceState({}, document.title, "/TP_L5_GRUPO_1/dollars/buy");
 
-  const onAccountChange = () => {
-    const originAccount = $('[name="originAccount"]');
-    const destinationAccount = $('[name="destinationAccount"]');
-    const maxValue = parseFloat(originAccount[0].options[originAccount[0].selectedIndex].getAttribute('data-value'));
-    const originAccountCurrency = parseInt(originAccount[0].options[originAccount[0].selectedIndex].getAttribute('data-currency'));
-    const destinationAccountCurrency = parseInt(destinationAccount[0].options[destinationAccount[0].selectedIndex].getAttribute('data-currency'));
+  const onAccountChange = select => {
+    const maxValue = parseFloat(select.options[select.selectedIndex].getAttribute('data-value'));
     $('[name="amount"]').attr("max", maxValue);
 
     if (maxValue === 0) {
-      $('[name="destinationAccount"], [name="amount"],  #save-button').prop('disabled', true);
+      $('[name="destinationAccount"], [name="amount"], #save-button').prop('disabled', true);
     } else {
-      $('[name="destinationAccount"], [name="amount"],  #save-button').prop('disabled', false);
+      $('[name="destinationAccount"], [name="amount"], #save-button').prop('disabled', false);
     }
+  }
 
-    if (originAccount.val() === destinationAccount.val() || originAccountCurrency !== destinationAccountCurrency) {
-      $('[name="amount"],  #save-button').prop('disabled', true);
-    } else {
-      $('[name="amount"],  #save-button').prop('disabled', false);
-    }
+  const onAmountChange = value => {
+    $('#dollarAmount').val("$" + (Math.round(((value / ${ purchaseValue }) + Number.EPSILON) * 100) / 100));
   }
 </script>
