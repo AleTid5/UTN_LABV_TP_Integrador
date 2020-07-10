@@ -1,12 +1,9 @@
 package UTN.FRGP.TP_L5_GRUPO_1.Models;
 
-import UTN.FRGP.TP_L5_GRUPO_1.Listeners.MovementListener;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@EntityListeners(MovementListener.class)
 public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

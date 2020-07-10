@@ -68,7 +68,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">attach_money</i> ${ account.accountType } (${ account.CBU })
+                <i class="material-icons">attach_money</i> ${ account.accountType }<br/>CBU: ${ account.CBU }
               </div>
             </div>
           </div>

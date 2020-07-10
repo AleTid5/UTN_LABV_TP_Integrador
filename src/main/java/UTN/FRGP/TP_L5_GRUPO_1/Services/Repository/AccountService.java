@@ -17,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Objects.nonNull;
 
@@ -131,8 +134,9 @@ public abstract class AccountService implements iAccount {
     }
 
     public static void saveAccount(Account account) throws AccountException {
+        AccountService.canUserHaveAnotherAccount(account);
+
         try {
-            AccountService.canUserHaveAnotherAccount(account);
             session = SessionService.getSession();
             session.save(account);
             SessionService.commitSession(session);

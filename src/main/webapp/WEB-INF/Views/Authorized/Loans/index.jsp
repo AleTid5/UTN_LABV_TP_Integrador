@@ -225,7 +225,7 @@
     const [accountType, customer, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
-    $('#datatables2').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "0", "${ request.getSession().getAttribute("email") }"]).draw();
+    $('#datatables2').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "0", "${ pageContext.getSession().getAttribute("email") }"]).draw();
 
     Swal.fire({
       icon: 'success',
@@ -239,7 +239,7 @@
     const [accountType, customer, amount, fees, feesValue] = $('#loan-' + id)[0].children;
 
     $('#datatables').DataTable().rows('#loan-' + id).remove().draw();
-    $('#datatables3').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "${ request.getSession().getAttribute("email") }"]).draw();
+    $('#datatables3').DataTable().row.add([accountType.innerHTML, customer.innerHTML, amount.innerHTML, fees.innerHTML, feesValue.innerHTML, "${ pageContext.getSession().getAttribute("email") }"]).draw();
 
     Swal.fire({
       icon: 'success',

@@ -50,10 +50,8 @@ public abstract class MovementService {
             session= SessionService.getSession();
             session.save(movement);
             SessionService.commitSession(session);
-
         } catch (Exception e) {
             SessionService.rollbackSession(session);
         }
     }
-
 }

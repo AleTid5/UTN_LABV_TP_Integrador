@@ -152,7 +152,7 @@
     }
 
     $('#updated_time').text(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds())
-    $("#percentage").text(isNaN(value) ? 0 : value);
+    $("#percentage").text(isNaN(value) ? 0 : Math.round((value + Number.EPSILON) * 100) / 100);
   }
 
   setDashboardData("2020-01-01", "2020-12-12");

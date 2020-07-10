@@ -42,11 +42,11 @@
                 <c:forEach var="loan" items="${ approvedLoans }">
                   <tr id="loan-${ loan.id }">
                     <td>${ loan.account.accountType.currencyType } $${ loan.amount }</td>
-                    <td>$${ loan.amount - (loan.payedFees * loan.feeValue) }</td>
+                    <td>$${ Math.round((loan.amount - (loan.payedFees * loan.feeValue)) * 100.0) / 100.0 }</td>
                     <td>${ loan.feesToPay - loan.payedFees }</td>
                     <td>$${ loan.feeValue }</td>
                     <td>
-                      <select class="selectpicker" data-live-search="true" data-style="select-with-transition">
+                      <select name="account-${ loan.id }" class="selectpicker" data-live-search="true" data-style="select-with-transition">
                         <option value="" selected>Seleccione una cuenta</option>
                         <c:forEach var="account" items="${ accounts }">
                           <option value="${ account.CBU }"

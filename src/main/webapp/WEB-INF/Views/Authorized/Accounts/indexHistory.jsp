@@ -20,7 +20,7 @@
               <c:forEach items="${ accounts }" var="account" varStatus="loop">
                 <li class="nav-item">
                   <a class="nav-link ${ loop.index == 0 ? "active show" : "" }" data-toggle="tab" href="#account-${ account.CBU }" role="tablist">
-                    <i class="material-icons">sync</i>
+                    <i class="material-icons">store</i>
                       ${ account.accountType } <br/>
                       ${ account.accountNumber }
                   </a>
@@ -57,11 +57,11 @@
                         <c:if test="${ movement.originAccount.CBU.equals(account.CBU) || movement.destinationAccount.CBU.equals(account.CBU) }">
                           <tr>
                             <td>${ movement.creationDate }</td>
-                            <td>${ movement.originAccount.accountNumber }</td>
+                            <td>${ movement.originAccount != null ? movement.originAccount.accountNumber : "Banco (Préstamo otorgado)" }</td>
                             <td>${ movement.destinationAccount.accountNumber }</td>
                             <td>${ movement.amount }</td>
                             <td>${ movement.destinationAccount.accountType.currencyType }</td>
-                            <td>${ movement.concept }</td>
+                            <td>${ movement.concept != null ? movement.concept : "-" }</td>
                           </tr>
                         </c:if>
                       </c:forEach>

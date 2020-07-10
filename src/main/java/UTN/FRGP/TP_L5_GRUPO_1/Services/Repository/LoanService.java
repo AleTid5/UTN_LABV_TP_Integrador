@@ -2,12 +2,14 @@ package UTN.FRGP.TP_L5_GRUPO_1.Services.Repository;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.AccountEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.ErrorCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Enums.MovementTypeEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.NotificationEnum;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.ErrorCodeException;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Account;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.BankAdministrator;
 import UTN.FRGP.TP_L5_GRUPO_1.Models.Loan;
+import UTN.FRGP.TP_L5_GRUPO_1.Models.Movement;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.SessionService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
 import org.hibernate.Session;
@@ -94,7 +96,17 @@ public abstract class LoanService {
 
     public static JsonResponse approveLoan(Loan loan, Boolean isApproved) {
         try {
-            NotificationService.addNotification(loan.getAccount().getCustomer(),isApproved ? NotificationEnum.LOAN_APPROVED : NotificationEnum.LOAN_REJECTED);
+            if (isApproved) {
+                loan.getAccount().setBalance(loan.getAccount().getBalance() + loan.getAmount());
+                AccountService.updateAccount(loan.getAccount());
+                MovementService.saveMovement(new Movement(
+                        null,
+                        loan.getAccount(),
+                        MovementTypeService.getMovementType(MovementTypeEnum.APPROVED_LOAN),
+                        loan.getAmount()
+                ));
+            }
+
             loan.setIsApproved(isApproved);
             loan.setBankAdministrator(new BankAdministrator(11));
             session = SessionService.getSession();
@@ -105,6 +117,10 @@ public abstract class LoanService {
         } catch (Exception e) {
             SessionService.rollbackSession(session);
             return new JsonResponse(false);
+        } finally {
+            NotificationService.addNotification(
+                    loan.getAccount().getCustomer(),
+                    isApproved ? NotificationEnum.LOAN_APPROVED : NotificationEnum.LOAN_REJECTED);
         }
     }
 
