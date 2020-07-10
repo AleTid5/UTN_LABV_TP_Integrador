@@ -52,7 +52,7 @@ public class MovementType {
         return this.name.equals("TRANSFER_OWN_ACCOUNT")
                 ? "Transferencia en cuenta propia"
                 : this.name.equals("TRANSFER_EXTERNAL_ACCOUNT")
-                ? "Transferencia a cuenta extenera"
+                ? "Transferencia a cuenta externa"
                 : this.name.equals("BUY_DOLLARS")
                 ? "Compra de dólares"
                 : this.name.equals("SELL_DOLLARS")
