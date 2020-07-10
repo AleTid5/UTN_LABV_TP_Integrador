@@ -2,6 +2,7 @@ package UTN.FRGP.TP_L5_GRUPO_1.Controllers;
 
 import UTN.FRGP.TP_L5_GRUPO_1.Builders.LoanBuilder;
 import UTN.FRGP.TP_L5_GRUPO_1.Enums.SuccessCodeEnum;
+import UTN.FRGP.TP_L5_GRUPO_1.Exceptions.AccountException;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.AccountService;
 import UTN.FRGP.TP_L5_GRUPO_1.Services.Repository.LoanService;
 import UTN.FRGP.TP_L5_GRUPO_1.Utils.JsonResponse;
@@ -64,14 +65,14 @@ public class LoanController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/approve/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String approveLoan(@PathVariable("id") Integer loanId) {
-        return new Gson().toJson(new JsonResponse(LoanService.approveLoan(LoanService.getLoan(loanId), true)));
+    public String approveLoan(@PathVariable("id") Integer loanId, HttpServletRequest request) throws AccountException {
+        return new Gson().toJson(new JsonResponse(LoanService.approveLoan(LoanService.getLoan(loanId), true, (Integer) request.getSession().getAttribute("id"))));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/reject/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String rejectLoan(@PathVariable("id") Integer loanId) {
-        return new Gson().toJson(new JsonResponse(LoanService.approveLoan(LoanService.getLoan(loanId), false)));
+    public String rejectLoan(@PathVariable("id") Integer loanId, HttpServletRequest request) throws AccountException {
+        return new Gson().toJson(new JsonResponse(LoanService.approveLoan(LoanService.getLoan(loanId), false, (Integer) request.getSession().getAttribute("id"))));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/pay/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

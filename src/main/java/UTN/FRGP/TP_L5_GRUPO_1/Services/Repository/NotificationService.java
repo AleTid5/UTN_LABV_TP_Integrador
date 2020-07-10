@@ -26,10 +26,11 @@ public abstract class NotificationService {
             session = SessionService.getSession();
             session.save(new Notification(user, message));
             SessionService.commitSession(session);
-            EmailService.sendEmail(user.getEmail(), message);
         } catch (Exception e) {
             SessionService.rollbackSession(session);
             e.printStackTrace();
+        } finally {
+            new Thread(() -> EmailService.sendEmail(user.getEmail(), message)).start();
         }
     }
 

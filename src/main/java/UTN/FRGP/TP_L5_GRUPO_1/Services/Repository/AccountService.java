@@ -146,8 +146,6 @@ public abstract class AccountService {
     }
 
     public static void updateAccount(Account account) throws AccountException {
-        AccountService.canUserHaveAnotherAccount(account);
-
         try {
             session = SessionService.getSession();
             session.update(account);

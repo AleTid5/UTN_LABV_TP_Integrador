@@ -98,7 +98,7 @@ public abstract class LoanService {
         }
     }
 
-    public static JsonResponse approveLoan(Loan loan, Boolean isApproved) {
+    public static JsonResponse approveLoan(Loan loan, Boolean isApproved, Integer administratorId) {
         try {
             if (isApproved) {
                 loan.getAccount().setBalance(loan.getAccount().getBalance() + loan.getAmount());
@@ -112,7 +112,7 @@ public abstract class LoanService {
             }
 
             loan.setIsApproved(isApproved);
-            loan.setBankAdministrator(new BankAdministrator(11));
+            loan.setBankAdministrator(new BankAdministrator(administratorId));
             session = SessionService.getSession();
             session.update(loan);
             session.flush();

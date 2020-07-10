@@ -9,6 +9,7 @@ public abstract class LoanBuilder {
     public static Loan build(HttpServletRequest request) {
         return build(request, new Loan());
     }
+
     public static Loan build(HttpServletRequest request, Loan loan) {
         loan.setAccount(AccountService.getAccount(request.getParameter("originAccount")));
         loan.setAmount(Double.parseDouble(request.getParameter("amount")));

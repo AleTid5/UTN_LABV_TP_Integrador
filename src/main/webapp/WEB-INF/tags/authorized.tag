@@ -73,7 +73,7 @@
 				<i class="material-icons">close</i>
 			</button>
 			<span>
-				<b>${ notification.equals(NotificationEnum.LOAN_APPROVED.name()) ? "En hora buena! 🎉" : "Ups..." }</b>
+				<b>${ notification.equals(NotificationEnum.LOAN_APPROVED.name()) ? "Enhorabuena! 🎉" : "Ups..." }</b>
 				<br>
 					${ NotificationFactory.getDescription(NotificationEnum.valueOf(notification)) }
 			</span>

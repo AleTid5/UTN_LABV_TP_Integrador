@@ -7,9 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Seeder {
-    public void hydrate(Session session) {
-        System.out.println("La base de datos se está populando...");
-    }
+    public abstract void hydrate(Session session);
 
     /**
      * This method hydrates the database using the Reflection Pattern.
